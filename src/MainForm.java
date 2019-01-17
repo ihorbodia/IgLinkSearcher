@@ -1,4 +1,6 @@
 import javax.swing.*;
+import java.awt.*;
+import java.io.File;
 
 public class MainForm extends JFrame {
     private JPanel mainPanel;
@@ -8,6 +10,7 @@ public class MainForm extends JFrame {
     private JButton stopButton;
     private JLabel selectedFileLabelData;
     private JLabel selectedFileLabel;
+    private JButton selectFileButton;
 
     public MainForm(IgSearcherLogic logicObj) {
         stopButton.setEnabled(false);
@@ -16,7 +19,56 @@ public class MainForm extends JFrame {
         logicObj.restoreProperties();
         runButton.addActionListener(e -> logicObj.Run());
         stopButton.addActionListener(e -> logicObj.Stop());
+        selectFileButton.addActionListener(e -> {
+                    String inputFilePath = selectFolderDialog();
+                    logicObj.setInputFilePath(inputFilePath);
+                    selectedFileLabelData.setText(inputFilePath);
+                }
+        );
+
         mainPanel.setVisible(true);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+    }
+
+    private String selectFolderDialog() {
+        String osName = System.getProperty("os.name");
+        String result = "";
+        if (osName.equalsIgnoreCase("mac os x")) {
+            FileDialog chooser = new FileDialog(MainForm.this, "Select file");
+            System.setProperty("apple.awt.fileDialogForDirectories", "true");
+            chooser.setVisible(true);
+
+            System.setProperty("apple.awt.fileDialogForDirectories", "false");
+            if (chooser.getDirectory() != null) {
+                String folderName = chooser.getDirectory();
+                folderName += chooser.getFile();
+                result = folderName;
+            }
+        } else {
+            JFileChooser chooser = new JFileChooser();
+            chooser.setDialogTitle("Select target file");
+            chooser.setFileSelectionMode(chooser.FILES_ONLY);
+
+            int returnVal = chooser.showDialog(MainForm.this, "Select file");
+            if (returnVal == JFileChooser.APPROVE_OPTION) {
+                File userSelectedFolder = chooser.getSelectedFile();
+                String folderName = userSelectedFolder.getAbsolutePath();
+                result = folderName;
+            }
+        }
+
+        return cutPath(result);
+    }
+
+    private String cutPath(String path) {
+        int size = 70;
+        if (path.length() == size) {
+            return path;
+        } else if (path.length() > size) {
+            return "..."+path.substring(path.length() - (size - 3));
+        } else {
+            // whatever is appropriate in this case
+            throw new IllegalArgumentException("Word has less than 50 characters!");
+        }
     }
 }

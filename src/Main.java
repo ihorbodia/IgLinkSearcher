@@ -17,7 +17,7 @@ public class Main {
         gui.setTitle("Instagram link searcher v1.0");
         gui.setVisible(true);
         gui.setResizable(false);
-        gui.setSize(450, 150);
+        gui.setSize(500, 150);
     }
 
     private static void initLogic() {
