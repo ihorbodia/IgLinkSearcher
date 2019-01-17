@@ -14,10 +14,10 @@ public class Main {
     private static void initGUI() {
         gui = new MainForm(logic);
 
-        gui.setTitle("Ig link searcher v1.0");
+        gui.setTitle("Instagram link searcher v1.0");
         gui.setVisible(true);
         gui.setResizable(false);
-        gui.setSize(600, 150);
+        gui.setSize(450, 150);
     }
 
     private static void initLogic() {
