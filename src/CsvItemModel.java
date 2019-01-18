@@ -18,11 +18,15 @@ public class CsvItemModel {
     public String link;
 
     @CsvBindByPosition(position = 5)
-    public String email;
+    private String email;
 
     @CsvBindByPosition(position = 6)
     private String pseudoInstagram;
 
     @CsvBindByPosition(position = 7)
     public String foundInstagram;
+
+    public String getPureName() {
+        return link.substring(link.indexOf(".") + 1, link.lastIndexOf("."));
+    }
 }

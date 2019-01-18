@@ -62,13 +62,13 @@ public class MainForm extends JFrame {
 
     private String cutPath(String path) {
         int size = 70;
-        if (path.length() == size) {
+        if (path.length() <= size) {
             return path;
         } else if (path.length() > size) {
             return "..."+path.substring(path.length() - (size - 3));
         } else {
             // whatever is appropriate in this case
-            throw new IllegalArgumentException("Word has less than 50 characters!");
+            throw new IllegalArgumentException("Something wrong with file path cut");
         }
     }
 }
