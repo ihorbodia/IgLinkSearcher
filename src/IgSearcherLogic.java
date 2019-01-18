@@ -4,13 +4,13 @@ import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
 
+
 import java.io.File;
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Iterator;
 
 public class IgSearcherLogic {
@@ -28,8 +28,9 @@ public class IgSearcherLogic {
         initCSVItems();
         while (csvUserIterator.hasNext()) {
             CsvItemModel item = csvUserIterator.next();
-            Element body = getQueryBody(item);
-            SearchResult results = new SearchResult(body);
+            //Element body = getQueryBody(item);
+            //SearchResult results = new SearchResult(body);
+            //getSearchResults();
 
             System.out.println("Link : " + item.link);
             System.out.println("==========================");
@@ -69,6 +70,28 @@ public class IgSearcherLogic {
     public void Stop () {
 
     }
+
+//    private void getSearchResults() {
+//        final WebClient webClient = new WebClient();
+//
+//        HtmlPage page1 = null;
+//        try {
+//            page1 = webClient.getPage("http://www.google.com");
+//
+//            HtmlInput input1 = page1.getElementByName("q");
+//            input1.setValueAttribute("yarn");
+//
+//            HtmlSubmitInput submit1 = page1.getElementByName("btnK");
+//
+//            page1 = submit1.click();
+//
+//            System.out.println(page1.asXml());
+//
+//            webClient.closeAllWindows();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     public void restoreProperties() {
 
