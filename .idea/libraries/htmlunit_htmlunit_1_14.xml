@@ -1,0 +1,24 @@
+<component name="libraryTable">
+  <library name="htmlunit:htmlunit:1.14" type="repository">
+    <properties maven-id="htmlunit:htmlunit:1.14" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/htmlunit-1.14.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jaxen-1.1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-collections-3.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-lang-2.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-httpclient-3.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-codec-1.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/js-1.6R7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/xercesImpl-2.6.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/xmlParserAPIs-2.6.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/nekohtml-0.9.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/cssparser-0.9.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-io-1.3.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/commons-logging-1.1.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/lib/commons-codec-1.3-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES />
+  </library>
+</component>

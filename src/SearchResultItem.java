@@ -7,9 +7,9 @@ public class SearchResultItem {
     String MissingKeywords;
 
     public SearchResultItem(Element div) {
-        MainHeader = div.select("h3.LC20lb").text();
-        SearchedLink = div.select("div.TbwUpd").text();
-        Description = div.select("span.st").text();
-        MissingKeywords = div.select("div.TXwUJf").text();
+        MainHeader = div.select("h3.r").text();
+        SearchedLink = div.select("div.hJND5c").text();
+        Description = div.select("div.s").text();
+        //MissingKeywords = div.select("div.TXwUJf").text();
     }
 }
