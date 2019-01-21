@@ -10,20 +10,27 @@ import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Iterator;
+import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 public class IgSearcherLogic {
 
     Path inputFilePath;
-    Iterator<CsvItemModel> csvUserIterator;
     SearchResult results;
+    List<CsvItemModel> csvFileData;
+
+    ExecutorService executorService;
+    public Future<?> future;
 
     int max = 80000;
     int min = 30000;
@@ -32,19 +39,39 @@ public class IgSearcherLogic {
 
     }
 
-    public void Run(){
-        initCSVItems();
-        while (csvUserIterator.hasNext()) {
-            CsvItemModel item = csvUserIterator.next();
-            Element body = getQueryBody(item);
-            if (body == null) {
-                continue;
+    public void Run(JLabel statusLabelData, JButton startButton, JButton stopButton){
+        Thread worker = new Thread(() -> {
+            startButton.setEnabled(false);
+            stopButton.setEnabled(true);
+            StartWork(statusLabelData);
+            while (!future.isDone()) {
             }
-            System.out.println(item.CompanyName);
-            results = new SearchResult(body);
-            checkResultToInstagramLink(results, item);
-        }
-        saveCSVItems();
+            startButton.setEnabled(true);
+            stopButton.setEnabled(false);
+        });
+        worker.start();
+    }
+
+    private void StartWork (JLabel statusLabelData) {
+        executorService = Executors.newSingleThreadExecutor();
+        future = executorService.submit(() -> {
+            initCSVItems();
+            statusLabelData.setText("Scraped: 0"+"/" + csvFileData.size());
+            int counter = 0;
+            for (CsvItemModel item : csvFileData) {
+                Element body = getQueryBody(item);
+                if (body == null) {
+                    continue;
+                }
+                counter++;
+                statusLabelData.setText("Scraped: " +counter+ "/" + csvFileData.size());
+                System.out.println(item.companyName);
+                results = new SearchResult(body);
+                checkResultToInstagramLink(results, item);
+
+            }
+            saveCSVItems();
+        });
     }
 
     private void initCSVItems() {
@@ -58,17 +85,22 @@ public class IgSearcherLogic {
                 .withType(CsvItemModel.class)
                 .withIgnoreLeadingWhiteSpace(true)
                 .build();
-        csvUserIterator = csvToBean.iterator();
+
+        csvFileData = IteratorUtils.toList(csvToBean.iterator());
     }
 
     public void saveCSVItems() {
+        if (csvFileData.size() == 0) {
+            return;
+        }
         try (
-                Writer writer = Files.newBufferedWriter(inputFilePath);
+                Writer writer = Files.newBufferedWriter(inputFilePath)
         ) {
             StatefulBeanToCsv<CsvItemModel> beanToCsv = new StatefulBeanToCsvBuilder(writer)
                     .withQuotechar(CSVWriter.DEFAULT_QUOTE_CHARACTER)
+                    .withSeparator(CSVWriter.DEFAULT_SEPARATOR)
                     .build();
-            beanToCsv.write(IteratorUtils.toList(csvUserIterator));
+            beanToCsv.write(csvFileData);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (CsvRequiredFieldEmptyException e) {
@@ -86,14 +118,14 @@ public class IgSearcherLogic {
                 result.SearchedLink.toLowerCase().contains(csvItem.URL.toLowerCase())) {
                 isContains = true;
             }
-            else if (result.MainHeader.toLowerCase().contains(csvItem.CompanyName.toLowerCase()) ||
-                    result.Description.toLowerCase().contains(csvItem.CompanyName.toLowerCase()) ||
-                    result.SearchedLink.toLowerCase().contains(csvItem.CompanyName.toLowerCase())) {
+            else if (result.MainHeader.toLowerCase().contains(csvItem.companyName.toLowerCase()) ||
+                    result.Description.toLowerCase().contains(csvItem.companyName.toLowerCase()) ||
+                    result.SearchedLink.toLowerCase().contains(csvItem.companyName.toLowerCase())) {
                 isContains = true;
             }
 
             if (isContains) {
-                csvItem.FoundedInstagram = result.SearchedLink;
+                csvItem.foundedInstagram = result.SearchedLink;
             }
         }
     }
@@ -108,7 +140,6 @@ public class IgSearcherLogic {
         Element doc = null;
         try {
             Random randomNum = new Random();
-            int test = min + randomNum.nextInt(max);
             Thread.sleep(min + randomNum.nextInt(max));
             doc = Jsoup.connect(createURL(item))
                     .followRedirects(false)
@@ -124,8 +155,10 @@ public class IgSearcherLogic {
         return doc;
     }
 
-    public void Stop () {
 
+    public void Stop () {
+        future.cancel(true);
+        saveCSVItems();
     }
 
     public void restoreProperties() {

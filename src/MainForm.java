@@ -1,3 +1,6 @@
+import org.apache.commons.lang3.StringUtils;
+import org.jsoup.helper.StringUtil;
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
@@ -17,7 +20,7 @@ public class MainForm extends JFrame {
         this.setContentPane(mainPanel);
 
         logicObj.restoreProperties();
-        runButton.addActionListener(e -> logicObj.Run());
+        runButton.addActionListener(e -> logicObj.Run(labelStatusData, runButton, stopButton));
         stopButton.addActionListener(e -> logicObj.Stop());
         selectFileButton.addActionListener(e -> {
                     String inputFilePath = selectFolderDialog();
@@ -50,13 +53,16 @@ public class MainForm extends JFrame {
             chooser.setFileSelectionMode(chooser.FILES_ONLY);
 
             int returnVal = chooser.showDialog(MainForm.this, "Select file");
+            String folderName = "";
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 File userSelectedFolder = chooser.getSelectedFile();
-                String folderName = userSelectedFolder.getAbsolutePath();
+                folderName = userSelectedFolder.getAbsolutePath();
                 result = folderName;
             }
+            if (StringUtils.isEmpty(folderName)){
+                return selectedFileLabelData.getText();
+            }
         }
-
         return cutPath(result);
     }
 
