@@ -7,11 +7,25 @@ public class SearchResult {
     ArrayList<SearchResultItem> Results;
 
     public SearchResult(Element body) {
+        if (body == null || body.text().toLowerCase().contains("The document has moved")){
+            System.out.println("Body is null");
+        }
+        System.out.println("It seems OK");
         Results = new ArrayList<>();
         Elements items = body.select("#res");
-        Elements resultDivs = items.select("div.g");
-        for (Element div: resultDivs) {
-            Results.add(new SearchResultItem(div));
+        if (items != null) {
+            Elements resultDivs = items.select("div.g");
+            for (Element div : resultDivs) {
+                SearchResultItem item = new SearchResultItem(div);
+                if (item.SearchedLink.toLowerCase().contains("instagram.") || item.SearchedLink.toLowerCase().contains("ig.")) {
+                    Results.add(new SearchResultItem(div));
+                }
+            }
         }
+        System.out.println(Results.size());
+    }
+
+    public  ArrayList<SearchResultItem> getResults() {
+        return Results;
     }
 }

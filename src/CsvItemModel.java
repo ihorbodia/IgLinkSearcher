@@ -3,7 +3,7 @@ import com.opencsv.bean.CsvBindByPosition;
 public class CsvItemModel {
 
     @CsvBindByPosition(position = 0)
-    private String _field0;
+    public String CompanyName;
 
     @CsvBindByPosition(position = 1)
     private String _field1;
@@ -12,21 +12,35 @@ public class CsvItemModel {
     private String _field2;
 
     @CsvBindByPosition(position = 3)
-    private String _field3;
+    public String URL;
 
     @CsvBindByPosition(position = 4)
-    public String link;
+    public String Email;
 
     @CsvBindByPosition(position = 5)
-    private String email;
+    private String _field5;
 
     @CsvBindByPosition(position = 6)
-    private String pseudoInstagram;
+    private String _field6;
 
     @CsvBindByPosition(position = 7)
-    public String foundInstagram;
+    private String _field7;
+
+    @CsvBindByPosition(position = 8)
+    private String _field8;
+
+    @CsvBindByPosition(position = 9)
+    private String _field9;
+
+    @CsvBindByPosition(position = 10)
+    public String FoundedInstagram;
 
     public String getPureName() {
-        return link.substring(link.indexOf(".") + 1, link.lastIndexOf("."));
+        return URL.substring(URL.indexOf(".") + 1, URL.lastIndexOf("."));
+    }
+
+    public String getNormalizedCompanyName() {
+        return CompanyName
+                .replaceAll("\\s+", "%20");
     }
 }
