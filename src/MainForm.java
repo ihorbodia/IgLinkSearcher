@@ -1,9 +1,10 @@
 import org.apache.commons.lang3.StringUtils;
-import org.jsoup.helper.StringUtil;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class MainForm extends JFrame {
     private JPanel mainPanel;
@@ -15,22 +16,29 @@ public class MainForm extends JFrame {
     private JLabel selectedFileLabel;
     private JButton selectFileButton;
 
-    public MainForm(IgSearcherLogic logicObj) {
-        stopButton.setEnabled(false);
+    public MainForm() {
+        getStopButton().setEnabled(false);
         this.setContentPane(mainPanel);
 
-        logicObj.restoreProperties();
-        runButton.addActionListener(e -> logicObj.Run(labelStatusData, runButton, stopButton));
-        stopButton.addActionListener(e -> logicObj.Stop());
-        selectFileButton.addActionListener(e -> {
-                    String inputFilePath = selectFolderDialog();
-                    logicObj.setInputFilePath(inputFilePath);
-                    selectedFileLabelData.setText(inputFilePath);
+        getRunButton().addActionListener(e -> Main.logic.Run());
+        getStopButton().addActionListener(e -> Main.logic.Stop());
+        getSelectFileButton().addActionListener(e -> {
+                    setInputFilePath(selectFolderDialog());
                 }
         );
 
         mainPanel.setVisible(true);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+    }
+
+    public void setInputFilePath(String inputFilePath) {
+        if (Files.exists(Paths.get(inputFilePath))) {
+            Main.logic.setInputFilePath(inputFilePath);
+            selectedFileLabelData.setText(inputFilePath);
+        } else
+        {
+            getLabelStatusData().setText("Something wrong with input file");
+        }
     }
 
     private String selectFolderDialog() {
@@ -60,13 +68,13 @@ public class MainForm extends JFrame {
                 result = folderName;
             }
             if (StringUtils.isEmpty(folderName)){
-                return selectedFileLabelData.getText();
+                return getSelectedFileLabelData().getText();
             }
         }
         return cutPath(result);
     }
 
-    private String cutPath(String path) {
+    public String cutPath(String path) {
         int size = 70;
         if (path.length() <= size) {
             return path;
@@ -76,5 +84,45 @@ public class MainForm extends JFrame {
             // whatever is appropriate in this case
             throw new IllegalArgumentException("Something wrong with file path cut");
         }
+    }
+
+    public JLabel getLabelStatusData() {
+        return labelStatusData;
+    }
+
+    public void setLabelStatusData(JLabel labelStatusData) {
+        this.labelStatusData = labelStatusData;
+    }
+
+    public JButton getRunButton() {
+        return runButton;
+    }
+
+    public void setRunButton(JButton runButton) {
+        this.runButton = runButton;
+    }
+
+    public JButton getStopButton() {
+        return stopButton;
+    }
+
+    public void setStopButton(JButton stopButton) {
+        this.stopButton = stopButton;
+    }
+
+    public JLabel getSelectedFileLabelData() {
+        return selectedFileLabelData;
+    }
+
+    public void setSelectedFileLabelData(JLabel selectedFileLabelData) {
+        this.selectedFileLabelData = selectedFileLabelData;
+    }
+
+    public JButton getSelectFileButton() {
+        return selectFileButton;
+    }
+
+    public void setSelectFileButton(JButton selectFileButton) {
+        this.selectFileButton = selectFileButton;
     }
 }

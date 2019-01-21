@@ -10,72 +10,81 @@ import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 public class IgSearcherLogic {
 
-    Path inputFilePath;
-    SearchResult results;
-    List<CsvItemModel> csvFileData;
+    private Path inputFilePath;
+    private SearchResult results;
+    private List<CsvItemModel> csvFileData;
+    private PropertiesHelper propertiesObject;
+    private Thread worker;
 
-    ExecutorService executorService;
-    public Future<?> future;
+    private boolean isWorkFlag = true;
+    private boolean isError = false;
 
-    int max = 80000;
-    int min = 30000;
+    int max = 30000;
+    int min = 20000;
 
-    public IgSearcherLogic() {
-
+    public IgSearcherLogic(PropertiesHelper properties) {
+        propertiesObject = properties;
     }
 
-    public void Run(JLabel statusLabelData, JButton startButton, JButton stopButton){
-        Thread worker = new Thread(() -> {
-            startButton.setEnabled(false);
-            stopButton.setEnabled(true);
-            StartWork(statusLabelData);
-            while (!future.isDone()) {
-            }
-            startButton.setEnabled(true);
-            stopButton.setEnabled(false);
+    public void Run() {
+        worker = new Thread(() -> {
+            changeApplicationStateToWork(true);
+            StartWork();
+            changeApplicationStateToWork(false);
         });
         worker.start();
     }
 
-    private void StartWork (JLabel statusLabelData) {
-        executorService = Executors.newSingleThreadExecutor();
-        future = executorService.submit(() -> {
-            initCSVItems();
-            statusLabelData.setText("Scraped: 0"+"/" + csvFileData.size());
-            int counter = 0;
-            for (CsvItemModel item : csvFileData) {
-                Element body = getQueryBody(item);
-                if (body == null) {
-                    continue;
-                }
-                counter++;
-                statusLabelData.setText("Scraped: " +counter+ "/" + csvFileData.size());
-                System.out.println(item.companyName);
-                results = new SearchResult(body);
-                checkResultToInstagramLink(results, item);
-
+    private void StartWork () {
+        int index = Integer.parseInt(propertiesObject.restoreProperty("index"));
+        initCSVItems();
+        for (int i = index; i < csvFileData.size();  i++) {
+            if (!isWorkFlag) {
+                break;
             }
-            saveCSVItems();
-        });
+            propertiesObject.saveProperty("index", String.valueOf(i));
+            Main.gui.getLabelStatusData().setText("Processed " + i + "/" + (csvFileData.size() - 1));
+            Element body = getQueryBody(csvFileData.get(i));
+            if (body == null) {
+                continue;
+            }
+            System.out.println(csvFileData.get(i).companyName);
+            results = new SearchResult(body);
+            checkResultToInstagramLink(results, csvFileData.get(i));
+        }
+        saveCSVItems();
+    }
+
+    public void changeApplicationStateToWork(boolean isWorkState) {
+        Main.gui.getRunButton().setEnabled(!isWorkState);
+        Main.gui.getStopButton().setEnabled(isWorkState);
+        Main.gui.getSelectFileButton().setEnabled(!isWorkState);
+        propertiesObject.saveProperty("isWorked", String.valueOf(isWorkState));
+        isWorkFlag = true;
+        isError = false;
+        if (!isWorkState) {
+            propertiesObject.saveProperty("index", "0");
+            if (!isError) {
+                Main.gui.getLabelStatusData().setText("Finished");
+            }
+        }
     }
 
     private void initCSVItems() {
         Reader reader = null;
+        csvFileData = new ArrayList<>();
         try {
             reader = Files.newBufferedReader(inputFilePath);
         } catch (IOException e) {
@@ -85,12 +94,19 @@ public class IgSearcherLogic {
                 .withType(CsvItemModel.class)
                 .withIgnoreLeadingWhiteSpace(true)
                 .build();
-
-        csvFileData = IteratorUtils.toList(csvToBean.iterator());
+        try
+        {
+            csvFileData.addAll(IteratorUtils.toList(csvToBean.iterator()));
+        }
+        catch (RuntimeException ex) {
+            Main.gui.getLabelStatusData().setText("Something wrong with input file");
+            isWorkFlag = false;
+            isError = true;
+        }
     }
 
     public void saveCSVItems() {
-        if (csvFileData.size() == 0) {
+        if (csvFileData == null || csvFileData.size() == 0) {
             return;
         }
         try (
@@ -118,12 +134,21 @@ public class IgSearcherLogic {
                 result.SearchedLink.toLowerCase().contains(csvItem.URL.toLowerCase())) {
                 isContains = true;
             }
+            else if (result.MainHeader.toLowerCase().replace(" ", "").contains(csvItem.URL.toLowerCase().replace(" ", "")) ||
+                    result.Description.toLowerCase().replace(" ", "").contains(csvItem.URL.toLowerCase().replace(" ", "")) ||
+                    result.SearchedLink.toLowerCase().replace(" ", "").contains(csvItem.URL.toLowerCase().replace(" ", ""))) {
+                isContains = true;
+            }
             else if (result.MainHeader.toLowerCase().contains(csvItem.companyName.toLowerCase()) ||
                     result.Description.toLowerCase().contains(csvItem.companyName.toLowerCase()) ||
                     result.SearchedLink.toLowerCase().contains(csvItem.companyName.toLowerCase())) {
                 isContains = true;
             }
-
+            else if (result.MainHeader.toLowerCase().replace(" ", "").contains(csvItem.companyName.toLowerCase().replace(" ", "")) ||
+                    result.Description.toLowerCase().replace(" ", "").contains(csvItem.companyName.toLowerCase().replace(" ", "")) ||
+                    result.SearchedLink.toLowerCase().replace(" ", "").contains(csvItem.companyName.toLowerCase().replace(" ", ""))) {
+                isContains = true;
+            }
             if (isContains) {
                 csvItem.foundedInstagram = result.SearchedLink;
             }
@@ -132,7 +157,7 @@ public class IgSearcherLogic {
 
     private String createURL(CsvItemModel item) {
         String result = "";
-        result += "https://www.google.com/search?q=www.instagram.com "+ item.getPureName()+" "+ item.URL+"&pws=0&gl=us&gws_rd=cr";
+        result += "https://www.google.com/search?q=www.instagram.com " + item.getPureName() + " " + item.URL + "&pws=0&gl=us&gws_rd=cr";
         return result;
     }
 
@@ -140,6 +165,7 @@ public class IgSearcherLogic {
         Element doc = null;
         try {
             Random randomNum = new Random();
+
             Thread.sleep(min + randomNum.nextInt(max));
             doc = Jsoup.connect(createURL(item))
                     .followRedirects(false)
@@ -150,24 +176,21 @@ public class IgSearcherLogic {
         } catch (IOException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            isWorkFlag = false;
+            isError = true;
         }
         return doc;
     }
 
-
-    public void Stop () {
-        future.cancel(true);
-        saveCSVItems();
-    }
-
-    public void restoreProperties() {
-
+    public void Stop() {
+        isWorkFlag = false;
+        Main.gui.getLabelStatusData().setText("Stopping...");
     }
 
     public void setInputFilePath(String path) {
         if (!StringUtils.isEmpty(path)) {
             inputFilePath = Paths.get(path);
+            propertiesObject.saveProperty("selectedCsvInputFile", path);
         }
     }
 }
