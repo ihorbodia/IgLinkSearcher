@@ -63,8 +63,9 @@ public class IgSearcherLogic {
             System.out.println(csvFileData.get(i).companyName);
             results = new SearchResult(body);
             checkResultToInstagramLink(results, csvFileData.get(i));
+            saveCSVItems();
         }
-        saveCSVItems();
+        //saveCSVItems();
     }
 
     public void changeApplicationStateToWork(boolean isWorkState) {

@@ -32,7 +32,8 @@ public class MainForm extends JFrame {
     }
 
     public void setInputFilePath(String inputFilePath) {
-        if (Files.exists(Paths.get(inputFilePath))) {
+        File f = new File(inputFilePath);
+        if (f.exists()) {
             Main.logic.setInputFilePath(inputFilePath);
             selectedFileLabelData.setText(inputFilePath);
         } else
@@ -46,14 +47,13 @@ public class MainForm extends JFrame {
         String result = "";
         if (osName.equalsIgnoreCase("mac os x")) {
             FileDialog chooser = new FileDialog(MainForm.this, "Select file");
-            System.setProperty("apple.awt.fileDialogForDirectories", "true");
+            System.setProperty("apple.awt.fileDialogForDirectories", "false");
             chooser.setVisible(true);
 
-            System.setProperty("apple.awt.fileDialogForDirectories", "false");
-            if (chooser.getDirectory() != null) {
-                String folderName = chooser.getDirectory();
-                folderName += chooser.getFile();
-                result = folderName;
+            System.setProperty("apple.awt.fileDialogForDirectories", "true");
+            if (chooser.getFile() != null) {
+                String fileName = chooser.getFile();
+                result = fileName;
             }
         } else {
             JFileChooser chooser = new JFileChooser();
@@ -90,39 +90,19 @@ public class MainForm extends JFrame {
         return labelStatusData;
     }
 
-    public void setLabelStatusData(JLabel labelStatusData) {
-        this.labelStatusData = labelStatusData;
-    }
-
     public JButton getRunButton() {
         return runButton;
-    }
-
-    public void setRunButton(JButton runButton) {
-        this.runButton = runButton;
     }
 
     public JButton getStopButton() {
         return stopButton;
     }
 
-    public void setStopButton(JButton stopButton) {
-        this.stopButton = stopButton;
-    }
-
     public JLabel getSelectedFileLabelData() {
         return selectedFileLabelData;
     }
 
-    public void setSelectedFileLabelData(JLabel selectedFileLabelData) {
-        this.selectedFileLabelData = selectedFileLabelData;
-    }
-
     public JButton getSelectFileButton() {
         return selectFileButton;
-    }
-
-    public void setSelectFileButton(JButton selectFileButton) {
-        this.selectFileButton = selectFileButton;
     }
 }
