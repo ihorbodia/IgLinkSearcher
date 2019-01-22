@@ -1,4 +1,5 @@
 import com.opencsv.bean.CsvBindByPosition;
+import org.apache.commons.lang3.StringUtils;
 
 public class CsvItemModel {
 
@@ -40,7 +41,20 @@ public class CsvItemModel {
     public String foundedInstagram;
 
     public String getPureName() {
-        return URL.substring(URL.indexOf(".") + 1, URL.lastIndexOf("."));
+        String result = "";
+        if (URL.indexOf(".") > 0 && URL.lastIndexOf(".") > 0) {
+            result = URL.substring(URL.indexOf(".") + 1, URL.lastIndexOf("."));
+        }
+        else if (email.indexOf(".") > 0 && email.lastIndexOf(".") > 0) {
+            result = email.substring(email.indexOf(".") + 1, email.lastIndexOf("."));
+        }
+        else if (!StringUtils.isEmpty(URL)){
+            result = URL;
+        }
+        else if (!StringUtils.isEmpty(email)){
+            result = email;
+        }
+        return result;
     }
 
 
