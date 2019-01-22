@@ -10,7 +10,6 @@ public class SearchResult {
         if (body == null || body.text().toLowerCase().contains("The document has moved")){
             System.out.println("Body is null");
         }
-        System.out.println("It seems OK");
         Results = new ArrayList<>();
         Elements items = body.select("#res");
         if (items != null) {
@@ -22,7 +21,8 @@ public class SearchResult {
                 }
             }
         }
-        System.out.println(Results.size());
+        System.out.println("Results: "+Results.size());
+        System.out.println();
     }
 
     public  ArrayList<SearchResultItem> getResults() {

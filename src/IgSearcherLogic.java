@@ -10,6 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.Writer;
@@ -31,8 +32,8 @@ public class IgSearcherLogic {
     private boolean isWorkFlag = true;
     private boolean isError = false;
 
-    int max = 30000;
-    int min = 20000;
+    int max = 60000;
+    int min = 30000;
 
     public IgSearcherLogic(PropertiesHelper properties) {
         propertiesObject = properties;
@@ -107,11 +108,16 @@ public class IgSearcherLogic {
     }
 
     public void saveCSVItems() {
+        System.out.println("saveCSVItems");
+        System.out.println("csvFileData: " + csvFileData.size());
+        System.out.println("inputFilepath: " + inputFilePath);
+        File f = inputFilePath.toFile();
+        System.out.println("inputFile: " + f.getAbsolutePath());
         if (csvFileData == null || csvFileData.size() == 0) {
             return;
         }
         try (
-                Writer writer = Files.newBufferedWriter(inputFilePath)
+                Writer writer = Files.newBufferedWriter(Paths.get(f.getAbsolutePath()))
         ) {
             StatefulBeanToCsv<CsvItemModel> beanToCsv = new StatefulBeanToCsvBuilder(writer)
                     .withQuotechar(CSVWriter.DEFAULT_QUOTE_CHARACTER)
@@ -173,7 +179,7 @@ public class IgSearcherLogic {
                     .userAgent("\"Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)\"")
                     .get()
                     .body();
-
+            System.out.println("Body: "+ doc.text());
         } catch (IOException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {

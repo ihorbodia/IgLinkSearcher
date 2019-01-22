@@ -42,10 +42,10 @@ public class CsvItemModel {
 
     public String getPureName() {
         String result = "";
-        if (URL.indexOf(".") > 0 && URL.lastIndexOf(".") > 0) {
+        if (URL.indexOf(".") > 0 && URL.lastIndexOf(".") > 0 && URL.lastIndexOf(".") != URL.indexOf(".")) {
             result = URL.substring(URL.indexOf(".") + 1, URL.lastIndexOf("."));
         }
-        else if (email.indexOf(".") > 0 && email.lastIndexOf(".") > 0) {
+        else if (email.indexOf(".") > 0 && email.lastIndexOf(".") > 0 && email.indexOf(".") != email.lastIndexOf(".")) {
             result = email.substring(email.indexOf(".") + 1, email.lastIndexOf("."));
         }
         else if (!StringUtils.isEmpty(URL)){
