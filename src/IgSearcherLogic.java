@@ -157,7 +157,12 @@ public class IgSearcherLogic {
                 isContains = true;
             }
             if (isContains) {
-                csvItem.foundedInstagram = result.SearchedLink;
+                if (result.SearchedLink.lastIndexOf("?") > 0)
+                    csvItem.foundedInstagram = result.SearchedLink.substring(0, result.SearchedLink.lastIndexOf("?"));
+                else {
+                    csvItem.foundedInstagram = result.SearchedLink;
+                }
+                break;
             }
         }
     }
