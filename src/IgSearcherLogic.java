@@ -174,6 +174,7 @@ public class IgSearcherLogic {
     }
 
     private Connection.Response executeRequest(CsvItemModel item, int timeout) throws IOException, InterruptedException {
+        System.out.println("Processing: " + timeout/1000 + " sec");
         Thread.sleep(timeout);
         return  Jsoup.connect(createURL(item))
                 .followRedirects(false)
@@ -189,7 +190,7 @@ public class IgSearcherLogic {
             if (response.statusCode() == 302) {
                 int triesCounter = 1;
                 while (triesCounter < 3) {
-                    executeRequest(item, (min +(150000 * triesCounter)) + new Random().nextInt(max + (150000 * triesCounter)));
+                    executeRequest(item, (min +(900000 * triesCounter)) + new Random().nextInt(max + (900000 * triesCounter)));
                     triesCounter++;
                 }
             }
@@ -205,6 +206,7 @@ public class IgSearcherLogic {
 
     public void Stop() {
         isWorkFlag = false;
+        propertiesObject.saveProperty("isWorked", "false");
         Main.gui.getLabelStatusData().setText("Stopping...");
     }
 
