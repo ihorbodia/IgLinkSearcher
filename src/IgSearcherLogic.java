@@ -29,7 +29,6 @@ public class IgSearcherLogic {
     private List<CsvItemModel> csvFileData;
     private PropertiesHelper propertiesObject;
     private Thread worker;
-    private ProxyHelper proxyHelper;
 
     private boolean isWorkFlag = true;
     private boolean isError = false;
@@ -39,7 +38,6 @@ public class IgSearcherLogic {
 
     public IgSearcherLogic(PropertiesHelper properties) {
         propertiesObject = properties;
-        proxyHelper = new ProxyHelper();
     }
 
     public void Run() {
@@ -54,7 +52,6 @@ public class IgSearcherLogic {
     private void StartWork () {
         int index = Integer.parseInt(propertiesObject.restoreProperty("index"));
         initCSVItems();
-        proxyHelper.InitProxyList();
         for (int i = index; i < csvFileData.size();  i++) {
             if (!isWorkFlag) {
                 break;
