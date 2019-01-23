@@ -28,6 +28,7 @@ public class IgSearcherLogic {
     private List<CsvItemModel> csvFileData;
     private PropertiesHelper propertiesObject;
     private Thread worker;
+    private ProxyHelper proxyHelper;
 
     private boolean isWorkFlag = true;
     private boolean isError = false;
@@ -37,6 +38,7 @@ public class IgSearcherLogic {
 
     public IgSearcherLogic(PropertiesHelper properties) {
         propertiesObject = properties;
+        proxyHelper = new ProxyHelper();
     }
 
     public void Run() {
@@ -51,6 +53,7 @@ public class IgSearcherLogic {
     private void StartWork () {
         int index = Integer.parseInt(propertiesObject.restoreProperty("index"));
         initCSVItems();
+        proxyHelper.InitProxyList();
         for (int i = index; i < csvFileData.size();  i++) {
             if (!isWorkFlag) {
                 break;
@@ -181,6 +184,7 @@ public class IgSearcherLogic {
             Thread.sleep(min + randomNum.nextInt(max));
             doc = Jsoup.connect(createURL(item))
                     .followRedirects(false)
+
                     .userAgent("\"Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)\"")
                     .get()
                     .body();
