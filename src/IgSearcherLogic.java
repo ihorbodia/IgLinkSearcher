@@ -7,6 +7,7 @@ import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import org.apache.commons.collections4.IteratorUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
 
@@ -69,7 +70,6 @@ public class IgSearcherLogic {
             checkResultToInstagramLink(results, csvFileData.get(i));
             saveCSVItems();
         }
-        //saveCSVItems();
     }
 
     public void changeApplicationStateToWork(boolean isWorkState) {
@@ -176,24 +176,32 @@ public class IgSearcherLogic {
         return result;
     }
 
+    private Connection.Response executeRequest(CsvItemModel item, int timeout) throws IOException, InterruptedException {
+        Thread.sleep(timeout);
+        return  Jsoup.connect(createURL(item))
+                .followRedirects(false)
+                .userAgent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/602.2.14 (KHTML, like Gecko) Version/10.0.1 Safari/602.2.14")
+                .method(Connection.Method.GET)
+                .execute();
+    }
+
     private Element getQueryBody(CsvItemModel item) {
         Element doc = null;
         try {
-            Random randomNum = new Random();
-
-            Thread.sleep(min + randomNum.nextInt(max));
-            doc = Jsoup.connect(createURL(item))
-                    .followRedirects(false)
-
-                    .userAgent("\"Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)\"")
-                    .get()
-                    .body();
-            System.out.println("Body: "+ doc.text());
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
+            Connection.Response response = executeRequest(item, min + new Random().nextInt(max));
+            if (response.statusCode() == 302) {
+                int triesCounter = 1;
+                while (triesCounter < 3) {
+                    executeRequest(item, (min +(150000 * triesCounter)) + new Random().nextInt(max + (150000 * triesCounter)));
+                    triesCounter++;
+                }
+            }
+            doc = response.parse().body();
+            System.out.println("Body: "+ doc);
+        } catch (Exception e) {
             isWorkFlag = false;
             isError = true;
+            e.printStackTrace();
         }
         return doc;
     }
