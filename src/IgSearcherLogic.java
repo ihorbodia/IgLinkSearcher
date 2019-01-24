@@ -10,6 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
+import sun.plugin.javascript.navig.LinkArray;
 
 import java.io.File;
 import java.io.IOException;
@@ -135,6 +136,17 @@ public class IgSearcherLogic {
 
     private void checkResultToInstagramLink(SearchResult results, CsvItemModel csvItem) {
         boolean isContains = false;
+        if (results.Results.stream().filter(c -> c.CorrectItem == true).count() > 1) {
+            for (SearchResultItem item: results.getResults()) {
+                if (item.CorrectItem) {
+                    if (item.MainHeader.toLowerCase().contains("gallery") ||
+                            item.Description.toLowerCase().contains("gallery") ||
+                            item.SearchedLink.toLowerCase().contains("gallery")) {
+                        item.CorrectItem = true;
+                    }
+                }
+            }
+        }
         for (SearchResultItem result: results.getResults()) {
             if (result.MainHeader.toLowerCase().contains(csvItem.URL.toLowerCase()) ||
                 result.Description.toLowerCase().contains(csvItem.URL.toLowerCase()) ||
@@ -156,6 +168,7 @@ public class IgSearcherLogic {
                     result.SearchedLink.toLowerCase().replace(" ", "").contains(csvItem.companyName.toLowerCase().replace(" ", ""))) {
                 isContains = true;
             }
+
             if (isContains) {
                 if (result.SearchedLink.lastIndexOf("?") > 0)
                     csvItem.foundedInstagram = result.SearchedLink.substring(0, result.SearchedLink.lastIndexOf("?"));
@@ -165,6 +178,7 @@ public class IgSearcherLogic {
                 break;
             }
         }
+
     }
 
     private String createURL(CsvItemModel item) {

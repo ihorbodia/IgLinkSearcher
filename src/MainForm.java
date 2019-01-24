@@ -35,7 +35,7 @@ public class MainForm extends JFrame {
         File f = new File(inputFilePath);
         if (f.exists()) {
             Main.logic.setInputFilePath(inputFilePath);
-            selectedFileLabelData.setText(inputFilePath);
+            selectedFileLabelData.setText(cutPath(inputFilePath));
         } else
         {
             getLabelStatusData().setText("Something wrong with input file");
@@ -71,7 +71,7 @@ public class MainForm extends JFrame {
                 return getSelectedFileLabelData().getText();
             }
         }
-        return cutPath(result);
+        return result;
     }
 
     public String cutPath(String path) {

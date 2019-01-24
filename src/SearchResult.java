@@ -2,9 +2,10 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class SearchResult {
-    ArrayList<SearchResultItem> Results;
+    List<SearchResultItem> Results;
 
     public SearchResult(Element body) {
         if (body == null || body.text().toLowerCase().contains("The document has moved")){
@@ -25,7 +26,7 @@ public class SearchResult {
         System.out.println();
     }
 
-    public  ArrayList<SearchResultItem> getResults() {
+    public  List<SearchResultItem> getResults() {
         return Results;
     }
 }

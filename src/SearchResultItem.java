@@ -5,10 +5,11 @@ public class SearchResultItem {
     String SearchedLink;
     String Description;
     String MissingKeywords;
+    public Boolean CorrectItem = false;
 
     public SearchResultItem(Element div) {
-        MainHeader = div.select("h3.r").text();
-        SearchedLink = div.select("div.hJND5c").text();
+        MainHeader = div.select("a").first().select("h3").text();
+        SearchedLink = div.select("a").first().attr("href");
         Description = div.select("div.s").text();
         //MissingKeywords = div.select("div.TXwUJf").text();
     }
