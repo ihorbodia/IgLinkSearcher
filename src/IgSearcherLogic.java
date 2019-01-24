@@ -197,8 +197,6 @@ public class IgSearcherLogic {
             doc = response.parse().body();
             System.out.println("Body: "+ doc);
         } catch (Exception e) {
-            isWorkFlag = false;
-            isError = true;
             e.printStackTrace();
         }
         return doc;
