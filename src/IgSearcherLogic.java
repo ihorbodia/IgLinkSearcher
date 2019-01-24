@@ -190,7 +190,7 @@ public class IgSearcherLogic {
             if (response.statusCode() == 302) {
                 int triesCounter = 1;
                 while (triesCounter < 3) {
-                    executeRequest(item, (min +(900000 * triesCounter)) + new Random().nextInt(max + (900000 * triesCounter)));
+                    response = executeRequest(item, (min +(900000 * triesCounter)) + new Random().nextInt(max + (900000 * triesCounter)));
                     triesCounter++;
                 }
             }
