@@ -32,8 +32,8 @@ public class IgSearcherLogic {
     private boolean isWorkFlag = true;
     private boolean isError = false;
 
-    int max = 60000;
-    int min = 30000;
+    int max = 80000;
+    int min = 40000;
 
     public IgSearcherLogic(PropertiesHelper properties) {
         propertiesObject = properties;
@@ -116,9 +116,6 @@ public class IgSearcherLogic {
     }
 
     public void saveCSVItems() {
-        System.out.println("saveCSVItems");
-        System.out.println("csvFileData: " + csvFileData.size());
-        System.out.println("inputFilepath: " + inputFilePath);
         File f = inputFilePath.toFile();
         System.out.println("inputFile: " + f.getAbsolutePath());
         if (csvFileData == null || csvFileData.size() == 0) {
@@ -177,9 +174,9 @@ public class IgSearcherLogic {
     }
 
     private String createURL(CsvItemModel item) {
-        String result = "www.instagram.com \"@" + item.getPureName() + "\" \"/" + item.getPureName()+"\" "+ item.URL + "&pws=0&gl=us&gws_rd=cr";
+        String result = "www.instagram.com \"@" + item.getPureName() + "\" \"/" + item.getPureName()+"\" "+ item.URL+ " ";
         try {
-            result = "https://www.google.com/search?q=" + URLEncoder.encode(result, "UTF-8");
+            result = "https://www.google.com/search?q=" + URLEncoder.encode(result, "UTF-8") + "&pws=0&gl=us&gws_rd=cr";
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
@@ -208,7 +205,6 @@ public class IgSearcherLogic {
                 }
             }
             doc = response.parse().body();
-            System.out.println("Body: "+ doc);
         } catch (Exception e) {
             e.printStackTrace();
         }

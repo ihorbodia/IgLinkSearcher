@@ -3,8 +3,6 @@ import org.apache.commons.lang3.StringUtils;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 public class MainForm extends JFrame {
     private JPanel mainPanel;
@@ -16,10 +14,13 @@ public class MainForm extends JFrame {
     private JLabel selectedFileLabel;
     private JButton selectFileButton;
     private JTextPane logWindow;
+    private JSeparator seprator;
 
     public MainForm() {
         getStopButton().setEnabled(false);
         this.setContentPane(mainPanel);
+        logWindow.setVisible(false);
+        seprator.setVisible(false);
 
         getRunButton().addActionListener(e -> Main.logic.Run());
         getStopButton().addActionListener(e -> Main.logic.Stop());

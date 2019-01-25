@@ -19,6 +19,8 @@ public class SearchResult {
                 SearchResultItem item = new SearchResultItem(div);
                 if (item.SearchedLink.toLowerCase().contains("instagram.") || item.SearchedLink.toLowerCase().contains("ig.")) {
                     Results.add(new SearchResultItem(div));
+                    System.out.println("Result item: " + div);
+                    System.out.println("_____________________");
                 }
             }
         }
