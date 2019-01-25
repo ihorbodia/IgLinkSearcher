@@ -12,10 +12,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
 import sun.plugin.javascript.navig.LinkArray;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.Reader;
-import java.io.Writer;
+import java.io.*;
+import java.net.URLEncoder;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -50,6 +48,15 @@ public class IgSearcherLogic {
         worker.start();
     }
 
+    public void updateStatus(int current) {
+        if (csvFileData.size() > 1) {
+            Main.gui.getLabelStatusData().setText("Processed " + current + "/" + (csvFileData.size() - 1));
+        }
+        else {
+            Main.gui.getLabelStatusData().setText("Processed " + current + "/" + (csvFileData.size()));
+        }
+    }
+
     private void StartWork () {
         int index = Integer.parseInt(propertiesObject.restoreProperty("index"));
         initCSVItems();
@@ -58,7 +65,7 @@ public class IgSearcherLogic {
                 break;
             }
             propertiesObject.saveProperty("index", String.valueOf(i));
-            Main.gui.getLabelStatusData().setText("Processed " + i + "/" + (csvFileData.size() - 1));
+            updateStatus(i);
             Element body = getQueryBody(csvFileData.get(i));
             if (body == null) {
                 continue;
@@ -136,17 +143,6 @@ public class IgSearcherLogic {
 
     private void checkResultToInstagramLink(SearchResult results, CsvItemModel csvItem) {
         boolean isContains = false;
-        if (results.Results.stream().filter(c -> c.CorrectItem == true).count() > 1) {
-            for (SearchResultItem item: results.getResults()) {
-                if (item.CorrectItem) {
-                    if (item.MainHeader.toLowerCase().contains("gallery") ||
-                            item.Description.toLowerCase().contains("gallery") ||
-                            item.SearchedLink.toLowerCase().contains("gallery")) {
-                        item.CorrectItem = true;
-                    }
-                }
-            }
-        }
         for (SearchResultItem result: results.getResults()) {
             if (result.MainHeader.toLowerCase().contains(csvItem.URL.toLowerCase()) ||
                 result.Description.toLowerCase().contains(csvItem.URL.toLowerCase()) ||
@@ -178,12 +174,15 @@ public class IgSearcherLogic {
                 break;
             }
         }
-
     }
 
     private String createURL(CsvItemModel item) {
-        String result = "";
-        result += "https://www.google.com/search?q=www.instagram.com " + item.getPureName() + " " + item.URL + "&pws=0&gl=us&gws_rd=cr";
+        String result = "www.instagram.com \"@" + item.getPureName() + "\" \"/" + item.getPureName()+"\" "+ item.URL + "&pws=0&gl=us&gws_rd=cr";
+        try {
+            result = "https://www.google.com/search?q=" + URLEncoder.encode(result, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
         return result;
     }
 

@@ -15,6 +15,7 @@ public class MainForm extends JFrame {
     private JLabel selectedFileLabelData;
     private JLabel selectedFileLabel;
     private JButton selectFileButton;
+    private JTextPane logWindow;
 
     public MainForm() {
         getStopButton().setEnabled(false);
