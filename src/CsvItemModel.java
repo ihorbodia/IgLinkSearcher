@@ -40,6 +40,9 @@ public class CsvItemModel {
     @CsvBindByPosition(position = 10)
     public String foundedInstagram;
 
+    @CsvBindByPosition(position = 11)
+    public String notFoundedInstagram;
+
     public String getPureName() {
         String result = "";
         if (URL.indexOf(".") > 0 && URL.lastIndexOf(".") > 0 && URL.lastIndexOf(".") != URL.indexOf(".")) {

@@ -42,6 +42,7 @@ public class IgSearcherLogic {
     public void Run() {
         worker = new Thread(() -> {
             changeApplicationStateToWork(true);
+            isError = false;
             StartWork();
             changeApplicationStateToWork(false);
         });
@@ -83,7 +84,6 @@ public class IgSearcherLogic {
         Main.gui.getSelectFileButton().setEnabled(!isWorkState);
         propertiesObject.saveProperty("isWorked", String.valueOf(isWorkState));
         isWorkFlag = true;
-        isError = false;
         if (!isWorkState) {
             propertiesObject.saveProperty("index", "0");
             if (!isError) {
@@ -97,18 +97,13 @@ public class IgSearcherLogic {
         csvFileData = new ArrayList<>();
         try {
             reader = Files.newBufferedReader(inputFilePath);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        CsvToBean<CsvItemModel> csvToBean = new CsvToBeanBuilder(reader)
-                .withType(CsvItemModel.class)
-                .withIgnoreLeadingWhiteSpace(true)
-                .build();
-        try
-        {
+            CsvToBean<CsvItemModel> csvToBean = new CsvToBeanBuilder(reader)
+                    .withType(CsvItemModel.class)
+                    .withIgnoreLeadingWhiteSpace(true)
+                    .build();
             csvFileData.addAll(IteratorUtils.toList(csvToBean.iterator()));
         }
-        catch (RuntimeException ex) {
+        catch (Exception ex) {
             Main.gui.getLabelStatusData().setText("Something wrong with input file");
             isWorkFlag = false;
             isError = true;
@@ -166,6 +161,9 @@ public class IgSearcherLogic {
                 if (result.SearchedLink.lastIndexOf("?") > 0)
                     csvItem.foundedInstagram = result.SearchedLink.substring(0, result.SearchedLink.lastIndexOf("?"));
                 else {
+                    if (StringUtils.isEmpty(result.SearchedLink) || result.SearchedLink.length() < 10) {
+                        csvItem.notFoundedInstagram = "Not found";
+                    }
                     csvItem.foundedInstagram = result.SearchedLink;
                 }
                 break;
@@ -174,7 +172,7 @@ public class IgSearcherLogic {
     }
 
     private String createURL(CsvItemModel item) {
-        String result = "www.instagram.com \"@" + item.getPureName() + "\" \"/" + item.getPureName()+"\" "+ item.URL+ " ";
+        String result = "site:www.instagram.com "+item.companyName+" "+ item.getPureName() + " "+ item.URL;
         try {
             result = "https://www.google.com/search?q=" + URLEncoder.encode(result, "UTF-8") + "&pws=0&gl=us&gws_rd=cr";
         } catch (UnsupportedEncodingException e) {
