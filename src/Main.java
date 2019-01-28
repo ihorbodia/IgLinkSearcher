@@ -20,7 +20,7 @@ public class Main {
     private static void initGUI() {
         gui = new MainForm();
 
-        gui.setTitle("Instagram link searcher v1.5");
+        gui.setTitle("Instagram link searcher v1.5.1");
         gui.setVisible(true);
         gui.setResizable(false);
         gui.setSize(500, 125);

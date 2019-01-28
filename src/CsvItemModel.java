@@ -105,4 +105,7 @@ public class CsvItemModel {
         return foundedInstagram;
     }
 
+    public String getnotFoundedInstagram(){
+        return notFoundedInstagram;
+    }
 }

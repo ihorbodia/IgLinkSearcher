@@ -156,6 +156,11 @@ public class IgSearcherLogic {
                     result.SearchedLink.toLowerCase().replace(" ", "").contains(csvItem.companyName.toLowerCase().replace(" ", ""))) {
                 isContains = true;
             }
+            else if (result.MainHeader.toLowerCase().contains(csvItem.getPureName().toLowerCase()) ||
+                    result.Description.toLowerCase().contains(csvItem.getPureName().toLowerCase()) ||
+                    result.SearchedLink.toLowerCase().contains(csvItem.getPureName().toLowerCase())) {
+                isContains = true;
+            }
 
             if (isContains) {
                 if (result.SearchedLink.lastIndexOf("?") > 0)
