@@ -5,6 +5,7 @@ import com.opencsv.bean.StatefulBeanToCsv;
 import com.opencsv.bean.StatefulBeanToCsvBuilder;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
+import com.sun.org.glassfish.gmbal.Description;
 import org.apache.commons.collections4.IteratorUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Connection;
@@ -20,6 +21,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class IgSearcherLogic {
 
@@ -135,28 +138,30 @@ public class IgSearcherLogic {
 
     private void checkResultToInstagramLink(SearchResult results, CsvItemModel csvItem) {
         boolean isContains = false;
-        for (SearchResultItem result: results.getResults()) {
+        for (SearchResultItem result : results.getResults()) {
             if (result.MainHeader.toLowerCase().contains(csvItem.URL.toLowerCase()) ||
-                result.Description.toLowerCase().contains(csvItem.URL.toLowerCase()) ||
-                result.SearchedLink.toLowerCase().contains(csvItem.URL.toLowerCase())) {
+                    result.Description.toLowerCase().contains(csvItem.URL.toLowerCase()) ||
+                    result.SearchedLink.toLowerCase().contains(csvItem.URL.toLowerCase())) {
                 isContains = true;
-            }
-            else if (result.MainHeader.toLowerCase().replace(" ", "").contains(csvItem.URL.toLowerCase().replace(" ", "")) ||
-                    result.Description.toLowerCase().replace(" ", "").contains(csvItem.URL.toLowerCase().replace(" ", "")) ||
-                    result.SearchedLink.toLowerCase().replace(" ", "").contains(csvItem.URL.toLowerCase().replace(" ", ""))) {
+            } else if (result.MainHeader.toLowerCase().replace(" ", "")
+                    .contains(csvItem.URL.toLowerCase().replace(" ", "")) ||
+                    result.Description.toLowerCase().replace(" ", "")
+                            .contains(csvItem.URL.toLowerCase().replace(" ", "")) ||
+                    result.SearchedLink.toLowerCase().replace(" ", "")
+                            .contains(csvItem.URL.toLowerCase().replace(" ", ""))) {
                 isContains = true;
-            }
-            else if (result.MainHeader.toLowerCase().contains(csvItem.companyName.toLowerCase()) ||
+            } else if (result.MainHeader.toLowerCase().contains(csvItem.companyName.toLowerCase()) ||
                     result.Description.toLowerCase().contains(csvItem.companyName.toLowerCase()) ||
                     result.SearchedLink.toLowerCase().contains(csvItem.companyName.toLowerCase())) {
                 isContains = true;
-            }
-            else if (result.MainHeader.toLowerCase().replace(" ", "").contains(csvItem.companyName.toLowerCase().replace(" ", "")) ||
-                    result.Description.toLowerCase().replace(" ", "").contains(csvItem.companyName.toLowerCase().replace(" ", "")) ||
-                    result.SearchedLink.toLowerCase().replace(" ", "").contains(csvItem.companyName.toLowerCase().replace(" ", ""))) {
+            } else if (result.MainHeader.toLowerCase().replace(" ", "")
+                    .contains(csvItem.companyName.toLowerCase().replace(" ", "")) ||
+                    result.Description.toLowerCase().replace(" ", "")
+                            .contains(csvItem.companyName.toLowerCase().replace(" ", "")) ||
+                    result.SearchedLink.toLowerCase().replace(" ", "")
+                            .contains(csvItem.companyName.toLowerCase().replace(" ", ""))) {
                 isContains = true;
-            }
-            else if (result.MainHeader.toLowerCase().contains(csvItem.getPureName().toLowerCase()) ||
+            } else if (result.MainHeader.toLowerCase().contains(csvItem.getPureName().toLowerCase()) ||
                     result.Description.toLowerCase().contains(csvItem.getPureName().toLowerCase()) ||
                     result.SearchedLink.toLowerCase().contains(csvItem.getPureName().toLowerCase())) {
                 isContains = true;
@@ -165,14 +170,22 @@ public class IgSearcherLogic {
             if (isContains) {
                 if (result.SearchedLink.lastIndexOf("?") > 0)
                     csvItem.foundedInstagram = result.SearchedLink.substring(0, result.SearchedLink.lastIndexOf("?"));
+            } else if (result.SearchedLink.contains("instagram.com/explore/")) {
+                csvItem.notFoundedInstagram = "Not found";
+            } else if (StringUtils.isEmpty(result.SearchedLink) || result.SearchedLink.length() < 10) {
+                csvItem.notFoundedInstagram = "Not found";
+            }
+            else {
+                Pattern igPattern = Pattern.compile("(((instagram\\.com\\/)|(ig\\ ?\\-\\ ?))([A-Za-z0-9_](?:(?:[A-Za-z0-9_]|(?:\\.(?!\\.))){0,28}(?:[A-Za-z0-9_]))?))|(@([a-z0-9_]{1,255}))");
+                Matcher igMatcher = igPattern.matcher(result.SearchedLink.toLowerCase());
+                if (igMatcher.find()) {
+                    csvItem.foundedInstagram = igMatcher.group(0);
+                }
                 else {
-                    if (StringUtils.isEmpty(result.SearchedLink) || result.SearchedLink.length() < 10) {
-                        csvItem.notFoundedInstagram = "Not found";
-                    }
                     csvItem.foundedInstagram = result.SearchedLink;
                 }
-                break;
             }
+            break;
         }
     }
 
@@ -187,6 +200,9 @@ public class IgSearcherLogic {
     }
 
     private Connection.Response executeRequest(CsvItemModel item, int timeout) throws IOException, InterruptedException {
+        if (!isWorkFlag) {
+            return null;
+        }
         System.out.println("Processing: " + timeout/1000 + " sec");
         Thread.sleep(timeout);
         return  Jsoup.connect(createURL(item))
@@ -207,7 +223,9 @@ public class IgSearcherLogic {
                     triesCounter++;
                 }
             }
-            doc = response.parse().body();
+            if (response != null) {
+                doc = response.parse().body();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -217,6 +235,7 @@ public class IgSearcherLogic {
     public void Stop() {
         isWorkFlag = false;
         propertiesObject.saveProperty("isWorked", "false");
+        propertiesObject.saveProperty("index", "0");
         Main.gui.getLabelStatusData().setText("Stopping...");
     }
 
