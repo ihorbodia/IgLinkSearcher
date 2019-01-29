@@ -168,24 +168,24 @@ public class IgSearcherLogic {
             }
 
             if (isContains) {
-                if (result.SearchedLink.lastIndexOf("?") > 0)
+                if (result.SearchedLink.lastIndexOf("?") > 0) {
                     csvItem.foundedInstagram = result.SearchedLink.substring(0, result.SearchedLink.lastIndexOf("?"));
-            } else if (result.SearchedLink.contains("instagram.com/explore/")) {
-                csvItem.notFoundedInstagram = "Not found";
-            } else if (StringUtils.isEmpty(result.SearchedLink) || result.SearchedLink.length() < 10) {
-                csvItem.notFoundedInstagram = "Not found";
-            }
-            else {
-                Pattern igPattern = Pattern.compile("(((instagram\\.com\\/)|(ig\\ ?\\-\\ ?))([A-Za-z0-9_](?:(?:[A-Za-z0-9_]|(?:\\.(?!\\.))){0,28}(?:[A-Za-z0-9_]))?))|(@([a-z0-9_]{1,255}))");
-                Matcher igMatcher = igPattern.matcher(result.SearchedLink.toLowerCase());
-                if (igMatcher.find()) {
-                    csvItem.foundedInstagram = igMatcher.group(0);
+                } else if (result.SearchedLink.contains("instagram.com/explore/")) {
+                    csvItem.notFoundedInstagram = "Not found";
+                } else if (StringUtils.isEmpty(result.SearchedLink) || result.SearchedLink.length() < 10) {
+                    csvItem.notFoundedInstagram = "Not found";
+                } else {
+                    Pattern igPattern = Pattern.compile("(((instagram\\.com\\/)|(ig\\ ?\\-\\ ?))([A-Za-z0-9_](?:(?:[A-Za-z0-9_]|(?:\\.(?!\\.))){0,28}(?:[A-Za-z0-9_]))?))|(@([a-z0-9_]{1,255}))");
+                    Matcher igMatcher = igPattern.matcher(result.SearchedLink.toLowerCase());
+                    if (igMatcher.find()) {
+                        csvItem.foundedInstagram = "www."+igMatcher.group(0);
+                    } else {
+                        csvItem.foundedInstagram = result.SearchedLink;
+                    }
                 }
-                else {
-                    csvItem.foundedInstagram = result.SearchedLink;
-                }
+
+                break;
             }
-            break;
         }
     }
 
