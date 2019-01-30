@@ -146,53 +146,58 @@ public class IgSearcherLogic {
 
     private void checkResultToInstagramLink(SearchResult results, CsvItemModel csvItem) {
         boolean isContains = false;
-        for (SearchResultItem result : results.getResults()) {
-            if (result.MainHeader.toLowerCase().contains(csvItem.URL.toLowerCase()) ||
-                    result.Description.toLowerCase().contains(csvItem.URL.toLowerCase()) ||
-                    result.SearchedLink.toLowerCase().contains(csvItem.URL.toLowerCase())) {
-                isContains = true;
-            } else if (result.MainHeader.toLowerCase().replace(" ", "")
-                    .contains(csvItem.URL.toLowerCase().replace(" ", "")) ||
-                    result.Description.toLowerCase().replace(" ", "")
-                            .contains(csvItem.URL.toLowerCase().replace(" ", "")) ||
-                    result.SearchedLink.toLowerCase().replace(" ", "")
-                            .contains(csvItem.URL.toLowerCase().replace(" ", ""))) {
-                isContains = true;
-            } else if (result.MainHeader.toLowerCase().contains(csvItem.companyName.toLowerCase()) ||
-                    result.Description.toLowerCase().contains(csvItem.companyName.toLowerCase()) ||
-                    result.SearchedLink.toLowerCase().contains(csvItem.companyName.toLowerCase())) {
-                isContains = true;
-            } else if (result.MainHeader.toLowerCase().replace(" ", "")
-                    .contains(csvItem.companyName.toLowerCase().replace(" ", "")) ||
-                    result.Description.toLowerCase().replace(" ", "")
-                            .contains(csvItem.companyName.toLowerCase().replace(" ", "")) ||
-                    result.SearchedLink.toLowerCase().replace(" ", "")
-                            .contains(csvItem.companyName.toLowerCase().replace(" ", ""))) {
-                isContains = true;
-            } else if (result.MainHeader.toLowerCase().contains(csvItem.getPureName().toLowerCase()) ||
-                    result.Description.toLowerCase().contains(csvItem.getPureName().toLowerCase()) ||
-                    result.SearchedLink.toLowerCase().contains(csvItem.getPureName().toLowerCase())) {
-                isContains = true;
-            }
+        if (results.getResults().size() > 0) {
+            for (SearchResultItem result : results.getResults()) {
+                if (result.MainHeader.toLowerCase().contains(csvItem.URL.toLowerCase()) ||
+                        result.Description.toLowerCase().contains(csvItem.URL.toLowerCase()) ||
+                        result.SearchedLink.toLowerCase().contains(csvItem.URL.toLowerCase())) {
+                    isContains = true;
+                } else if (result.MainHeader.toLowerCase().replace(" ", "")
+                        .contains(csvItem.URL.toLowerCase().replace(" ", "")) ||
+                        result.Description.toLowerCase().replace(" ", "")
+                                .contains(csvItem.URL.toLowerCase().replace(" ", "")) ||
+                        result.SearchedLink.toLowerCase().replace(" ", "")
+                                .contains(csvItem.URL.toLowerCase().replace(" ", ""))) {
+                    isContains = true;
+                } else if (result.MainHeader.toLowerCase().contains(csvItem.companyName.toLowerCase()) ||
+                        result.Description.toLowerCase().contains(csvItem.companyName.toLowerCase()) ||
+                        result.SearchedLink.toLowerCase().contains(csvItem.companyName.toLowerCase())) {
+                    isContains = true;
+                } else if (result.MainHeader.toLowerCase().replace(" ", "")
+                        .contains(csvItem.companyName.toLowerCase().replace(" ", "")) ||
+                        result.Description.toLowerCase().replace(" ", "")
+                                .contains(csvItem.companyName.toLowerCase().replace(" ", "")) ||
+                        result.SearchedLink.toLowerCase().replace(" ", "")
+                                .contains(csvItem.companyName.toLowerCase().replace(" ", ""))) {
+                    isContains = true;
+                } else if (result.MainHeader.toLowerCase().contains(csvItem.getPureName().toLowerCase()) ||
+                        result.Description.toLowerCase().contains(csvItem.getPureName().toLowerCase()) ||
+                        result.SearchedLink.toLowerCase().contains(csvItem.getPureName().toLowerCase())) {
+                    isContains = true;
+                }
 
-            if (isContains) {
-                csvItem.foundedInstagram = result.SearchedLink;
-                if (!result.SearchedLink.contains("instagram.com/explore/") || !StringUtils.isEmpty(result.SearchedLink) || result.SearchedLink.length() > 10) {
-                    Pattern igPattern = Pattern.compile("(((instagram\\.com\\/)|(ig\\ ?\\-\\ ?))([A-Za-z0-9_](?:(?:[A-Za-z0-9_]|(?:\\.(?!\\.))){0,28}(?:[A-Za-z0-9_]))?))|(@([a-z0-9_]{1,255}))");
-                    Matcher igMatcher = igPattern.matcher(result.SearchedLink.toLowerCase());
-                    if (igMatcher.find()) {
-                        csvItem.foundedInstagram = "www."+igMatcher.group(0);
+                if (isContains) {
+                    csvItem.foundedInstagram = result.SearchedLink;
+                    if (!result.SearchedLink.contains("instagram.com/explore/") || !StringUtils.isEmpty(result.SearchedLink) || result.SearchedLink.length() > 10) {
+                        Pattern igPattern = Pattern.compile("(((instagram\\.com\\/)|(ig\\ ?\\-\\ ?))([A-Za-z0-9_](?:(?:[A-Za-z0-9_]|(?:\\.(?!\\.))){0,28}(?:[A-Za-z0-9_]))?))|(@([a-z0-9_]{1,255}))");
+                        Matcher igMatcher = igPattern.matcher(result.SearchedLink.toLowerCase());
+                        if (igMatcher.find()) {
+                            csvItem.foundedInstagram = "www." + igMatcher.group(0);
+                        } else {
+                            csvItem.foundedInstagram = result.SearchedLink;
+                        }
+                        updateStatus("Result: " + csvItem.foundedInstagram);
                     } else {
-                        csvItem.foundedInstagram = result.SearchedLink;
+                        csvItem.notFoundedInstagram = "Not found";
+                        updateStatus("Result not found");
                     }
-                    updateStatus("Result: "+csvItem.foundedInstagram);
+                    break;
                 }
-                else {
-                    csvItem.notFoundedInstagram = "Not found";
-                    updateStatus("Result not found");
-                }
-                break;
             }
+        }
+        else {
+            csvItem.notFoundedInstagram = "Not found";
+            updateStatus("Result not found");
         }
     }
 
