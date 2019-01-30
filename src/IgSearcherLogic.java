@@ -31,6 +31,7 @@ public class IgSearcherLogic {
     private List<CsvItemModel> csvFileData;
     private PropertiesHelper propertiesObject;
     private Thread worker;
+    int current = 0;
 
     private boolean isWorkFlag = true;
     private boolean isError = false;
@@ -52,12 +53,17 @@ public class IgSearcherLogic {
         worker.start();
     }
 
-    public void updateStatus(int current) {
+    public void updateStatus(String additionalMessage) {
         if (csvFileData.size() > 1) {
-            Main.gui.getLabelStatusData().setText("Processed " + current + "/" + (csvFileData.size() - 1));
+            Main.gui.getLabelStatusData().setText("Processed " + current + "/" + (csvFileData.size() - 1) +". "+ additionalMessage);
         }
         else {
-            Main.gui.getLabelStatusData().setText("Processed " + current + "/" + (csvFileData.size()));
+            Main.gui.getLabelStatusData().setText("Processed " + current + "/" + (csvFileData.size()) +". "+ additionalMessage);
+        }
+        try {
+            Thread.sleep(1500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
@@ -69,13 +75,15 @@ public class IgSearcherLogic {
                 break;
             }
             propertiesObject.saveProperty("index", String.valueOf(i));
-            updateStatus(i);
+            current = i;
+            updateStatus("");
             Element body = getQueryBody(csvFileData.get(i));
             if (body == null) {
                 continue;
             }
             System.out.println(csvFileData.get(i).companyName);
             results = new SearchResult(body);
+            updateStatus("Found: "+results.getResults().size()+"... Parsing.");
             checkResultToInstagramLink(results, csvFileData.get(i));
             saveCSVItems();
         }
@@ -168,13 +176,8 @@ public class IgSearcherLogic {
             }
 
             if (isContains) {
-                if (result.SearchedLink.lastIndexOf("?") > 0) {
-                    csvItem.foundedInstagram = result.SearchedLink.substring(0, result.SearchedLink.lastIndexOf("?"));
-                } else if (result.SearchedLink.contains("instagram.com/explore/")) {
-                    csvItem.notFoundedInstagram = "Not found";
-                } else if (StringUtils.isEmpty(result.SearchedLink) || result.SearchedLink.length() < 10) {
-                    csvItem.notFoundedInstagram = "Not found";
-                } else {
+                csvItem.foundedInstagram = result.SearchedLink;
+                if (!result.SearchedLink.contains("instagram.com/explore/") || !StringUtils.isEmpty(result.SearchedLink) || result.SearchedLink.length() > 10) {
                     Pattern igPattern = Pattern.compile("(((instagram\\.com\\/)|(ig\\ ?\\-\\ ?))([A-Za-z0-9_](?:(?:[A-Za-z0-9_]|(?:\\.(?!\\.))){0,28}(?:[A-Za-z0-9_]))?))|(@([a-z0-9_]{1,255}))");
                     Matcher igMatcher = igPattern.matcher(result.SearchedLink.toLowerCase());
                     if (igMatcher.find()) {
@@ -182,8 +185,12 @@ public class IgSearcherLogic {
                     } else {
                         csvItem.foundedInstagram = result.SearchedLink;
                     }
+                    updateStatus("Result: "+csvItem.foundedInstagram);
                 }
-
+                else {
+                    csvItem.notFoundedInstagram = "Not found";
+                    updateStatus("Result not found");
+                }
                 break;
             }
         }
@@ -204,6 +211,7 @@ public class IgSearcherLogic {
             return null;
         }
         System.out.println("Processing: " + timeout/1000 + " sec");
+        updateStatus("Waiting: " + (timeout/1000)/60 + " min");
         Thread.sleep(timeout);
         return  Jsoup.connect(createURL(item))
                 .followRedirects(false)
