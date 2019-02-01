@@ -1,3 +1,4 @@
+import org.apache.commons.lang3.StringUtils;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
@@ -17,7 +18,9 @@ public class SearchResult {
             Elements resultDivs = items.select("div.g");
             for (Element div : resultDivs) {
                 SearchResultItem item = new SearchResultItem(div);
-                if (item.SearchedLink.toLowerCase().contains("instagram.") || item.SearchedLink.toLowerCase().contains("ig.")) {
+                if ((StringUtils.isEmpty(item.SearchedLink) || item.SearchedLink.length() > 10) &&
+                    (item.SearchedLink.toLowerCase().contains("instagram.") || item.SearchedLink.toLowerCase().contains("ig.")) &&
+                    !item.SearchedLink.contains("instagram.com/explore/")) {
                     Results.add(new SearchResultItem(div));
                     System.out.println("Result item: " + div);
                     System.out.println("_____________________");

@@ -3,6 +3,7 @@ import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 import com.opencsv.bean.StatefulBeanToCsv;
 import com.opencsv.bean.StatefulBeanToCsvBuilder;
+import com.opencsv.enums.CSVReaderNullFieldIndicator;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import com.sun.org.glassfish.gmbal.Description;
@@ -36,8 +37,8 @@ public class IgSearcherLogic {
     private boolean isWorkFlag = true;
     private boolean isError = false;
 
-    int max = 80000;
-    int min = 40000;
+    int max = 70000;
+    int min = 30000;
 
     public IgSearcherLogic(PropertiesHelper properties) {
         propertiesObject = properties;
@@ -110,9 +111,10 @@ public class IgSearcherLogic {
             reader = Files.newBufferedReader(inputFilePath);
             CsvToBean<CsvItemModel> csvToBean = new CsvToBeanBuilder(reader)
                     .withType(CsvItemModel.class)
-                    .withIgnoreLeadingWhiteSpace(true)
+                    .withFieldAsNull(CSVReaderNullFieldIndicator.NEITHER)
                     .build();
             csvFileData.addAll(IteratorUtils.toList(csvToBean.iterator()));
+            reader.close();
         }
         catch (Exception ex) {
             Main.gui.getLabelStatusData().setText("Something wrong with input file");
@@ -146,60 +148,54 @@ public class IgSearcherLogic {
 
     private void checkResultToInstagramLink(SearchResult results, CsvItemModel csvItem) {
         boolean isContains = false;
-        if (results.getResults().size() > 0) {
-            for (SearchResultItem result : results.getResults()) {
-                if (result.MainHeader.toLowerCase().contains(csvItem.URL.toLowerCase()) ||
-                        result.Description.toLowerCase().contains(csvItem.URL.toLowerCase()) ||
-                        result.SearchedLink.toLowerCase().contains(csvItem.URL.toLowerCase())) {
-                    isContains = true;
-                } else if (result.MainHeader.toLowerCase().replace(" ", "")
-                        .contains(csvItem.URL.toLowerCase().replace(" ", "")) ||
-                        result.Description.toLowerCase().replace(" ", "")
-                                .contains(csvItem.URL.toLowerCase().replace(" ", "")) ||
-                        result.SearchedLink.toLowerCase().replace(" ", "")
-                                .contains(csvItem.URL.toLowerCase().replace(" ", ""))) {
-                    isContains = true;
-                } else if (result.MainHeader.toLowerCase().contains(csvItem.companyName.toLowerCase()) ||
-                        result.Description.toLowerCase().contains(csvItem.companyName.toLowerCase()) ||
-                        result.SearchedLink.toLowerCase().contains(csvItem.companyName.toLowerCase())) {
-                    isContains = true;
-                } else if (result.MainHeader.toLowerCase().replace(" ", "")
-                        .contains(csvItem.companyName.toLowerCase().replace(" ", "")) ||
-                        result.Description.toLowerCase().replace(" ", "")
-                                .contains(csvItem.companyName.toLowerCase().replace(" ", "")) ||
-                        result.SearchedLink.toLowerCase().replace(" ", "")
-                                .contains(csvItem.companyName.toLowerCase().replace(" ", ""))) {
-                    isContains = true;
-                } else if (result.MainHeader.toLowerCase().contains(csvItem.getPureName().toLowerCase()) ||
-                        result.Description.toLowerCase().contains(csvItem.getPureName().toLowerCase()) ||
-                        result.SearchedLink.toLowerCase().contains(csvItem.getPureName().toLowerCase())) {
-                    isContains = true;
-                }
-
-                if (isContains) {
-                    csvItem.foundedInstagram = result.SearchedLink;
-                    if (!result.SearchedLink.contains("instagram.com/explore/") || !StringUtils.isEmpty(result.SearchedLink) || result.SearchedLink.length() > 10) {
-                        Pattern igPattern = Pattern.compile("(((instagram\\.com\\/)|(ig\\ ?\\-\\ ?))([A-Za-z0-9_](?:(?:[A-Za-z0-9_]|(?:\\.(?!\\.))){0,28}(?:[A-Za-z0-9_]))?))|(@([a-z0-9_]{1,255}))");
-                        Matcher igMatcher = igPattern.matcher(result.SearchedLink.toLowerCase());
-                        if (igMatcher.find()) {
-                            csvItem.foundedInstagram = "www." + igMatcher.group(0);
-                        } else {
-                            csvItem.foundedInstagram = result.SearchedLink;
-                        }
-                        updateStatus("Result: " + csvItem.foundedInstagram);
-                    } else {
-                        csvItem.notFoundedInstagram = "Not found";
-                        updateStatus("Result not found");
-                    }
-                    break;
-                }
-            }
-        }
-        else {
+        if (results.getResults().size() < 0) {
             csvItem.notFoundedInstagram = "Not found";
             updateStatus("Result not found");
         }
+        for (SearchResultItem result : results.getResults()) {
+            if (result.MainHeader.toLowerCase().contains(csvItem.URL.toLowerCase()) ||
+                    result.Description.toLowerCase().contains(csvItem.URL.toLowerCase()) ||
+                    result.SearchedLink.toLowerCase().contains(csvItem.URL.toLowerCase())) {
+                isContains = true;
+            } else if (result.MainHeader.toLowerCase().replace(" ", "")
+                    .contains(csvItem.URL.toLowerCase().replace(" ", "")) ||
+                    result.Description.toLowerCase().replace(" ", "")
+                            .contains(csvItem.URL.toLowerCase().replace(" ", "")) ||
+                    result.SearchedLink.toLowerCase().replace(" ", "")
+                            .contains(csvItem.URL.toLowerCase().replace(" ", ""))) {
+                isContains = true;
+            } else if (result.MainHeader.toLowerCase().contains(csvItem.companyName.toLowerCase()) ||
+                    result.Description.toLowerCase().contains(csvItem.companyName.toLowerCase()) ||
+                    result.SearchedLink.toLowerCase().contains(csvItem.companyName.toLowerCase())) {
+                isContains = true;
+            } else if (result.MainHeader.toLowerCase().replace(" ", "")
+                    .contains(csvItem.companyName.toLowerCase().replace(" ", "")) ||
+                    result.Description.toLowerCase().replace(" ", "")
+                            .contains(csvItem.companyName.toLowerCase().replace(" ", "")) ||
+                    result.SearchedLink.toLowerCase().replace(" ", "")
+                            .contains(csvItem.companyName.toLowerCase().replace(" ", ""))) {
+                isContains = true;
+            } else if (result.MainHeader.toLowerCase().contains(csvItem.getPureName().toLowerCase()) ||
+                    result.Description.toLowerCase().contains(csvItem.getPureName().toLowerCase()) ||
+                    result.SearchedLink.toLowerCase().contains(csvItem.getPureName().toLowerCase())) {
+                isContains = true;
+            }
+
+            if (isContains) {
+                Pattern igPattern = Pattern.compile("(((instagram\\.com\\/)|(ig\\ ?\\-\\ ?))([A-Za-z0-9_](?:(?:[A-Za-z0-9_]|(?:\\.(?!\\.))){0,28}(?:[A-Za-z0-9_]))?))|(@([a-z0-9_]{1,255}))");
+                Matcher igMatcher = igPattern.matcher(result.SearchedLink.toLowerCase());
+                if (igMatcher.find() && igMatcher.group(5).length() > 4) {
+                    csvItem.foundedInstagram = "www." + igMatcher.group(0);
+                    updateStatus("Result: " + csvItem.foundedInstagram);
+                } else {
+                    csvItem.notFoundedInstagram = "Not found";
+                    updateStatus("Result not found");
+                }
+                break;
+            }
+        }
     }
+
 
     private String createURL(CsvItemModel item) {
         String result = "site:www.instagram.com "+item.companyName+" "+ item.getPureName() + " "+ item.URL;
@@ -216,7 +212,12 @@ public class IgSearcherLogic {
             return null;
         }
         System.out.println("Processing: " + timeout/1000 + " sec");
-        updateStatus("Waiting: " + (timeout/1000)/60 + " min");
+        if (timeout > (max + min)) {
+            updateStatus("Waiting: " + (timeout/1000)/60 + " min");
+        }else {
+            updateStatus("Waiting: " + (timeout/1000) + " sec");
+        }
+
         Thread.sleep(timeout);
         return  Jsoup.connect(createURL(item))
                 .followRedirects(false)
