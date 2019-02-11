@@ -45,6 +45,7 @@ public class IgSearcherLogic {
     }
 
     public void Run() {
+        Main.gui.getLabelStatusData().setText("Starting...");
         worker = new Thread(() -> {
             changeApplicationStateToWork(true);
             isError = false;
@@ -117,6 +118,7 @@ public class IgSearcherLogic {
             reader.close();
         }
         catch (Exception ex) {
+            System.out.println(ex);
             Main.gui.getLabelStatusData().setText("Something wrong with input file");
             isWorkFlag = false;
             isError = true;

@@ -13,21 +13,14 @@ public class MainForm extends JFrame {
     private JLabel selectedFileLabelData;
     private JLabel selectedFileLabel;
     private JButton selectFileButton;
-    private JTextPane logWindow;
-    private JSeparator seprator;
 
     public MainForm() {
         getStopButton().setEnabled(false);
         this.setContentPane(mainPanel);
-        logWindow.setVisible(false);
-        seprator.setVisible(false);
 
         getRunButton().addActionListener(e -> Main.logic.Run());
         getStopButton().addActionListener(e -> Main.logic.Stop());
-        getSelectFileButton().addActionListener(e -> {
-                    setInputFilePath(selectFolderDialog());
-                }
-        );
+        getSelectFileButton().addActionListener(e -> setInputFilePath(selectFolderDialog()));
 
         mainPanel.setVisible(true);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -35,7 +28,7 @@ public class MainForm extends JFrame {
 
     public void setInputFilePath(String inputFilePath) {
         File f = new File(inputFilePath);
-        if (f.exists()) {
+        if (f.getAbsoluteFile().exists()) {
             Main.logic.setInputFilePath(inputFilePath);
             selectedFileLabelData.setText(cutPath(inputFilePath));
         } else
