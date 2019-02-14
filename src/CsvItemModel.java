@@ -4,7 +4,7 @@ import org.apache.commons.lang3.StringUtils;
 public class CsvItemModel {
 
     public CsvItemModel() {
-        foundedInstagram = "";
+        foundInstagram = "";
     }
 
     @CsvBindByPosition(position = 0)
@@ -38,10 +38,13 @@ public class CsvItemModel {
     private String _field9;
 
     @CsvBindByPosition(position = 10)
-    public String foundedInstagram;
+    public String foundInstagram;
 
     @CsvBindByPosition(position = 11)
-    public String notFoundedInstagram;
+    public String foundTwitter;
+
+    @CsvBindByPosition(position = 12)
+    public String notFound;
 
     public String getPureName() {
         String result = "";
@@ -101,11 +104,15 @@ public class CsvItemModel {
         return _field9;
     }
 
-    public String getfoundedInstagram(){
-        return foundedInstagram;
+    public String getfoundInstagram(){
+        return foundInstagram;
     }
 
-    public String getnotFoundedInstagram(){
-        return notFoundedInstagram;
+    public String getfoundTwitter(){
+        return foundTwitter;
+    }
+
+    public String getnotFound(){
+        return notFound;
     }
 }

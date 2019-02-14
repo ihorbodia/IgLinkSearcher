@@ -6,13 +6,11 @@ import com.opencsv.bean.StatefulBeanToCsvBuilder;
 import com.opencsv.enums.CSVReaderNullFieldIndicator;
 import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
-import com.sun.org.glassfish.gmbal.Description;
 import org.apache.commons.collections4.IteratorUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
-import sun.plugin.javascript.navig.LinkArray;
 
 import java.io.*;
 import java.net.URLEncoder;
@@ -36,6 +34,9 @@ public class IgSearcherLogic {
 
     private boolean isWorkFlag = true;
     private boolean isError = false;
+
+    private boolean igSearch;
+    private boolean twitterSearch;
 
     int max = 70000;
     int min = 30000;
@@ -77,10 +78,14 @@ public class IgSearcherLogic {
                 break;
             }
             propertiesObject.saveProperty("index", String.valueOf(i));
+            propertiesObject.saveProperty("igSearch", String.valueOf(isIgSearch()));
+            propertiesObject.saveProperty("twitterSearch", String.valueOf(isTwitterSearch()));
             current = i;
             updateStatus("");
             Element body = getQueryBody(csvFileData.get(i));
             if (body == null) {
+                csvFileData.get(i).notFound = "Not found";
+                saveCSVItems();
                 continue;
             }
             System.out.println(csvFileData.get(i).companyName);
@@ -95,6 +100,8 @@ public class IgSearcherLogic {
         Main.gui.getRunButton().setEnabled(!isWorkState);
         Main.gui.getStopButton().setEnabled(isWorkState);
         Main.gui.getSelectFileButton().setEnabled(!isWorkState);
+        Main.gui.getIgRadioButton().setEnabled(!isWorkState);
+        Main.gui.getTwitterRadioButton().setEnabled(!isWorkState);
         propertiesObject.saveProperty("isWorked", String.valueOf(isWorkState));
         isWorkFlag = true;
         if (!isWorkState) {
@@ -131,14 +138,15 @@ public class IgSearcherLogic {
         if (csvFileData == null || csvFileData.size() == 0) {
             return;
         }
-        try (
-                Writer writer = Files.newBufferedWriter(Paths.get(f.getAbsolutePath()))
-        ) {
+        Writer writer = null;
+        try {
+            writer = Files.newBufferedWriter(Paths.get(f.getAbsolutePath()));
             StatefulBeanToCsv<CsvItemModel> beanToCsv = new StatefulBeanToCsvBuilder(writer)
                     .withQuotechar(CSVWriter.DEFAULT_QUOTE_CHARACTER)
                     .withSeparator(CSVWriter.DEFAULT_SEPARATOR)
                     .build();
             beanToCsv.write(csvFileData);
+            writer.close();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (CsvRequiredFieldEmptyException e) {
@@ -151,7 +159,7 @@ public class IgSearcherLogic {
     private void checkResultToInstagramLink(SearchResult results, CsvItemModel csvItem) {
         boolean isContains = false;
         if (results.getResults().size() < 0) {
-            csvItem.notFoundedInstagram = "Not found";
+            csvItem.notFound = "Not found";
             updateStatus("Result not found");
         }
         for (SearchResultItem result : results.getResults()) {
@@ -184,29 +192,54 @@ public class IgSearcherLogic {
             }
 
             if (isContains) {
-                Pattern igPattern = Pattern.compile("(((instagram\\.com\\/)|(ig\\ ?\\-\\ ?))([A-Za-z0-9_](?:(?:[A-Za-z0-9_]|(?:\\.(?!\\.))){0,28}(?:[A-Za-z0-9_]))?))|(@([a-z0-9_]{1,255}))");
-                Matcher igMatcher = igPattern.matcher(result.SearchedLink.toLowerCase());
-                if (igMatcher.find() && igMatcher.group(5).length() > 4) {
-                    csvItem.foundedInstagram = "www." + igMatcher.group(0);
-                    updateStatus("Result: " + csvItem.foundedInstagram);
-                } else {
-                    csvItem.notFoundedInstagram = "Not found";
-                    updateStatus("Result not found");
+                if (isIgSearch()) {
+                    Pattern igPattern = Pattern.compile("(((instagram\\.com\\/)|(ig\\ ?\\-\\ ?))([A-Za-z0-9_](?:(?:[A-Za-z0-9_]|(?:\\.(?!\\.))){0,28}(?:[A-Za-z0-9_]))?))|(@([a-z0-9_]{1,255}))");
+                    Matcher igMatcher = igPattern.matcher(result.SearchedLink.toLowerCase());
+                    if (igMatcher.find() && igMatcher.group(5).length() > 4) {
+                        csvItem.foundInstagram = StrUtils.normalizeLink(igMatcher.group(0));
+                        updateStatus("Result: " + csvItem.foundInstagram);
+                    } else {
+                        csvItem.notFound = "Not found";
+                        updateStatus("Result not found");
+                    }
+                }
+
+                if (isTwitterSearch()) {
+                    Pattern twitterPattern = Pattern.compile("((https?:\\/\\/)?(www\\.)?twitter\\.com\\/)?(t\\.co\\/)?(@|#!\\/)?([A-Za-z0-9_]{1,15})(\\/([-a-z]{1,20}))?");
+                    Matcher twitterMatcher = twitterPattern.matcher(result.SearchedLink.toLowerCase());
+                    if (twitterMatcher.find() && twitterMatcher.group(6).length() > 4) {
+                        csvItem.foundTwitter = StrUtils.normalizeLink(twitterMatcher.group(0));
+                        updateStatus("Result: " + csvItem.foundInstagram);
+                    } else {
+                        csvItem.notFound = "Not found";
+                        updateStatus("Result not found");
+                    }
                 }
                 break;
             }
+        }
+        if (StringUtils.isEmpty(csvItem.foundInstagram) && StringUtils.isEmpty(csvItem.foundTwitter)) {
+                csvItem.notFound = "Not found";
+        } else {
+            csvItem.notFound = "";
         }
     }
 
 
     private String createURL(CsvItemModel item) {
-        String result = "site:www.instagram.com "+item.companyName+" "+ item.getPureName() + " "+ item.URL;
+        String searchTerm = "";
+        if (isTwitterSearch()) {
+            searchTerm = "twitter "+ item.getPureName();
+        }
+        if (isIgSearch()) {
+            searchTerm = "site:www.instagram.com "+item.companyName+" "+ item.getPureName() + " "+ item.URL;
+        }
         try {
-            result = "https://www.google.com/search?q=" + URLEncoder.encode(result, "UTF-8") + "&pws=0&gl=us&gws_rd=cr";
+            searchTerm = "https://www.google.com/search?q=" + URLEncoder.encode(searchTerm, "UTF-8") + "&pws=0&gl=us&gws_rd=cr";
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        return result;
+        return searchTerm;
     }
 
     private Connection.Response executeRequest(CsvItemModel item, int timeout) throws IOException, InterruptedException {
@@ -225,6 +258,7 @@ public class IgSearcherLogic {
                 .followRedirects(false)
                 .userAgent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/602.2.14 (KHTML, like Gecko) Version/10.0.1 Safari/602.2.14")
                 .method(Connection.Method.GET)
+                .ignoreHttpErrors(true)
                 .execute();
     }
 
@@ -260,5 +294,21 @@ public class IgSearcherLogic {
             inputFilePath = Paths.get(path);
             propertiesObject.saveProperty("selectedCsvInputFile", path);
         }
+    }
+
+    public boolean isIgSearch() {
+        return igSearch;
+    }
+
+    public void setIgSearch(boolean igSearch) {
+        this.igSearch = igSearch;
+    }
+
+    public boolean isTwitterSearch() {
+        return twitterSearch;
+    }
+
+    public void setTwitterSearch(boolean twitterSearch) {
+        this.twitterSearch = twitterSearch;
     }
 }

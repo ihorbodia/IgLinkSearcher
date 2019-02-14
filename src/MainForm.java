@@ -13,6 +13,8 @@ public class MainForm extends JFrame {
     private JLabel selectedFileLabelData;
     private JLabel selectedFileLabel;
     private JButton selectFileButton;
+    private JRadioButton igRadioButton;
+    private JRadioButton twitterRadioButton;
 
     public MainForm() {
         getStopButton().setEnabled(false);
@@ -22,8 +24,24 @@ public class MainForm extends JFrame {
         getStopButton().addActionListener(e -> Main.logic.Stop());
         getSelectFileButton().addActionListener(e -> setInputFilePath(selectFolderDialog()));
 
+        getIgRadioButton().addActionListener(e -> {
+            Main.logic.setIgSearch(true);
+            Main.logic.setTwitterSearch(false);
+        });
+
+        getTwitterRadioButton().addActionListener(e -> {
+            Main.logic.setTwitterSearch(true);
+            Main.logic.setIgSearch(false);
+        });
+
         mainPanel.setVisible(true);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        ButtonGroup group = new ButtonGroup();
+        group.add(getIgRadioButton());
+        group.add(getTwitterRadioButton());
+
+        getIgRadioButton().setSelected(true);
     }
 
     public void setInputFilePath(String inputFilePath) {
@@ -31,6 +49,7 @@ public class MainForm extends JFrame {
         if (f.getAbsoluteFile().exists()) {
             Main.logic.setInputFilePath(inputFilePath);
             selectedFileLabelData.setText(cutPath(inputFilePath));
+            getLabelStatusData().setText("File added");
         } else
         {
             getLabelStatusData().setText("Something wrong with input file");
@@ -99,5 +118,21 @@ public class MainForm extends JFrame {
 
     public JButton getSelectFileButton() {
         return selectFileButton;
+    }
+
+    public JRadioButton getIgRadioButton() {
+        return igRadioButton;
+    }
+
+    public JRadioButton getTwitterRadioButton() {
+        return twitterRadioButton;
+    }
+
+    public void setIgRadioButton(JRadioButton igRadioButton) {
+        this.igRadioButton = igRadioButton;
+    }
+
+    public void setTwitterRadioButton(JRadioButton twitterRadioButton) {
+        this.twitterRadioButton = twitterRadioButton;
     }
 }

@@ -18,13 +18,25 @@ public class SearchResult {
             Elements resultDivs = items.select("div.g");
             for (Element div : resultDivs) {
                 SearchResultItem item = new SearchResultItem(div);
-                if ((StringUtils.isEmpty(item.SearchedLink) || item.SearchedLink.length() > 10) &&
-                    (item.SearchedLink.toLowerCase().contains("instagram.") || item.SearchedLink.toLowerCase().contains("ig.")) &&
-                    !item.SearchedLink.contains("instagram.com/explore/")) {
-                    Results.add(new SearchResultItem(div));
-                    System.out.println("Result item: " + div);
-                    System.out.println("_____________________");
+                if (Main.logic.isIgSearch()) {
+                    if ((StringUtils.isEmpty(item.SearchedLink) || item.SearchedLink.length() > 10) &&
+                            (item.SearchedLink.toLowerCase().contains("instagram.") || item.SearchedLink.toLowerCase().contains("ig.")) &&
+                            !item.SearchedLink.contains("instagram.com/explore/")) {
+                        Results.add(new SearchResultItem(div));
+                        System.out.println("Result item: " + div);
+                        System.out.println("_____________________");
+                    }
                 }
+                if (Main.logic.isTwitterSearch()) {
+                    if ((StringUtils.isEmpty(item.SearchedLink) || item.SearchedLink.length() > 10) &&
+                            (item.SearchedLink.toLowerCase().contains("twitter.") || item.SearchedLink.toLowerCase().contains("t.co")) &&
+                            !item.SearchedLink.contains("twitter.com/hashtag/")) {
+                        Results.add(new SearchResultItem(div));
+                        System.out.println("Result item: " + div);
+                        System.out.println("_____________________");
+                    }
+                }
+
             }
         }
         System.out.println("Results: "+Results.size());

@@ -23,7 +23,7 @@ public class Main {
         gui.setTitle("Instagram link searcher v1.9");
         gui.setVisible(true);
         gui.setResizable(false);
-        gui.setSize(600, 150);
+        gui.setSize(600, 120);
     }
 
     private static void initLogic() {
@@ -37,6 +37,12 @@ public class Main {
         }
 
         if(Boolean.valueOf(properties.restoreProperty("isWorked"))) {
+            boolean igSearch = Boolean.valueOf(properties.restoreProperty("igSearch"));
+            Main.gui.getIgRadioButton().setSelected(igSearch);
+            Main.logic.setIgSearch(igSearch);
+            boolean twitterSearch = Boolean.valueOf(properties.restoreProperty("twitterSearch"));
+            Main.gui.getTwitterRadioButton().setSelected(twitterSearch);
+            Main.logic.setTwitterSearch(twitterSearch);
             logic.Run();
         }
     }
