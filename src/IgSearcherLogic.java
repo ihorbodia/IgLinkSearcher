@@ -158,7 +158,7 @@ public class IgSearcherLogic {
 
     private void checkResultToInstagramLink(SearchResult results, CsvItemModel csvItem) {
         boolean isContains = false;
-        if (results.getResults().size() < 0) {
+        if (results.getResults().size() == 0) {
             csvItem.notFound = "Not found";
             updateStatus("Result not found");
         }
