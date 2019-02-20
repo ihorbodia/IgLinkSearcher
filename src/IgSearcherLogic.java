@@ -1,3 +1,8 @@
+import Helpers.PropertiesHelper;
+import Models.CsvItemModel;
+import Models.SearchResult;
+import Models.SearchResultItem;
+import Utils.StrUtils;
 import com.opencsv.CSVWriter;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
@@ -89,7 +94,7 @@ public class IgSearcherLogic {
                 continue;
             }
             System.out.println(csvFileData.get(i).companyName);
-            results = new SearchResult(body);
+            results = new SearchResult(body, isIgSearch(), isTwitterSearch());
             updateStatus("Found: "+results.getResults().size()+"... Parsing.");
             checkResultToInstagramLink(results, csvFileData.get(i));
             saveCSVItems();
@@ -113,7 +118,7 @@ public class IgSearcherLogic {
     }
 
     private void initCSVItems() {
-        Reader reader = null;
+        Reader reader;
         csvFileData = new ArrayList<>();
         try {
             reader = Files.newBufferedReader(inputFilePath);
@@ -125,7 +130,7 @@ public class IgSearcherLogic {
             reader.close();
         }
         catch (Exception ex) {
-            System.out.println(ex);
+            System.out.println(ex.getMessage());
             Main.gui.getLabelStatusData().setText("Something wrong with input file");
             isWorkFlag = false;
             isError = true;
@@ -266,14 +271,14 @@ public class IgSearcherLogic {
         Element doc = null;
         try {
             Connection.Response response = executeRequest(item, min + new Random().nextInt(max));
-            if (response.statusCode() == 302) {
-                int triesCounter = 1;
-                while (triesCounter < 3) {
-                    response = executeRequest(item, (min +(1200000 * triesCounter)) + new Random().nextInt(max + (1200000 * triesCounter)));
-                    triesCounter++;
-                }
-            }
             if (response != null) {
+                if (response.statusCode() == 302) {
+                    int triesCounter = 1;
+                    while (triesCounter < 3) {
+                        response = executeRequest(item, (min +(1200000 * triesCounter)) + new Random().nextInt(max + (1200000 * triesCounter)));
+                        triesCounter++;
+                    }
+                }
                 doc = response.parse().body();
             }
         } catch (Exception e) {

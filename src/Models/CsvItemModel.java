@@ -1,3 +1,5 @@
+package Models;
+
 import com.opencsv.bean.CsvBindByPosition;
 import org.apache.commons.lang3.StringUtils;
 

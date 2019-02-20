@@ -1,3 +1,5 @@
+package Helpers;
+
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -20,7 +22,7 @@ public class ProxyHelper {
         String jsonStringResponse = request.getResponseMessage();
 
         Gson gson = new Gson(); // Or use new GsonBuilder().create();
-        ProxyObjResponse proxyObj = gson.fromJson(jsonStringResponse, ProxyObjResponse.class);
+        //ProxyObjResponse proxyObj = gson.fromJson(jsonStringResponse, ProxyObjResponse.class);
 
 
 //

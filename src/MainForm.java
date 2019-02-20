@@ -1,3 +1,4 @@
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.swing.*;
@@ -45,15 +46,19 @@ public class MainForm extends JFrame {
     }
 
     public void setInputFilePath(String inputFilePath) {
-        File f = new File(inputFilePath);
-        if (f.getAbsoluteFile().exists()) {
-            Main.logic.setInputFilePath(inputFilePath);
-            selectedFileLabelData.setText(cutPath(inputFilePath));
-            getLabelStatusData().setText("File added");
-        } else
-        {
-            getLabelStatusData().setText("Something wrong with input file");
+        if (!FilenameUtils.getExtension(inputFilePath).equalsIgnoreCase("csv")) {
+            System.out.println("Selected input file has invalid format or file not selected");
+            return;
         }
+
+        File inFile = new File(inputFilePath);
+        if (StringUtils.isEmpty(inputFilePath) && !inFile.exists()) {
+            return;
+        }
+
+        Main.logic.setInputFilePath(inputFilePath);
+        selectedFileLabelData.setText(cutPath(inputFilePath));
+        getLabelStatusData().setText("File added");
     }
 
     private String selectFolderDialog() {
