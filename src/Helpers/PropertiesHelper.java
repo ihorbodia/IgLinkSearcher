@@ -8,11 +8,49 @@ public class PropertiesHelper {
     private File propertiesFile;
     private Properties properties;
 
+    private String indexProperty = "index";
+    private String isIgSearchProperty = "igSearch";
+    private String isTwitterSearchProperty = "twitterSearch";
+    private String isWorkProperty = "isWorked";
+    private String selectedInputFileProperty = "selectedCsvInputFile";
+
     public PropertiesHelper() {
         properties = new Properties();
     }
 
-    public void saveProperty(String propertyName, String value) {
+    public void saveIndex(int index) {
+        saveProperty(indexProperty, String.valueOf(index));
+    }
+    public void saveIsIgSearch(boolean isIgSearch) {
+        saveProperty(isIgSearchProperty, String.valueOf(isIgSearch));
+    }
+    public void saveIsTwitterSearch(boolean isTwitterSearch) {
+        saveProperty(isTwitterSearchProperty, String.valueOf(isTwitterSearch));
+    }
+    public void saveIsWork(boolean isWorked) {
+        saveProperty(isWorkProperty, String.valueOf(isWorked));
+    }
+    public void saveSelectedInputFile(String filePath) {
+        saveProperty(selectedInputFileProperty, filePath);
+    }
+
+    public int getIndex() {
+        return Integer.parseInt(restoreProperty(indexProperty));
+    }
+    public boolean getIsIgSearch() {
+        return Boolean.valueOf(restoreProperty(isIgSearchProperty));
+    }
+    public boolean getIsTwitterSearch() {
+        return Boolean.valueOf(restoreProperty(isTwitterSearchProperty));
+    }
+    public boolean getIsWork() {
+        return Boolean.valueOf(restoreProperty(isWorkProperty));
+    }
+    public String getSelectedInputFile() {
+        return restoreProperty(selectedInputFileProperty);
+    }
+
+    private void saveProperty(String propertyName, String value) {
         OutputStream output = null;
         try {
             output = new FileOutputStream(propertiesFile.getAbsoluteFile());
@@ -32,7 +70,6 @@ public class PropertiesHelper {
             }
         }
     }
-
     private void createNewFile() {
         OutputStream output = null;
         try {
@@ -65,8 +102,7 @@ public class PropertiesHelper {
             }
         }
     }
-
-    public String restoreProperty(String propertyName) {
+    private String restoreProperty(String propertyName) {
         String result = "0";
         InputStream input = null;
         try {

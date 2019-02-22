@@ -1,55 +1,11 @@
-import Helpers.PropertiesHelper;
-import org.apache.commons.lang3.StringUtils;
-
+import Helpers.ServicesHandler;
 import javax.swing.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 public class Main {
 
-    public static MainForm gui;
-    static PropertiesHelper properties;
-    public static IgSearcherLogic logic;
-
     public static void main(String[] args) {
         initLookAndFeel();
-        initProperties();
-        initGUI();
-        initLogic();
-    }
-
-    private static void initGUI() {
-        gui = new MainForm();
-
-        gui.setTitle("Instagram link searcher v2.0");
-        gui.setVisible(true);
-        gui.setResizable(false);
-        gui.setSize(500, 130);
-    }
-
-    private static void initLogic() {
-        logic = new IgSearcherLogic(properties);
-
-        String restoredPath = properties.restoreProperty("selectedCsvInputFile");
-        if(!StringUtils.isEmpty(restoredPath)) {
-            if (Files.exists(Paths.get(restoredPath))) {
-                gui.setInputFilePath(restoredPath);
-            }
-        }
-
-        if(Boolean.valueOf(properties.restoreProperty("isWorked"))) {
-            boolean igSearch = Boolean.valueOf(properties.restoreProperty("igSearch"));
-            Main.gui.getIgRadioButton().setSelected(igSearch);
-            Main.logic.setIgSearch(igSearch);
-            boolean twitterSearch = Boolean.valueOf(properties.restoreProperty("twitterSearch"));
-            Main.gui.getTwitterRadioButton().setSelected(twitterSearch);
-            Main.logic.setTwitterSearch(twitterSearch);
-            logic.Run();
-        }
-    }
-
-    private static void initProperties() {
-        properties = new PropertiesHelper();
+        new ServicesHandler();
     }
 
     private static void initLookAndFeel() {
