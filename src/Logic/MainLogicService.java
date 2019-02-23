@@ -1,27 +1,19 @@
 package Logic;
 
-import Helpers.CsvHelper;
-import Helpers.GuiHelper;
-import Helpers.ParseHelper;
-import Helpers.PropertiesHelper;
+import Helpers.*;
 import Models.CsvItemModel;
 import Models.SearchResult;
 import Models.SearchResultItem;
+import Utils.RandomUtils;
 import Utils.StrUtils;
 import Utils.UrlUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.jsoup.Connection;
-import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -31,19 +23,22 @@ public class MainLogicService {
     private File inputFile;
 
     private boolean isWorkFlag = true;
-    private boolean isError = false;
 
     private boolean igSearch;
     private boolean twitterSearch;
 
     private final PropertiesHelper propertiesHelper;
     private final GuiHelper guiHelper;
+    private final ProxyHelper proxyHelper;
+    private final UserAgentRotatorHelper userAgentRotatorHelper;
 
     private int currentIndex = 0;
 
-    public MainLogicService(PropertiesHelper propertiesHelper,  GuiHelper guiHelper) {
+    public MainLogicService(PropertiesHelper propertiesHelper, GuiHelper guiHelper, ProxyHelper proxyHelper, UserAgentRotatorHelper userAgentRotatorHelper) {
         this.propertiesHelper = propertiesHelper;
         this.guiHelper = guiHelper;
+        this.proxyHelper = proxyHelper;
+        this.userAgentRotatorHelper = userAgentRotatorHelper;
     }
 
     public void ApplicationStart() {
@@ -79,11 +74,11 @@ public class MainLogicService {
             currentIndex = i;
             updateStatus("");
 
-            String igSearchRequest = UrlUtils.createURLForIgSearch(csvFileData.get(i));
-            Element igBody = ParseHelper.getQueryBody(igSearchRequest, new Random().nextInt(50000-20000) + 20000);
+            String igSearchRequestString = UrlUtils.createURLForIgSearch(csvFileData.get(i));
+            Element igBody = ParseHelper.getQueryBody(igSearchRequestString, RandomUtils.getRandomMilliseconds(), proxyHelper.getNewProxy(), userAgentRotatorHelper.getRandomUserAgent());
 
-            String twitterSearchRequest = UrlUtils.createURLForIgSearch(csvFileData.get(i));
-            Element twitterBody = ParseHelper.getQueryBody(twitterSearchRequest, new Random().nextInt(50000-20000) + 20000);
+            String twitterSearchRequestString = UrlUtils.createURLForIgSearch(csvFileData.get(i));
+            Element twitterBody = ParseHelper.getQueryBody(twitterSearchRequestString,  RandomUtils.getRandomMilliseconds(), proxyHelper.getNewProxy(), userAgentRotatorHelper.getRandomUserAgent());
 
             if (igBody == null && twitterBody == null) {
                 csvFileData.get(i).notFound = "Not found";
@@ -113,32 +108,38 @@ public class MainLogicService {
             csvItem.notFound = "Not found";
             updateStatus("Result not found");
         }
+
         for (SearchResultItem result : results.getResults()) {
-            if (result.MainHeader.toLowerCase().contains(csvItem.URL.toLowerCase()) ||
-                    result.Description.toLowerCase().contains(csvItem.URL.toLowerCase()) ||
-                    result.SearchedLink.toLowerCase().contains(csvItem.URL.toLowerCase())) {
+
+            String mainHeaderResult = result.MainHeader.toLowerCase();
+            String descriptionResult = result.Description.toLowerCase();
+            String searchedLinkResult = result.SearchedLink.toLowerCase();
+
+            if (mainHeaderResult.contains(csvItem.URL.toLowerCase()) ||
+                    descriptionResult.contains(csvItem.URL.toLowerCase()) ||
+                    searchedLinkResult.contains(csvItem.URL.toLowerCase())) {
                 isContains = true;
-            } else if (result.MainHeader.toLowerCase().replace(" ", "")
+            } else if (mainHeaderResult.replace(" ", "")
                     .contains(csvItem.URL.toLowerCase().replace(" ", "")) ||
-                    result.Description.toLowerCase().replace(" ", "")
+                    descriptionResult.replace(" ", "")
                             .contains(csvItem.URL.toLowerCase().replace(" ", "")) ||
-                    result.SearchedLink.toLowerCase().replace(" ", "")
+                    searchedLinkResult.replace(" ", "")
                             .contains(csvItem.URL.toLowerCase().replace(" ", ""))) {
                 isContains = true;
-            } else if (result.MainHeader.toLowerCase().contains(csvItem.companyName.toLowerCase()) ||
-                    result.Description.toLowerCase().contains(csvItem.companyName.toLowerCase()) ||
-                    result.SearchedLink.toLowerCase().contains(csvItem.companyName.toLowerCase())) {
+            } else if (mainHeaderResult.contains(csvItem.companyName.toLowerCase()) ||
+                    descriptionResult.contains(csvItem.companyName.toLowerCase()) ||
+                    searchedLinkResult.contains(csvItem.companyName.toLowerCase())) {
                 isContains = true;
-            } else if (result.MainHeader.toLowerCase().replace(" ", "")
+            } else if (mainHeaderResult.replace(" ", "")
                     .contains(csvItem.companyName.toLowerCase().replace(" ", "")) ||
-                    result.Description.toLowerCase().replace(" ", "")
+                    descriptionResult.replace(" ", "")
                             .contains(csvItem.companyName.toLowerCase().replace(" ", "")) ||
-                    result.SearchedLink.toLowerCase().replace(" ", "")
+                    searchedLinkResult.replace(" ", "")
                             .contains(csvItem.companyName.toLowerCase().replace(" ", ""))) {
                 isContains = true;
-            } else if (result.MainHeader.toLowerCase().contains(csvItem.getPureName().toLowerCase()) ||
-                    result.Description.toLowerCase().contains(csvItem.getPureName().toLowerCase()) ||
-                    result.SearchedLink.toLowerCase().contains(csvItem.getPureName().toLowerCase())) {
+            } else if (mainHeaderResult.contains(csvItem.getPureName().toLowerCase()) ||
+                    descriptionResult.contains(csvItem.getPureName().toLowerCase()) ||
+                    searchedLinkResult.contains(csvItem.getPureName().toLowerCase())) {
                 isContains = true;
             }
 

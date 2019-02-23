@@ -1,4 +1,4 @@
-import Helpers.ServicesHandler;
+import Handlers.ServicesHandler;
 import javax.swing.*;
 
 public class Main {

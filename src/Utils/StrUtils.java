@@ -2,6 +2,9 @@ package Utils;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class StrUtils {
 
     public static String igLinkSearchPattern = "(((instagram\\.com\\/)|(ig\\ ?\\-\\ ?))([A-Za-z0-9_](?:(?:[A-Za-z0-9_]|(?:\\.(?!\\.))){0,28}(?:[A-Za-z0-9_]))?))|(@([a-z0-9_]{1,255}))";
@@ -31,4 +34,20 @@ public class StrUtils {
             return "..." + path.substring(path.length() - (size - 3));
         }
     }
+
+    public static boolean isProxyGrabbed(String response) {
+        if (response.isEmpty()) {
+            return false;
+        }
+        Pattern pattern = Pattern.compile("^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]):[0-9]+$");
+        Matcher matcher = pattern.matcher(response);
+        if (matcher.find())
+        {
+            return true;
+        }
+        return false;
+    }
+
+
+
 }

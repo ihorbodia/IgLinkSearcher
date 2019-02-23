@@ -1,18 +1,20 @@
-package Helpers;
+package Handlers;
 
 import GUI.Bootstrapper;
+import Helpers.*;
 import Logic.MainLogicService;
 import Utils.DialogUtils;
 import Utils.StrUtils;
 
 import java.io.File;
-import java.nio.file.Files;
 
 public class ServicesHandler {
 
     private MainLogicService mainLogicService;
     private PropertiesHelper propertiesHelper;
     private GuiHelper guiHelper;
+    private ProxyHelper proxyHelper;
+    private UserAgentRotatorHelper useraAgentRotatorHelper;
 
     private Bootstrapper bootstrapper;
 
@@ -20,6 +22,8 @@ public class ServicesHandler {
         initProperties();
         initGUI();
         initLogic();
+        initProxyService();
+        initUserAgentsRotator();
         mapGuiActionsToLogic();
     }
 
@@ -33,8 +37,16 @@ public class ServicesHandler {
     }
 
     private void initLogic() {
-        mainLogicService = new MainLogicService(propertiesHelper, guiHelper);
+        mainLogicService = new MainLogicService(propertiesHelper, guiHelper, proxyHelper);
         mainLogicService.ApplicationStart();
+    }
+
+    private void initProxyService() {
+        proxyHelper = new ProxyHelper(guiHelper);
+    }
+
+    private void initUserAgentsRotator() {
+        useraAgentRotatorHelper = new UserAgentRotatorHelper();
     }
 
     private void mapGuiActionsToLogic() {
@@ -51,12 +63,15 @@ public class ServicesHandler {
         bootstrapper.getStopButton().addActionListener(e -> {
             propertiesHelper.saveIndex(0);
             propertiesHelper.saveIsWork(false);
-            guiHelper.updateStatusText("Stopping...");});
+            guiHelper.updateStatusText("Stopping...");
+        });
         bootstrapper.getSelectFileButton().addActionListener(e -> {
             File file = FilesHelper.setUpInputFile(DialogUtils.selectFolderDialog());
             mainLogicService.setInputFilePath(file);
-            propertiesHelper.saveSelectedInputFile(file.getAbsolutePath());
-            guiHelper.setInputFilePath(StrUtils.cutPath(file.getAbsolutePath()));
+            if (file != null) {
+                propertiesHelper.saveSelectedInputFile(file.getAbsolutePath());
+                guiHelper.setInputFilePath(StrUtils.cutPath(file.getAbsolutePath()));
+            }
         });
         bootstrapper.getIsIngCheckBox().addActionListener(e -> mainLogicService.setIsIgSearch(bootstrapper.getIsIngCheckBox().isSelected()));
         bootstrapper.getIsTwitterCheckBox().addActionListener(e -> mainLogicService.setIsTwitterSearch(bootstrapper.getIsTwitterCheckBox().isSelected()));

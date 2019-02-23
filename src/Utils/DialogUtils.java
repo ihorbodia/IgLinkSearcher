@@ -1,10 +1,6 @@
 package Utils;
 
-import GUI.Bootstrapper;
 import Helpers.GuiHelper;
-import Helpers.ServicesHandler;
-import org.apache.commons.lang3.StringUtils;
-
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
