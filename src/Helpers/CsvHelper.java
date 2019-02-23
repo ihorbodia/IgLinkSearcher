@@ -20,7 +20,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class CsvHelper {
-    public static ArrayList initCSVItems(File inputCsvFile) {
+    public static ArrayList<CsvItemModel> initCSVItems(File inputCsvFile) {
         ArrayList csvFileData = new ArrayList<CsvItemModel>();
         if (inputCsvFile == null){
             return csvFileData;

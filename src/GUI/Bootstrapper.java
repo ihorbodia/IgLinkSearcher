@@ -22,17 +22,7 @@ public class Bootstrapper extends JFrame {
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
-    public String cutPath(String path) {
-        int size = 70;
-        if (path.length() <= size) {
-            return path;
-        } else if (path.length() > size) {
-            return "..." + path.substring(path.length() - (size - 3));
-        } else {
-            // whatever is appropriate in this case
-            throw new IllegalArgumentException("Something wrong with file path cut");
-        }
-    }
+
 
     public JLabel getLabelStatusData() {
         return labelStatusData;

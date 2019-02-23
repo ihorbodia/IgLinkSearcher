@@ -2,11 +2,13 @@ package Logic;
 
 import Helpers.CsvHelper;
 import Helpers.GuiHelper;
+import Helpers.ParseHelper;
 import Helpers.PropertiesHelper;
 import Models.CsvItemModel;
 import Models.SearchResult;
 import Models.SearchResultItem;
 import Utils.StrUtils;
+import Utils.UrlUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
@@ -39,9 +41,6 @@ public class MainLogicService {
 
     private int currentIndex = 0;
 
-    int max = 70000;
-    int min = 30000;
-
     public MainLogicService(PropertiesHelper propertiesHelper,  GuiHelper guiHelper) {
         this.propertiesHelper = propertiesHelper;
         this.guiHelper = guiHelper;
@@ -61,22 +60,11 @@ public class MainLogicService {
 
             guiHelper.checkInstagramSearch(igSearch);
             guiHelper.checkTwitterSearch(isTwitterSearch);
-            Run();
+            StartWork();
         }
     }
 
-    public void Run() {
-        guiHelper.updateStatusText("Starting");
-        Thread worker = new Thread(() -> {
-            guiHelper.changeApplicationStateToWork(true);
-            isError = false;
-            StartWork();
-            guiHelper.changeApplicationStateToWork(false);
-        });
-        worker.start();
-    }
-
-    private void StartWork () {
+    public void StartWork () {
         int index = propertiesHelper.getIndex();
         csvFileData = CsvHelper.initCSVItems(inputFile);
         for (int i = index; i < csvFileData.size();  i++) {
@@ -90,14 +78,21 @@ public class MainLogicService {
 
             currentIndex = i;
             updateStatus("");
-            Element body = getQueryBody(csvFileData.get(i));
-            if (body == null) {
+
+            String igSearchRequest = UrlUtils.createURLForIgSearch(csvFileData.get(i));
+            Element igBody = ParseHelper.getQueryBody(igSearchRequest, new Random().nextInt(50000-20000) + 20000);
+
+            String twitterSearchRequest = UrlUtils.createURLForIgSearch(csvFileData.get(i));
+            Element twitterBody = ParseHelper.getQueryBody(twitterSearchRequest, new Random().nextInt(50000-20000) + 20000);
+
+            if (igBody == null && twitterBody == null) {
                 csvFileData.get(i).notFound = "Not found";
                 CsvHelper.saveCSVItems(inputFile, csvFileData);
                 continue;
             }
+
             System.out.println(csvFileData.get(i).companyName);
-            SearchResult results = new SearchResult(body, igSearch, twitterSearch);
+            SearchResult results = new SearchResult(igBody, twitterBody);
             updateStatus("Found: "+ results.getResults().size()+"... Parsing.");
             checkResultToInstagramLink(results, csvFileData.get(i));
             CsvHelper.saveCSVItems(inputFile, csvFileData);
@@ -149,7 +144,7 @@ public class MainLogicService {
 
             if (isContains) {
                 if (igSearch) {
-                    Pattern igPattern = Pattern.compile("(((instagram\\.com\\/)|(ig\\ ?\\-\\ ?))([A-Za-z0-9_](?:(?:[A-Za-z0-9_]|(?:\\.(?!\\.))){0,28}(?:[A-Za-z0-9_]))?))|(@([a-z0-9_]{1,255}))");
+                    Pattern igPattern = Pattern.compile(StrUtils.igLinkSearchPattern);
                     Matcher igMatcher = igPattern.matcher(result.SearchedLink.toLowerCase());
                     if (igMatcher.find() && igMatcher.group(5).length() > 4) {
                         csvItem.foundInstagram = StrUtils.normalizeLink(igMatcher.group(0));
@@ -161,7 +156,7 @@ public class MainLogicService {
                 }
 
                 if (twitterSearch) {
-                    Pattern twitterPattern = Pattern.compile("((https?:\\/\\/)?(www\\.)?twitter\\.com\\/)?(t\\.co\\/)?(@|#!\\/)?([A-Za-z0-9_]{1,15})(\\/([-a-z]{1,20}))?");
+                    Pattern twitterPattern = Pattern.compile(StrUtils.twitterLinkSearchPattern);
                     Matcher twitterMatcher = twitterPattern.matcher(result.SearchedLink.toLowerCase());
                     if (twitterMatcher.find() && twitterMatcher.group(6).length() > 4) {
                         csvItem.foundTwitter = StrUtils.normalizeLink(twitterMatcher.group(0));
@@ -181,7 +176,7 @@ public class MainLogicService {
         }
     }
 
-    public void updateStatus(String additionalMessage) {
+    private void updateStatus(String additionalMessage) {
         if (csvFileData.size() > 1) {
            guiHelper.updateStatusText("Processed " + currentIndex + "/" + (csvFileData.size() - 1) +". "+ additionalMessage);
         }
@@ -195,76 +190,7 @@ public class MainLogicService {
         }
     }
 
-
-    private String createURL(CsvItemModel item) {
-        String searchTerm = "";
-        if (twitterSearch) {
-            searchTerm = "twitter "+ item.getPureName();
-        }
-        if (igSearch) {
-            searchTerm = "site:www.instagram.com "+item.companyName+" "+ item.getPureName() + " "+ item.URL;
-        }
-        try {
-            searchTerm = "https://www.google.com/search?q=" + URLEncoder.encode(searchTerm, "UTF-8") + "&pws=0&gl=us&gws_rd=cr";
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        return searchTerm;
-    }
-
-    private Connection.Response executeRequest(CsvItemModel item, int timeout) throws IOException, InterruptedException {
-        if (!isWorkFlag) {
-            return null;
-        }
-        System.out.println("Processing: " + timeout/1000 + " sec");
-        if (timeout > (max + min)) {
-            updateStatus("Waiting: " + (timeout/1000)/60 + " min");
-        }else {
-            updateStatus("Waiting: " + (timeout/1000) + " sec");
-        }
-
-        Thread.sleep(timeout);
-        return  Jsoup.connect(createURL(item))
-                .followRedirects(false)
-                .userAgent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_1) AppleWebKit/602.2.14 (KHTML, like Gecko) Version/10.0.1 Safari/602.2.14")
-                .method(Connection.Method.GET)
-                .ignoreHttpErrors(true)
-                .execute();
-    }
-
-    private Element getQueryBody(CsvItemModel item) {
-        Element doc = null;
-        try {
-            Connection.Response response = executeRequest(item, min + new Random().nextInt(max));
-            if (response != null) {
-                if (response.statusCode() == 302) {
-                    int triesCounter = 1;
-                    while (triesCounter < 3) {
-                        response = executeRequest(item, (min +(1200000 * triesCounter)) + new Random().nextInt(max + (1200000 * triesCounter)));
-                        triesCounter++;
-                    }
-                }
-                doc = response.parse().body();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return doc;
-    }
-
-    public void Stop() {
-        isWorkFlag = false;
-        propertiesHelper.saveIndex(0);
-        propertiesHelper.saveIsWork(false);
-        guiHelper.updateStatusText("Stopping...");
-    }
-
     public void setInputFilePath(File inputDataFile) {
-        if (inputFile == null) {
-            return;
-        }
         inputFile = inputDataFile;
-        propertiesHelper.saveSelectedInputFile(inputDataFile.getAbsolutePath());
-
     }
 }
