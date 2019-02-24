@@ -5,6 +5,7 @@ import Models.CsvItemModel;
 import Models.SearchResult;
 import Models.SearchResultItem;
 import Utils.RandomUtils;
+import Utils.SearchUtils;
 import Utils.StrUtils;
 import Utils.UrlUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -46,16 +47,23 @@ public class MainLogicService {
         if (!StringUtils.isEmpty(restoredPath)) {
             if (Files.exists(Paths.get(restoredPath))) {
                 guiHelper.setInputFilePath(restoredPath);
+                setInputFilePath(new File(restoredPath));
             }
         }
+        igSearch = propertiesHelper.getIsIgSearch();
+        twitterSearch = propertiesHelper.getIsTwitterSearch();
+        guiHelper.checkInstagramSearch(igSearch);
+        guiHelper.checkTwitterSearch(twitterSearch);
 
-        if (propertiesHelper.getIsWork()) {
-            boolean igSearch = propertiesHelper.getIsIgSearch();
-            boolean isTwitterSearch = propertiesHelper.getIsTwitterSearch();
-
-            guiHelper.checkInstagramSearch(igSearch);
-            guiHelper.checkTwitterSearch(isTwitterSearch);
-            StartWork();
+        if (propertiesHelper.getIsWork() && (igSearch || twitterSearch)) {
+            Thread worker = new Thread(() -> {
+                guiHelper.updateStatusText("Starting");
+                guiHelper.changeApplicationStateToWork(true);
+                StartWork();
+                guiHelper.changeApplicationStateToWork(false);
+                guiHelper.updateStatusText("Stopped");
+            });
+            worker.start();
         }
     }
 
@@ -70,15 +78,18 @@ public class MainLogicService {
             propertiesHelper.saveIndex(i);
             propertiesHelper.saveIsIgSearch(igSearch);
             propertiesHelper.saveIsTwitterSearch(twitterSearch);
+            propertiesHelper.saveIsWork(isWorkFlag);
 
             currentIndex = i;
             updateStatus("");
 
             String igSearchRequestString = UrlUtils.createURLForIgSearch(csvFileData.get(i));
-            Element igBody = ParseHelper.getQueryBody(igSearchRequestString, RandomUtils.getRandomMilliseconds(), proxyHelper.getNewProxy(), userAgentRotatorHelper.getRandomUserAgent());
+            System.out.println("Search for instagram links: " + igSearchRequestString);
+            Element igBody = ParseHelper.getQueryBody(igSearchRequestString, RandomUtils.getRandomMilliseconds(), proxyHelper, userAgentRotatorHelper.getRandomUserAgent());
 
-            String twitterSearchRequestString = UrlUtils.createURLForIgSearch(csvFileData.get(i));
-            Element twitterBody = ParseHelper.getQueryBody(twitterSearchRequestString,  RandomUtils.getRandomMilliseconds(), proxyHelper.getNewProxy(), userAgentRotatorHelper.getRandomUserAgent());
+            String twitterSearchRequestString = UrlUtils.createURLForTwitterSearch(csvFileData.get(i));
+            System.out.println("Search for twitter links: " + twitterSearchRequestString);
+            Element twitterBody = ParseHelper.getQueryBody(twitterSearchRequestString,  RandomUtils.getRandomMilliseconds(), proxyHelper, userAgentRotatorHelper.getRandomUserAgent());
 
             if (igBody == null && twitterBody == null) {
                 csvFileData.get(i).notFound = "Not found";
@@ -88,7 +99,8 @@ public class MainLogicService {
 
             System.out.println(csvFileData.get(i).companyName);
             SearchResult results = new SearchResult(igBody, twitterBody);
-            updateStatus("Found: "+ results.getResults().size()+"... Parsing.");
+            updateStatus("Found instagram results: "+ results.getIgResults().size()+"... Parsing.");
+            updateStatus("Found twitter results: "+ results.getTwitterResults().size()+"... Parsing.");
             checkResultToInstagramLink(results, csvFileData.get(i));
             CsvHelper.saveCSVItems(inputFile, csvFileData);
         }
@@ -96,80 +108,38 @@ public class MainLogicService {
 
     public void setIsIgSearch(boolean isIgSearch) {
         this.igSearch = isIgSearch;
+        disableEnableRunButton();
+        propertiesHelper.saveIsIgSearch(isIgSearch);
     }
 
     public void setIsTwitterSearch(boolean isTwitterSearch) {
         this.twitterSearch = isTwitterSearch;
+        disableEnableRunButton();
+        propertiesHelper.saveIsTwitterSearch(isTwitterSearch);
+    }
+
+    private void disableEnableRunButton() {
+        guiHelper.setIsEnabledRunButton((twitterSearch || igSearch));
     }
 
     private void checkResultToInstagramLink(SearchResult results, CsvItemModel csvItem) {
-        boolean isContains = false;
-        if (results.getResults().size() == 0) {
+        if (results.getIgResults().size() == 0 && results.getTwitterResults().size() == 0) {
             csvItem.notFound = "Not found";
             updateStatus("Result not found");
+            return;
         }
 
-        for (SearchResultItem result : results.getResults()) {
+        SearchResultItem igResultItem = SearchUtils.getRightResultItem(results.getIgResults(), csvItem);
+        SearchResultItem twitterResultItem = SearchUtils.getRightResultItem(results.getTwitterResults(), csvItem);
 
-            String mainHeaderResult = result.MainHeader.toLowerCase();
-            String descriptionResult = result.Description.toLowerCase();
-            String searchedLinkResult = result.SearchedLink.toLowerCase();
-
-            if (mainHeaderResult.contains(csvItem.URL.toLowerCase()) ||
-                    descriptionResult.contains(csvItem.URL.toLowerCase()) ||
-                    searchedLinkResult.contains(csvItem.URL.toLowerCase())) {
-                isContains = true;
-            } else if (mainHeaderResult.replace(" ", "")
-                    .contains(csvItem.URL.toLowerCase().replace(" ", "")) ||
-                    descriptionResult.replace(" ", "")
-                            .contains(csvItem.URL.toLowerCase().replace(" ", "")) ||
-                    searchedLinkResult.replace(" ", "")
-                            .contains(csvItem.URL.toLowerCase().replace(" ", ""))) {
-                isContains = true;
-            } else if (mainHeaderResult.contains(csvItem.companyName.toLowerCase()) ||
-                    descriptionResult.contains(csvItem.companyName.toLowerCase()) ||
-                    searchedLinkResult.contains(csvItem.companyName.toLowerCase())) {
-                isContains = true;
-            } else if (mainHeaderResult.replace(" ", "")
-                    .contains(csvItem.companyName.toLowerCase().replace(" ", "")) ||
-                    descriptionResult.replace(" ", "")
-                            .contains(csvItem.companyName.toLowerCase().replace(" ", "")) ||
-                    searchedLinkResult.replace(" ", "")
-                            .contains(csvItem.companyName.toLowerCase().replace(" ", ""))) {
-                isContains = true;
-            } else if (mainHeaderResult.contains(csvItem.getPureName().toLowerCase()) ||
-                    descriptionResult.contains(csvItem.getPureName().toLowerCase()) ||
-                    searchedLinkResult.contains(csvItem.getPureName().toLowerCase())) {
-                isContains = true;
-            }
-
-            if (isContains) {
-                if (igSearch) {
-                    Pattern igPattern = Pattern.compile(StrUtils.igLinkSearchPattern);
-                    Matcher igMatcher = igPattern.matcher(result.SearchedLink.toLowerCase());
-                    if (igMatcher.find() && igMatcher.group(5).length() > 4) {
-                        csvItem.foundInstagram = StrUtils.normalizeLink(igMatcher.group(0));
-                        updateStatus("Result: " + csvItem.foundInstagram);
-                    } else {
-                        csvItem.notFound = "Not found";
-                        updateStatus("Result not found");
-                    }
-                }
-
-                if (twitterSearch) {
-                    Pattern twitterPattern = Pattern.compile(StrUtils.twitterLinkSearchPattern);
-                    Matcher twitterMatcher = twitterPattern.matcher(result.SearchedLink.toLowerCase());
-                    if (twitterMatcher.find() && twitterMatcher.group(6).length() > 4) {
-                        csvItem.foundTwitter = StrUtils.normalizeLink(twitterMatcher.group(0));
-                        updateStatus("Result: " + csvItem.foundInstagram);
-                    } else {
-                        csvItem.notFound = "Not found";
-                        updateStatus("Result not found");
-                    }
-                }
-                break;
-            }
+        if (igResultItem != null && igSearch) {
+            csvItem.foundInstagram = SearchUtils.getSocialAccountFromString(igResultItem.SearchedLink.toLowerCase(), StrUtils.igLinkSearchPattern);
         }
+
+        if (twitterResultItem != null && twitterSearch) {
+            csvItem.foundTwitter = SearchUtils.getSocialAccountFromString(twitterResultItem.SearchedLink.toLowerCase(), StrUtils.twitterLinkSearchPattern);
+        }
+
         if (StringUtils.isEmpty(csvItem.foundInstagram) && StringUtils.isEmpty(csvItem.foundTwitter)) {
             csvItem.notFound = "Not found";
         } else {

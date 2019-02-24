@@ -3,28 +3,28 @@ package Helpers;
 import Models.ProxyObjectDto;
 import Utils.StrUtils;
 import com.google.gson.Gson;
+import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 
 import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.SocketTimeoutException;
-import java.net.URL;
+import java.net.*;
 
 public class ProxyHelper {
 
     private GuiHelper guiHelper;
+
     public ProxyHelper(GuiHelper guiHelper) {
         this.guiHelper = guiHelper;
     }
 
-    public ProxyObjectDto getNewProxy() {
+    public Proxy getNewProxy() {
         Connection.Response response = null;
         String json = null;
 
         boolean success = false;
 
-        while(!success) {
+        while (!success) {
             try {
                 response = Jsoup.connect("http://pubproxy.com/api/proxy?google=true&last_check=3&api=ZlBnbzgzUnhvUjBqbytFa1dZTzAzdz09&format=txt")
                         .ignoreContentType(true)
@@ -53,9 +53,12 @@ public class ProxyHelper {
             success = false;
         }
 
-        if(success) {
-            return new ProxyObjectDto(json);
+        Proxy proxy = null;
+        if (success) {
+            if (!StringUtils.isEmpty(json)) {
+                proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress(json.split(":")[0], Integer.parseInt(json.split(":")[1])));
+            }
         }
-        return null;
+        return proxy;
     }
 }

@@ -39,7 +39,6 @@ public class CsvHelper {
         return csvFileData;
     }
 
-
     public static void saveCSVItems(File inputFile, ArrayList<CsvItemModel> csvData) {
         if (csvData == null || csvData.size() == 0) {
             return;

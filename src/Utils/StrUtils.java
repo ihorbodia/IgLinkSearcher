@@ -9,6 +9,7 @@ public class StrUtils {
 
     public static String igLinkSearchPattern = "(((instagram\\.com\\/)|(ig\\ ?\\-\\ ?))([A-Za-z0-9_](?:(?:[A-Za-z0-9_]|(?:\\.(?!\\.))){0,28}(?:[A-Za-z0-9_]))?))|(@([a-z0-9_]{1,255}))";
     public static String twitterLinkSearchPattern = "((https?:\\/\\/)?(www\\.)?twitter\\.com\\/)?(t\\.co\\/)?(@|#!\\/)?([A-Za-z0-9_]{1,15})(\\/([-a-z]{1,20}))?";
+    public static String ipAddressPattern = "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]):[0-9]+$";
 
     public static String normalizeLink(String link) {
         if (StringUtils.isEmpty(link)) {
@@ -25,7 +26,6 @@ public class StrUtils {
         return result;
     }
 
-
     public static String cutPath(String path) {
         int size = 60;
         if (path.length() <= size) {
@@ -39,15 +39,8 @@ public class StrUtils {
         if (response.isEmpty()) {
             return false;
         }
-        Pattern pattern = Pattern.compile("^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]):[0-9]+$");
+        Pattern pattern = Pattern.compile(ipAddressPattern);
         Matcher matcher = pattern.matcher(response);
-        if (matcher.find())
-        {
-            return true;
-        }
-        return false;
+        return !matcher.find();
     }
-
-
-
 }

@@ -14,16 +14,16 @@ public class ServicesHandler {
     private PropertiesHelper propertiesHelper;
     private GuiHelper guiHelper;
     private ProxyHelper proxyHelper;
-    private UserAgentRotatorHelper useraAgentRotatorHelper;
+    private UserAgentRotatorHelper userAgentRotatorHelper;
 
     private Bootstrapper bootstrapper;
 
     public ServicesHandler() {
         initProperties();
-        initGUI();
-        initLogic();
-        initProxyService();
         initUserAgentsRotator();
+        initGUI();
+        initProxyService();
+        initLogic();
         mapGuiActionsToLogic();
     }
 
@@ -37,7 +37,7 @@ public class ServicesHandler {
     }
 
     private void initLogic() {
-        mainLogicService = new MainLogicService(propertiesHelper, guiHelper, proxyHelper);
+        mainLogicService = new MainLogicService(propertiesHelper, guiHelper, proxyHelper, userAgentRotatorHelper);
         mainLogicService.ApplicationStart();
     }
 
@@ -46,7 +46,7 @@ public class ServicesHandler {
     }
 
     private void initUserAgentsRotator() {
-        useraAgentRotatorHelper = new UserAgentRotatorHelper();
+        userAgentRotatorHelper = new UserAgentRotatorHelper();
     }
 
     private void mapGuiActionsToLogic() {

@@ -65,9 +65,16 @@ public class CsvItemModel {
         return result;
     }
 
+    public String getPureNameToLower() {
+        return getPureName().toLowerCase();
+    }
+
 
     public String getCompanyName() {
         return companyName;
+    }
+    public String getCompanyNameToLower() {
+        return companyName.toLowerCase();
     }
 
     public String get_field1() {
@@ -80,6 +87,9 @@ public class CsvItemModel {
 
     public String getURL() {
         return URL;
+    }
+    public String getURLToLower() {
+        return URL.toLowerCase();
     }
 
     public String getemail() {

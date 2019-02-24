@@ -8,7 +8,7 @@ import java.util.List;
 public class UserAgentRotatorHelper {
     private List<String> givenList;
     public UserAgentRotatorHelper() {
-        givenList = new ArrayList<>(initList());
+        givenList = new ArrayList<>();
         initList();
     }
 

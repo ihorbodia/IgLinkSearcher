@@ -15,7 +15,7 @@ public class GuiHelper {
     }
 
     public void checkTwitterSearch(boolean isTwitterSearch) {
-        bootstrapper.getIsIngCheckBox().setSelected(isTwitterSearch);
+        bootstrapper.getIsTwitterCheckBox().setSelected(isTwitterSearch);
     }
 
     public void setInputFilePath(String path) {
@@ -32,5 +32,9 @@ public class GuiHelper {
         bootstrapper.getSelectFileButton().setEnabled(!isWorkState);
         bootstrapper.getIsIngCheckBox().setEnabled(!isWorkState);
         bootstrapper.getIsTwitterCheckBox().setEnabled(!isWorkState);
+    }
+
+    public void setIsEnabledRunButton(boolean enabled) {
+        bootstrapper.getRunButton().setEnabled(enabled);
     }
 }

@@ -8,7 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SearchResult {
-    List<SearchResultItem> Results;
+    private List<SearchResultItem> IgResults;
+    private List<SearchResultItem> TwitterResults;
 
     public SearchResult(Element igBody, Element twitterBody) {
         if (igBody == null || igBody.text().toLowerCase().contains("The document has moved")) {
@@ -18,38 +19,38 @@ public class SearchResult {
             System.out.println("Twitter body is null");
         }
 
-        Results = new ArrayList<>();
-
+        IgResults = new ArrayList<>();
         Elements igResultsItems = igBody != null ? igBody.select("#res") : null;
         if (igResultsItems != null) {
             Elements resultDivs = igResultsItems.select("div.g");
             for (Element div : resultDivs) {
                 SearchResultItem item = new SearchResultItem(div);
                 if (SearchUtils.isHasInstagramSearchResultCriteria(item.SearchedLink)) {
-                    Results.add(new SearchResultItem(div));
-                    System.out.println("Result item: " + div);
-                    System.out.println("_____________________");
+                    IgResults.add(item);
                 }
             }
         }
 
+        TwitterResults = new ArrayList<>();
         Elements twitterResultsItems = twitterBody != null ? twitterBody.select("#res") : null;
         if (twitterResultsItems != null) {
             Elements resultDivs = twitterResultsItems.select("div.g");
             for (Element div : resultDivs) {
                 SearchResultItem item = new SearchResultItem(div);
                 if (SearchUtils.isHasTwitterSearchResultCriteria(item.SearchedLink)) {
-                    Results.add(new SearchResultItem(div));
-                    System.out.println("Result item: " + div);
-                    System.out.println("_____________________");
+                    TwitterResults.add(item);
                 }
             }
         }
-        System.out.println("Results: " + Results.size());
+        System.out.println("Ig results: " + IgResults.size());
+        System.out.println("Twitter results: " + TwitterResults.size());
         System.out.println();
     }
 
-    public List<SearchResultItem> getResults() {
-        return Results;
+    public List<SearchResultItem> getIgResults() {
+        return IgResults;
+    }
+    public List<SearchResultItem> getTwitterResults() {
+        return TwitterResults;
     }
 }
