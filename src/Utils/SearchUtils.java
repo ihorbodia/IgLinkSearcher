@@ -1,7 +1,6 @@
 package Utils;
 
 import Models.CsvItemModel;
-import Models.SearchResult;
 import Models.SearchResultItem;
 import org.apache.commons.lang3.StringUtils;
 
@@ -31,33 +30,23 @@ public class SearchUtils {
                 String descriptionResult = result.Description.toLowerCase();
                 String searchedLinkResult = result.SearchedLink.toLowerCase();
 
-                if (mainHeaderResult.contains(csvItem.getURLToLower())
-                        || descriptionResult.contains(csvItem.getURLToLower())
-                        || searchedLinkResult.contains(csvItem.getURLToLower())) {
+                if (StringUtils.containsAny(mainHeaderResult, csvItem.getURLToLower(), csvItem.getCompanyNameToLower(), csvItem.getPureNameToLower()) ||
+                    StringUtils.containsAny(descriptionResult, csvItem.getURLToLower(), csvItem.getCompanyNameToLower(), csvItem.getPureNameToLower()) ||
+                    StringUtils.containsAny(searchedLinkResult, csvItem.getURLToLower(), csvItem.getCompanyNameToLower(), csvItem.getPureNameToLower()) ||
+
+                    StringUtils.containsAny(mainHeaderResult.trim(), csvItem.getURLToLower().trim(), csvItem.getCompanyNameToLower().trim()) ||
+                    StringUtils.containsAny(descriptionResult.trim(), csvItem.getURLToLower().trim(), csvItem.getCompanyNameToLower().trim()) ||
+                    StringUtils.containsAny(searchedLinkResult.trim(), csvItem.getURLToLower().trim(), csvItem.getCompanyNameToLower().trim()))
+                {
                     res = result;
-                } else if (mainHeaderResult.trim().contains(csvItem.getURLToLower().trim())
-                        || descriptionResult.trim().contains(csvItem.getURLToLower().trim())
-                        || searchedLinkResult.trim().contains(csvItem.getURLToLower().trim())) {
-                    res = result;
-                } else if (mainHeaderResult.contains(csvItem.getCompanyNameToLower()) ||
-                        descriptionResult.contains(csvItem.getCompanyNameToLower()) ||
-                        searchedLinkResult.contains(csvItem.getCompanyNameToLower())) {
-                    res = result;
-                } else if (mainHeaderResult.trim().contains(csvItem.getCompanyNameToLower().trim()) ||
-                        descriptionResult.trim().contains(csvItem.getCompanyNameToLower().trim()) ||
-                        searchedLinkResult.trim().contains(csvItem.getCompanyNameToLower().trim())) {
-                    res = result;
-                } else if (mainHeaderResult.contains(csvItem.getPureNameToLower()) ||
-                        descriptionResult.contains(csvItem.getPureNameToLower()) ||
-                        searchedLinkResult.contains(csvItem.getPureNameToLower())) {
-                    res = result;
+                    break;
                 }
             }
         }
         return res;
     }
 
-    public static String getSocialAccountFromString(String value, String regexPattern){
+    public static String getSocialAccountFromString(String value, String regexPattern) {
         String result = null;
         Pattern pattern = Pattern.compile(regexPattern);
         Matcher matcher = pattern.matcher(value);

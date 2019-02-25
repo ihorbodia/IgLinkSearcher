@@ -15,8 +15,6 @@ import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class MainLogicService {
 
@@ -46,7 +44,7 @@ public class MainLogicService {
         String restoredPath = propertiesHelper.getSelectedInputFile();
         if (!StringUtils.isEmpty(restoredPath)) {
             if (Files.exists(Paths.get(restoredPath))) {
-                guiHelper.setInputFilePath(restoredPath);
+                guiHelper.setInputFilePath(StrUtils.cutPath(restoredPath));
                 setInputFilePath(new File(restoredPath));
             }
         }
@@ -104,9 +102,13 @@ public class MainLogicService {
             SearchResult results = new SearchResult(igBody, twitterBody);
             updateStatus("Found instagram results: "+ results.getIgResults().size()+"... Parsing.");
             updateStatus("Found twitter results: "+ results.getTwitterResults().size()+"... Parsing.");
-            checkResultToInstagramLink(results, csvFileData.get(i));
+            checkResultToLinks(results, csvFileData.get(i));
             CsvHelper.saveCSVItems(inputFile, csvFileData);
         }
+    }
+
+    public void StopWork() {
+        isWorkFlag = false;
     }
 
     public void setIsIgSearch(boolean isIgSearch) {
@@ -125,7 +127,7 @@ public class MainLogicService {
         guiHelper.setIsEnabledRunButton((twitterSearch || igSearch));
     }
 
-    private void checkResultToInstagramLink(SearchResult results, CsvItemModel csvItem) {
+    private void checkResultToLinks(SearchResult results, CsvItemModel csvItem) {
         if (results.getIgResults().size() == 0 && results.getTwitterResults().size() == 0) {
             csvItem.notFound = "Not found";
             updateStatus("Result not found");

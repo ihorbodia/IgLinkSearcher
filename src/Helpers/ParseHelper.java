@@ -1,5 +1,6 @@
 package Helpers;
 
+import Utils.RandomUtils;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
@@ -8,7 +9,7 @@ public class ParseHelper {
     public static Element getQueryBody(String url, int timeOut, ProxyHelper proxyHelper, String userAgent) {
         Element doc = null;
         int i = 0;
-        while (i < 3) {
+        while (i < 5) {
             try {
                 System.out.println("Processing in " + timeOut / 1000 + " seconds. Attempt: " + (i + 1) + "/3");
                 Thread.sleep(timeOut);
@@ -30,6 +31,7 @@ public class ParseHelper {
                 System.out.println("Error while request executing.");
                 System.out.println(e.getMessage());
             }
+            timeOut = RandomUtils.getRandomMilliseconds();
             i++;
         }
         return doc;

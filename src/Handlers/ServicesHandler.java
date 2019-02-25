@@ -29,7 +29,7 @@ public class ServicesHandler {
 
     private void initGUI() {
         bootstrapper = new Bootstrapper();
-        bootstrapper.setTitle("Instagram finder v2.0");
+        bootstrapper.setTitle("Instagram finder v2.1");
         bootstrapper.setVisible(true);
         bootstrapper.setResizable(false);
         bootstrapper.setSize(500, 130);
@@ -64,6 +64,7 @@ public class ServicesHandler {
             propertiesHelper.saveIndex(0);
             propertiesHelper.saveIsWork(false);
             guiHelper.updateStatusText("Stopping...");
+            mainLogicService.StopWork();
         });
         bootstrapper.getSelectFileButton().addActionListener(e -> {
             File file = FilesHelper.setUpInputFile(DialogUtils.selectFolderDialog());
