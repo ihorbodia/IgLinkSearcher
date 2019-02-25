@@ -62,9 +62,7 @@ public class SearchUtils {
         Pattern pattern = Pattern.compile(regexPattern);
         Matcher matcher = pattern.matcher(value);
         if (matcher.find()) {
-            if (matcher.group(5) != null && matcher.group(5).length() > 4) {
-                result = StrUtils.normalizeLink(matcher.group(0));
-            }
+            result = StrUtils.normalizeLink(matcher.group(0));
         }
         return result;
     }

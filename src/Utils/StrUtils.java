@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 public class StrUtils {
 
     public static String igLinkSearchPattern = "(((instagram\\.com\\/)|(ig\\ ?\\-\\ ?))([A-Za-z0-9_](?:(?:[A-Za-z0-9_]|(?:\\.(?!\\.))){0,28}(?:[A-Za-z0-9_]))?))|(@([a-z0-9_]{1,255}))";
-    public static String twitterLinkSearchPattern = "((https?:\\/\\/)?(www\\.)?twitter\\.com\\/)?(t\\.co\\/)?(@|#!\\/)?([A-Za-z0-9_]{1,15})(\\/([-a-z]{1,20}))?";
+    public static String twitterLinkSearchPattern = "((https?:\\/\\/)?(www\\.)?twitter\\.com\\/)?(t\\.co\\/)?(@|#!\\/)?([a-zA-Z0-9_]{1,15})";
     public static String ipAddressPattern = "^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\\\\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5]):[0-9]+$";
 
     public static String normalizeLink(String link) {

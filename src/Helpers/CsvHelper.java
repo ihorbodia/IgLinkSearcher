@@ -11,13 +11,11 @@ import com.opencsv.exceptions.CsvDataTypeMismatchException;
 import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import org.apache.commons.collections4.IteratorUtils;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.Reader;
-import java.io.Writer;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 
 public class CsvHelper {
     public static ArrayList<CsvItemModel> initCSVItems(File inputCsvFile) {
@@ -26,13 +24,18 @@ public class CsvHelper {
             return csvFileData;
         }
         try {
-            Reader reader = Files.newBufferedReader(Paths.get(inputCsvFile.getAbsolutePath()));
-            CsvToBean<CsvItemModel> csvToBean = new CsvToBeanBuilder(reader)
+            List<String> lines = Files.readAllLines(Paths.get(inputCsvFile.getAbsolutePath()));
+            StringBuilder buffer = new StringBuilder();
+            for(String current : lines) {
+                buffer.append(current).append(System.lineSeparator());
+            }
+            BufferedReader buffReader = new BufferedReader(new StringReader(buffer.toString()));
+            CsvToBean<CsvItemModel> csvToBean = new CsvToBeanBuilder(buffReader)
                     .withType(CsvItemModel.class)
                     .withFieldAsNull(CSVReaderNullFieldIndicator.NEITHER)
                     .build();
             csvFileData.addAll(IteratorUtils.toList(csvToBean.iterator()));
-            reader.close();
+            buffReader.close();
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }

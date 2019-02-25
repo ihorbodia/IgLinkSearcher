@@ -70,6 +70,9 @@ public class MainLogicService {
     public void StartWork () {
         int index = propertiesHelper.getIndex();
         csvFileData = CsvHelper.initCSVItems(inputFile);
+        if (csvFileData.size() == 0) {
+            guiHelper.updateStatusText("Problem with input file");
+        }
         for (int i = index; i < csvFileData.size();  i++) {
             if (!isWorkFlag) {
                 break;
