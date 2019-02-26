@@ -29,7 +29,7 @@ public class ServicesHandler {
 
     private void initGUI() {
         bootstrapper = new Bootstrapper();
-        bootstrapper.setTitle("Instagram finder v2.1");
+        bootstrapper.setTitle("Instagram finder v2.2");
         bootstrapper.setVisible(true);
         bootstrapper.setResizable(false);
         bootstrapper.setSize(500, 130);

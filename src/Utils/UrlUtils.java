@@ -12,7 +12,7 @@ public class UrlUtils {
         String searchTerm = "twitter " + item.getPureName();
         String result = null;
         try {
-            result = "https://www.google.com/search?q=" + URLEncoder.encode(searchTerm, "UTF-8") + "&pws=0&gl=us&gws_rd=cr&num=25";
+            result = "https://www.google.com/search?q=" + URLEncoder.encode(searchTerm, "UTF-8") + "&pws=0&gl=us&gws_rd=cr&num=15";
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
@@ -23,7 +23,7 @@ public class UrlUtils {
         String searchTerm = "site:www.instagram.com " + item.companyName + " " + item.getPureName() + " " + item.URL;
         String result = null;
         try {
-            result = "https://www.google.com/search?q=" + URLEncoder.encode(searchTerm, "UTF-8") + "&pws=0&gl=us&gws_rd=cr&num=25";
+            result = "https://www.google.com/search?q=" + URLEncoder.encode(searchTerm, "UTF-8") + "&pws=0&gl=us&gws_rd=cr&num=15";
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
