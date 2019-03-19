@@ -28,41 +28,18 @@ public class MainLogicService {
 
     private final PropertiesHelper propertiesHelper;
     private final GuiHelper guiHelper;
-    private final ProxyHelper proxyHelper;
     private final UserAgentRotatorHelper userAgentRotatorHelper;
 
     private int currentIndex = 0;
 
-    public MainLogicService(PropertiesHelper propertiesHelper, GuiHelper guiHelper, ProxyHelper proxyHelper, UserAgentRotatorHelper userAgentRotatorHelper) {
+    public MainLogicService(PropertiesHelper propertiesHelper, GuiHelper guiHelper, UserAgentRotatorHelper userAgentRotatorHelper) {
         this.propertiesHelper = propertiesHelper;
         this.guiHelper = guiHelper;
-        this.proxyHelper = proxyHelper;
         this.userAgentRotatorHelper = userAgentRotatorHelper;
     }
 
     public void ApplicationStart() {
-        String restoredPath = propertiesHelper.getSelectedInputFile();
-        if (!StringUtils.isEmpty(restoredPath)) {
-            if (Files.exists(Paths.get(restoredPath))) {
-                guiHelper.setInputFilePath(StrUtils.cutPath(restoredPath));
-                setInputFilePath(new File(restoredPath));
-            }
-        }
-        igSearch = propertiesHelper.getIsIgSearch();
-        twitterSearch = propertiesHelper.getIsTwitterSearch();
-        guiHelper.checkInstagramSearch(igSearch);
-        guiHelper.checkTwitterSearch(twitterSearch);
 
-        if (propertiesHelper.getIsWork() && (igSearch || twitterSearch)) {
-            Thread worker = new Thread(() -> {
-                guiHelper.updateStatusText("Starting");
-                guiHelper.changeApplicationStateToWork(true);
-                StartWork();
-                guiHelper.changeApplicationStateToWork(false);
-                guiHelper.updateStatusText("Stopped");
-            });
-            worker.start();
-        }
     }
 
     public void StartWork () {
@@ -86,11 +63,11 @@ public class MainLogicService {
 
             String igSearchRequestString = UrlUtils.createURLForIgSearch(csvFileData.get(i));
             System.out.println("Search for instagram links: " + igSearchRequestString);
-            Element igBody = ParseHelper.getQueryBody(igSearchRequestString, RandomUtils.getRandomMilliseconds(), proxyHelper, userAgentRotatorHelper.getRandomUserAgent());
+            Element igBody = ParseHelper.getQueryBody(igSearchRequestString, RandomUtils.getRandomMilliseconds(), userAgentRotatorHelper.getRandomUserAgent());
 
             String twitterSearchRequestString = UrlUtils.createURLForTwitterSearch(csvFileData.get(i));
             System.out.println("Search for twitter links: " + twitterSearchRequestString);
-            Element twitterBody = ParseHelper.getQueryBody(twitterSearchRequestString,  RandomUtils.getRandomMilliseconds(), proxyHelper, userAgentRotatorHelper.getRandomUserAgent());
+            Element twitterBody = ParseHelper.getQueryBody(twitterSearchRequestString,  RandomUtils.getRandomMilliseconds(), userAgentRotatorHelper.getRandomUserAgent());
 
             if (igBody == null && twitterBody == null) {
                 csvFileData.get(i).notFound = "Not found";

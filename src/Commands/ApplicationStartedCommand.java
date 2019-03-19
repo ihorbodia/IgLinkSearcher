@@ -1,9 +1,14 @@
 package Commands;
 
 import Servcies.DIResolver;
+import Servcies.GuiService;
+import Servcies.InputDataService;
+import Servcies.PropertiesService;
+import Utils.DirUtils;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
+import java.io.File;
 
 public class ApplicationStartedCommand extends AbstractAction {
 
@@ -15,6 +20,28 @@ public class ApplicationStartedCommand extends AbstractAction {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        PropertiesService propertiesService = diResolver.getPropertiesService();
+        GuiService guiService = diResolver.getGuiService();
+        InputDataService inputDataService = diResolver.getInputDataService();
 
+        File inputFile = propertiesService.getSelectedInputFile();
+        if (DirUtils.isFileOk(inputFile, "csv")) {
+            guiService.setInputFilePath(inputFile.getAbsolutePath());
+            inputDataService.initInputFile(inputFile);
+        }
+
+        boolean isInstagramSearch = propertiesService.getIsIgSearch();
+        guiService.setCheckedInstagramSearch(isInstagramSearch);
+
+        boolean isTwitterSearch = propertiesService.getIsTwitterSearch();
+        guiService.setCheckedTwitterSearch(isTwitterSearch);
+
+        if (propertiesService.getIsWork() && (isInstagramSearch || isTwitterSearch)) {
+            Thread worker = new Thread(() -> {
+                RunButtonActionCommand runButtonActionCommand = new RunButtonActionCommand(diResolver);
+                runButtonActionCommand.actionPerformed(new ActionEvent(this, ActionEvent.ACTION_PERFORMED, null));
+            });
+            worker.start();
+        }
     }
 }

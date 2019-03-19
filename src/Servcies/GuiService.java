@@ -1,6 +1,7 @@
 package Servcies;
 
 import GUI.*;
+import Utils.StrUtils;
 import org.tinylog.Logger;
 
 public class GuiService {
@@ -9,16 +10,16 @@ public class GuiService {
     public GuiService() {
     }
 
-    public void checkInstagramSearch(boolean isInstagramSearch) {
+    public void setCheckedInstagramSearch(boolean isInstagramSearch) {
         bootstrapper.getIsIngCheckBox().setSelected(isInstagramSearch);
     }
 
-    public void checkTwitterSearch(boolean isTwitterSearch) {
+    public void setCheckedTwitterSearch(boolean isTwitterSearch) {
         bootstrapper.getIsTwitterCheckBox().setSelected(isTwitterSearch);
     }
 
     public void setInputFilePath(String path) {
-        bootstrapper.getSelectedFileLabelData().setText(path);
+        bootstrapper.getSelectedFileLabelData().setText(StrUtils.cutPath(path));
     }
 
     public void updateStatusText(String statusText) {

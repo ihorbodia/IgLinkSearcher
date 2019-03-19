@@ -1,8 +1,8 @@
 package Engines;
 
-import Abstract.Models.RequestData;
-import Services.DIResolver;
-import Services.UserAgentsRotatorService;
+import Models.RequestData;
+import Servcies.DIResolver;
+import Servcies.UserAgentsRotatorService;
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
@@ -23,7 +23,7 @@ public class WebUrlEngine extends WebEngine {
 
     public Element getWebSourceData(RequestData requestData) {
         for (int i = 1; i <= attempts; i++) {
-            boolean isContinueWork = diResolver.getPropertiesService().getWorkState();
+            boolean isContinueWork = diResolver.getPropertiesService().getIsWork();
             if(!isContinueWork) {
                 return null;
             }
@@ -61,7 +61,6 @@ public class WebUrlEngine extends WebEngine {
                 .method(Connection.Method.GET)
                 .ignoreHttpErrors(true)
                 .ignoreContentType(true)
-                .timeout(60 * 1000)
                 .validateTLSCertificates(false)
                 .execute();
     }

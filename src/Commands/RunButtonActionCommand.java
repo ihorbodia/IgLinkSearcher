@@ -16,7 +16,6 @@ public class RunButtonActionCommand extends AbstractAction {
     public void actionPerformed(ActionEvent e) {
 
         diResolver.getUserAgentsRotatorService().initList();
-        PropertiesService propertiesService = diResolver.getPropertiesService();
         GuiService guiService = diResolver.getGuiService();
         guiService.setStatusText("Starting...");
 
@@ -29,4 +28,8 @@ public class RunButtonActionCommand extends AbstractAction {
         });
         worker.start();
     }
+
+
+
+
 }

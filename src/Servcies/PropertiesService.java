@@ -100,13 +100,13 @@ public class PropertiesService {
                 result = properties.get(propertyName).toString();
             }
         } catch (IOException ex) {
-            Logger.tag("SYSTEM").error(ex);
+            Logger.error(ex);
         } finally {
             if (input != null) {
                 try {
                     input.close();
                 } catch (IOException e) {
-                    Logger.tag("SYSTEM").error(e);
+                    Logger.error(e);
                 }
             }
         }

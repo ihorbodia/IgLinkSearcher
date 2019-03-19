@@ -9,7 +9,7 @@ public class SearchResultItem {
     public String SearchedLink;
     public String Description;
 
-    SearchResultItem(Element div) {
+    public SearchResultItem(Element div) {
         MainHeader = div.select("h3").text();
         SearchedLink = div.select("div.r > a").attr("href");
         if (StringUtils.isEmpty(SearchedLink)){
