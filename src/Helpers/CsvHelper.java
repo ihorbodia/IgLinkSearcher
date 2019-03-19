@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CsvHelper {
+
     public static ArrayList<CsvItemModel> initCSVItems(File inputCsvFile) {
         ArrayList csvFileData = new ArrayList<CsvItemModel>();
         if (inputCsvFile == null){

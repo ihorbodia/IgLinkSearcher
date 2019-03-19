@@ -9,8 +9,10 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="com.opencsv:opencsv:4.4" level="project" />
     <orderEntry type="library" name="org.jsoup:jsoup:1.11.3" level="project" />
-    <orderEntry type="library" name="com.google.code.gson:gson:2.8.5" level="project" />
-    <orderEntry type="library" name="htmlunit:htmlunit:1.14" level="project" />
-    <orderEntry type="library" name="com.google.code.gson:gson:2.8.51" level="project" />
+    <orderEntry type="library" name="org.tinylog:tinylog-api:2.0.0-M3" level="project" />
+    <orderEntry type="library" name="org.tinylog:tinylog-impl:2.0.0-M3" level="project" />
+    <orderEntry type="library" name="org.apache.commons:commons-lang3:3.8.1" level="project" />
+    <orderEntry type="library" name="org.apache.directory.studio:org.apache.commons.io:2.4" level="project" />
+    <orderEntry type="library" name="Keys" level="project" />
   </component>
 </module>

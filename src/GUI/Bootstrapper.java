@@ -1,5 +1,7 @@
 package GUI;
 
+import Servcies.DIResolver;
+
 import javax.swing.*;
 
 public class Bootstrapper extends JFrame {
@@ -14,15 +16,13 @@ public class Bootstrapper extends JFrame {
     private JCheckBox isIngCheckBox;
     private JCheckBox isTwitterCheckBox;
 
-    public Bootstrapper() {
+    public Bootstrapper(DIResolver diResolver) {
         getStopButton().setEnabled(false);
         this.setContentPane(mainPanel);
 
         mainPanel.setVisible(true);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
-
-
 
     public JLabel getLabelStatusData() {
         return labelStatusData;

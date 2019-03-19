@@ -60,12 +60,14 @@ public class ServicesHandler {
             });
             worker.start();
         });
+
         bootstrapper.getStopButton().addActionListener(e -> {
             propertiesHelper.saveIndex(0);
             propertiesHelper.saveIsWork(false);
             guiHelper.updateStatusText("Stopping...");
             mainLogicService.StopWork();
         });
+
         bootstrapper.getSelectFileButton().addActionListener(e -> {
             File file = FilesHelper.setUpInputFile(DialogUtils.selectFolderDialog());
             mainLogicService.setInputFilePath(file);
