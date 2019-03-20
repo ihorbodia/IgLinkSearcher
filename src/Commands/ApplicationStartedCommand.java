@@ -2,13 +2,9 @@ package Commands;
 
 import Servcies.DIResolver;
 import Servcies.GuiService;
-import Servcies.InputDataService;
 import Servcies.PropertiesService;
-import Utils.DirUtils;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
-import java.io.File;
 
 public class ApplicationStartedCommand extends AbstractAction {
 
@@ -22,13 +18,6 @@ public class ApplicationStartedCommand extends AbstractAction {
     public void actionPerformed(ActionEvent e) {
         PropertiesService propertiesService = diResolver.getPropertiesService();
         GuiService guiService = diResolver.getGuiService();
-        InputDataService inputDataService = diResolver.getInputDataService();
-
-        File inputFile = propertiesService.getSelectedInputFile();
-        if (DirUtils.isFileOk(inputFile, "csv")) {
-            guiService.setInputFilePath(inputFile.getAbsolutePath());
-            inputDataService.initInputFile(inputFile);
-        }
 
         boolean isInstagramSearch = propertiesService.getIsIgSearch();
         guiService.setCheckedInstagramSearch(isInstagramSearch);

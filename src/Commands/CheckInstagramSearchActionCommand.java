@@ -11,6 +11,7 @@ public class CheckInstagramSearchActionCommand extends AbstractAction {
     private final DIResolver diResolver;
 
     public CheckInstagramSearchActionCommand(DIResolver diResolver) {
+        super("Instagram");
         this.diResolver = diResolver;
     }
 

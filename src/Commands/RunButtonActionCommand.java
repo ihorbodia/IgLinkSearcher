@@ -1,5 +1,7 @@
 package Commands;
 
+import Models.Factories.SearchingModeFactory;
+import Models.Strategies.SearchingMode.SearchModeStrategyBase;
 import Servcies.*;
 
 import javax.swing.*;
@@ -9,6 +11,7 @@ public class RunButtonActionCommand extends AbstractAction {
     private final DIResolver diResolver;
 
     public RunButtonActionCommand(DIResolver diResolver) {
+        super("Run");
         this.diResolver = diResolver;
     }
 
@@ -19,17 +22,16 @@ public class RunButtonActionCommand extends AbstractAction {
         GuiService guiService = diResolver.getGuiService();
         guiService.setStatusText("Starting...");
 
+        SearchingModeFactory searchingModeFactory = new SearchingModeFactory(diResolver);
+        SearchModeStrategyBase searchModeStrategy = searchingModeFactory.createSearchModeStrategy();
+
         Thread worker = new Thread(() -> {
             guiService.updateStatusText("Starting");
             guiService.changeApplicationStateToWork(true);
-            mainLogicService.StartWork();
+            searchModeStrategy.processData(diResolver);
             guiService.changeApplicationStateToWork(false);
             guiService.updateStatusText("Stopped");
         });
         worker.start();
     }
-
-
-
-
 }

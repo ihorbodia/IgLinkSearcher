@@ -10,6 +10,7 @@ public class CheckTwitterSearchActionCommand extends AbstractAction {
     private final DIResolver diResolver;
 
     public CheckTwitterSearchActionCommand(DIResolver diResolver) {
+        super("Twitter");
         this.diResolver = diResolver;
     }
 

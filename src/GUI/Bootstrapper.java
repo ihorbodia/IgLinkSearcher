@@ -1,5 +1,6 @@
 package GUI;
 
+import Commands.*;
 import Servcies.DIResolver;
 
 import javax.swing.*;
@@ -22,6 +23,12 @@ public class Bootstrapper extends JFrame {
 
         mainPanel.setVisible(true);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        runButton.setAction(new RunButtonActionCommand(diResolver));
+        stopButton.setAction(new StopButtonActionCommand(diResolver));
+        selectFileButton.setAction(new SelectInputDataFileActionCommand(diResolver));
+        isIngCheckBox.setAction(new CheckInstagramSearchActionCommand(diResolver));
+        isTwitterCheckBox.setAction(new CheckTwitterSearchActionCommand(diResolver));
     }
 
     public JLabel getLabelStatusData() {

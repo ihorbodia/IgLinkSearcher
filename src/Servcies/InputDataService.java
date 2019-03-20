@@ -2,13 +2,17 @@ package Servcies;
 
 import Models.CsvItemModel;
 import Utils.DirUtils;
+import com.opencsv.CSVWriter;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
+import com.opencsv.bean.StatefulBeanToCsv;
+import com.opencsv.bean.StatefulBeanToCsvBuilder;
 import com.opencsv.enums.CSVReaderNullFieldIndicator;
+import com.opencsv.exceptions.CsvDataTypeMismatchException;
+import com.opencsv.exceptions.CsvRequiredFieldEmptyException;
 import org.apache.commons.collections4.IteratorUtils;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.StringReader;
+
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -39,7 +43,6 @@ public class InputDataService {
     }
 
     public void initInputFileData() {
-        ArrayList csvFileData = new ArrayList<CsvItemModel>();
         if (inputDataFile == null){
             return;
         }
@@ -50,14 +53,31 @@ public class InputDataService {
                 buffer.append(current).append(System.lineSeparator());
             }
             BufferedReader buffReader = new BufferedReader(new StringReader(buffer.toString()));
-            CsvToBean<CsvItemModel> csvToBean = new CsvToBeanBuilder(buffReader)
+            CsvToBean<CsvItemModel> csvToBean = new CsvToBeanBuilder<CsvItemModel>(buffReader)
                     .withType(CsvItemModel.class)
                     .withFieldAsNull(CSVReaderNullFieldIndicator.NEITHER)
                     .build();
-            csvFileData.addAll(IteratorUtils.toList(csvToBean.iterator()));
+            inputCsvModelItems = new ArrayList<>(IteratorUtils.toList(csvToBean.iterator()));
             buffReader.close();
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
+        }
+    }
+
+    public void updateResultCsvItems() {
+        if (inputCsvModelItems == null || inputCsvModelItems.size() == 0) {
+            return;
+        }
+        try {
+            Writer writer = Files.newBufferedWriter(Paths.get(inputDataFile.getAbsolutePath()));
+            StatefulBeanToCsv<CsvItemModel> beanToCsv = new StatefulBeanToCsvBuilder<CsvItemModel>(writer)
+                    .withQuotechar(CSVWriter.DEFAULT_QUOTE_CHARACTER)
+                    .withSeparator(CSVWriter.DEFAULT_SEPARATOR)
+                    .build();
+            beanToCsv.write(inputCsvModelItems);
+            writer.close();
+        } catch (IOException | CsvRequiredFieldEmptyException | CsvDataTypeMismatchException e) {
+            System.out.println(e.getMessage());
         }
     }
 

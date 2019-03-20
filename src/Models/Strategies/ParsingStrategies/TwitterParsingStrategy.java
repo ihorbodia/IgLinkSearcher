@@ -1,10 +1,10 @@
 package Models.Strategies.ParsingStrategies;
 
-import org.jsoup.nodes.Element;
+import Servcies.DIResolver;
 
-public class TwitterParsingStrategy implements IParsingStrategy {
-    @Override
-    public Element getSocialMediaDataFromResults(Element body) {
-        return null;
+public class TwitterParsingStrategy extends ParsingStrategyBase {
+
+    public TwitterParsingStrategy(DIResolver diResolver) {
+        super(diResolver);
     }
 }
