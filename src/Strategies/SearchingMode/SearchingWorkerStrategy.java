@@ -1,23 +1,18 @@
-package Models.Strategies.SearchingMode;
+package Strategies.SearchingMode;
 
-import Engines.WebUrlEngine;
 import Models.CsvItemModel;
-import Models.RequestData;
 import Models.SearchResultItem;
-import Models.Strategies.ParsingStrategies.InstagramParsingStrategy;
-import Models.Strategies.ParsingStrategies.ParsingStrategyBase;
-import Models.Strategies.ParsingStrategies.TwitterParsingStrategy;
+import Strategies.ParsingStrategies.InstagramParsingStrategy;
+import Strategies.ParsingStrategies.ParsingStrategyBase;
+import Strategies.ParsingStrategies.TwitterParsingStrategy;
 import Servcies.DIResolver;
 import Servcies.GuiService;
 import Servcies.InputDataService;
 import Utils.SearchUtils;
 import Utils.StrUtils;
-import Utils.UrlUtils;
-import javafx.scene.web.WebEngine;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.naming.directory.SearchResult;
-import java.util.ArrayList;
 import java.util.List;
 
 public class SearchingWorkerStrategy extends SearchModeStrategyBase {
@@ -47,8 +42,8 @@ public class SearchingWorkerStrategy extends SearchModeStrategyBase {
             ParsingStrategyBase instagramParsingStrategy = new InstagramParsingStrategy(diResolver);
             ParsingStrategyBase twitterParsingStrategy = new TwitterParsingStrategy(diResolver);
 
-            instagramParsingStrategy.getSocialMediaDataFromResults(csvFileData.get(i));
-            twitterParsingStrategy.getSocialMediaDataFromResults(csvFileData.get(i));
+            instagramParsingStrategy.getSocialMediaResults(csvFileData.get(i));
+            twitterParsingStrategy.getSocialMediaResults(csvFileData.get(i));
 
             if (igBody == null && twitterBody == null) {
                 csvFileData.get(i).notFound = "Not found";

@@ -1,6 +1,6 @@
 package Servcies;
 
-import Models.Strategies.SearchingMode.SearchModeStrategyBase;
+import Strategies.SearchingMode.SearchModeStrategyBase;
 import org.tinylog.Logger;
 
 public class DIResolver {

@@ -1,4 +1,4 @@
-package Models.Factories;
+package Factories;
 
 public class ParsingStrategiesFactory {
 

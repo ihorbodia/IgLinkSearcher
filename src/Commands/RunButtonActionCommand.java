@@ -1,7 +1,7 @@
 package Commands;
 
-import Models.Factories.SearchingModeFactory;
-import Models.Strategies.SearchingMode.SearchModeStrategyBase;
+import Factories.SearchingModeFactory;
+import Strategies.SearchingMode.SearchModeStrategyBase;
 import Servcies.*;
 
 import javax.swing.*;

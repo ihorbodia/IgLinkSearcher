@@ -1,7 +1,7 @@
-package Models.Factories;
+package Factories;
 
-import Models.Strategies.SearchingMode.SearchModeStrategyBase;
-import Models.Strategies.SearchingMode.SearchingWorkerStrategy;
+import Strategies.SearchingMode.SearchModeStrategyBase;
+import Strategies.SearchingMode.SearchingWorkerStrategy;
 import Servcies.*;
 import Utils.DirUtils;
 import java.io.File;

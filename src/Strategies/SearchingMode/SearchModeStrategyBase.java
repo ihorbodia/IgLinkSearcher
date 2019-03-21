@@ -1,4 +1,4 @@
-package Models.Strategies.SearchingMode;
+package Strategies.SearchingMode;
 
 import Servcies.DIResolver;
 
