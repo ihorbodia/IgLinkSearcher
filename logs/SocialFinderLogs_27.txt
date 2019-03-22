@@ -1,0 +1,217 @@
+16:08:12 INFO: Servcies.DIResolver.<init>()
+ Application started...
+
+16:08:14 INFO: Engines.ProxyEngine.getNewProxy()
+ Proxy: 142.93.128.158:8080
+
+16:08:15 INFO: Engines.WebUrlEngine.getWebSourceData()
+ Attempt: 1
+
+16:08:15 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: null
+
+16:08:31 INFO: Engines.ProxyEngine.getNewProxy()
+ Proxy: 68.183.41.244:8080
+
+16:08:32 INFO: Engines.WebUrlEngine.getWebSourceData()
+ Attempt: 2
+
+16:08:32 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: null
+
+16:08:47 INFO: Engines.ProxyEngine.getNewProxy()
+ Proxy: 159.65.141.5:8080
+
+16:08:50 INFO: Engines.WebUrlEngine.getWebSourceData()
+ Response OK from: https://www.google.com/search?q=site%3Awww.instagram.com+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15
+
+16:08:51 INFO: Engines.ProxyEngine.getNewProxy()
+ Proxy: 94.74.191.143:23500
+
+16:08:53 INFO: Engines.WebUrlEngine.getWebSourceData()
+ Response OK from: https://www.google.com/search?q=twitter+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15
+
+16:08:59 INFO: Engines.ProxyEngine.getNewProxy()
+ Proxy: 103.106.114.58:8080
+
+16:09:20 INFO: Engines.WebUrlEngine.getWebSourceData()
+ Attempt: 1
+
+16:09:20 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+www.gallery19c.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: Connection timed out: connect
+
+16:09:35 INFO: Engines.ProxyEngine.getNewProxy()
+ Proxy: 151.106.10.103:1080
+
+16:10:01 INFO: Engines.WebUrlEngine.getWebSourceData()
+ Attempt: 2
+
+16:10:01 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+www.gallery19c.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: null
+
+16:10:16 INFO: Engines.ProxyEngine.getNewProxy()
+ Proxy: 5.23.103.98:54754
+
+16:10:17 INFO: Engines.WebUrlEngine.getWebSourceData()
+ Response OK from: https://www.google.com/search?q=site%3Awww.instagram.com+www.gallery19c.com&pws=0&gl=us&gws_rd=cr&num=15
+
+16:10:18 INFO: Engines.ProxyEngine.getNewProxy()
+ Proxy: 157.230.90.113:8080
+
+16:10:19 INFO: Engines.WebUrlEngine.getWebSourceData()
+ Response OK from: https://www.google.com/search?q=twitter+www.gallery19c.com&pws=0&gl=us&gws_rd=cr&num=15
+
+16:10:20 INFO: Engines.ProxyEngine.getNewProxy()
+ Proxy: 103.106.114.58:8080
+
+16:10:41 INFO: Engines.WebUrlEngine.getWebSourceData()
+ Attempt: 1
+
+16:10:41 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+www.kennethafriedman.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: Connection timed out: connect
+
+16:10:57 INFO: Engines.ProxyEngine.getNewProxy()
+ Proxy: 199.119.96.155:13750
+
+16:10:57 INFO: Engines.WebUrlEngine.getWebSourceData()
+ Attempt: 2
+
+16:10:57 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+www.kennethafriedman.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: Connection reset
+
+16:11:12 INFO: Engines.ProxyEngine.getNewProxy()
+ Proxy: 94.130.20.85:31288
+
+16:11:14 INFO: Engines.WebUrlEngine.getWebSourceData()
+ Attempt: 3
+
+16:11:14 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+www.kennethafriedman.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: null
+
+16:11:29 INFO: Engines.ProxyEngine.getNewProxy()
+ Proxy: 157.230.94.149:8080
+
+16:11:30 INFO: Engines.WebUrlEngine.getWebSourceData()
+ Response OK from: https://www.google.com/search?q=site%3Awww.instagram.com+www.kennethafriedman.com&pws=0&gl=us&gws_rd=cr&num=15
+
+16:11:31 INFO: Engines.ProxyEngine.getNewProxy()
+ Proxy: 159.65.1.242:8080
+
+16:11:33 INFO: Engines.WebUrlEngine.getWebSourceData()
+ Response OK from: https://www.google.com/search?q=twitter+www.kennethafriedman.com&pws=0&gl=us&gws_rd=cr&num=15
+
+16:11:33 INFO: Engines.ProxyEngine.getNewProxy()
+ Proxy: 128.199.80.51:8080
+
+16:11:37 INFO: Engines.WebUrlEngine.getWebSourceData()
+ Attempt: 1
+
+16:11:37 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+www.galeriexx.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: null
+
+16:11:54 INFO: Engines.ProxyEngine.getNewProxy()
+ Proxy: 159.203.19.216:8080
+
+16:11:54 INFO: Engines.WebUrlEngine.getWebSourceData()
+ Response OK from: https://www.google.com/search?q=site%3Awww.instagram.com+www.galeriexx.com&pws=0&gl=us&gws_rd=cr&num=15
+
+16:11:55 INFO: Engines.ProxyEngine.getNewProxy()
+ Proxy: 157.230.90.113:8080
+
+16:11:56 INFO: Engines.WebUrlEngine.getWebSourceData()
+ Response OK from: https://www.google.com/search?q=twitter+www.galeriexx.com&pws=0&gl=us&gws_rd=cr&num=15
+
+16:11:56 INFO: Engines.ProxyEngine.getNewProxy()
+ Proxy: 157.230.94.149:8080
+
+16:11:57 INFO: Engines.WebUrlEngine.getWebSourceData()
+ Response OK from: https://www.google.com/search?q=site%3Awww.instagram.com+www.revolverwarholgallery.com&pws=0&gl=us&gws_rd=cr&num=15
+
+16:11:57 INFO: Engines.ProxyEngine.getNewProxy()
+ Proxy: 209.97.166.150:8080
+
+16:12:08 INFO: Engines.WebUrlEngine.getWebSourceData()
+ Response OK from: https://www.google.com/search?q=twitter+www.revolverwarholgallery.com&pws=0&gl=us&gws_rd=cr&num=15
+
+16:12:11 INFO: Engines.ProxyEngine.getNewProxy()
+ Proxy: 167.99.76.184:8080
+
+16:12:12 INFO: Engines.WebUrlEngine.getWebSourceData()
+ Response OK from: https://www.google.com/search?q=site%3Awww.instagram.com+www.estellagallery.com&pws=0&gl=us&gws_rd=cr&num=15
+
+16:12:13 INFO: Engines.ProxyEngine.getNewProxy()
+ Proxy: 199.119.96.155:13750
+
+16:12:13 INFO: Engines.WebUrlEngine.getWebSourceData()
+ Attempt: 1
+
+16:12:13 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=twitter+www.estellagallery.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: Connection reset
+
+16:12:29 INFO: Engines.ProxyEngine.getNewProxy()
+ Proxy: 157.230.94.149:8080
+
+16:12:30 INFO: Engines.WebUrlEngine.getWebSourceData()
+ Response OK from: https://www.google.com/search?q=twitter+www.estellagallery.com&pws=0&gl=us&gws_rd=cr&num=15
+
+16:12:31 INFO: Engines.ProxyEngine.getNewProxy()
+ Proxy: 142.93.128.158:8080
+
+16:12:32 INFO: Engines.WebUrlEngine.getWebSourceData()
+ Attempt: 1
+
+16:12:32 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+www.false-flag.org&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: null
+
+16:12:47 INFO: Engines.ProxyEngine.getNewProxy()
+ Proxy: 206.189.216.141:8080
+
+16:12:49 INFO: Engines.WebUrlEngine.getWebSourceData()
+ Response OK from: https://www.google.com/search?q=site%3Awww.instagram.com+www.false-flag.org&pws=0&gl=us&gws_rd=cr&num=15
+
+16:12:51 INFO: Engines.ProxyEngine.getNewProxy()
+ Proxy: 94.130.20.85:31288
+
+16:12:52 INFO: Engines.WebUrlEngine.getWebSourceData()
+ Attempt: 1
+
+16:12:52 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=twitter+www.false-flag.org&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: null
+
+16:13:07 INFO: Engines.ProxyEngine.getNewProxy()
+ Proxy: 50.197.139.162:36609
+
+16:13:28 INFO: Engines.WebUrlEngine.getWebSourceData()
+ Attempt: 2
+
+16:13:28 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=twitter+www.false-flag.org&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: Connection timed out: connect
+
+16:13:44 INFO: Engines.ProxyEngine.getNewProxy()
+ Proxy: 206.189.216.141:8080
+
+16:13:45 INFO: Engines.WebUrlEngine.getWebSourceData()
+ Response OK from: https://www.google.com/search?q=twitter+www.false-flag.org&pws=0&gl=us&gws_rd=cr&num=15
+
+16:13:47 INFO: Engines.ProxyEngine.getNewProxy()
+ Proxy: 13.113.154.91:8080
+
+16:13:48 INFO: Engines.WebUrlEngine.getWebSourceData()
+ Attempt: 1
+
+16:13:48 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+www.harrisschrank.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: Unable to tunnel through proxy. Proxy returns "HTTP/1.1 502 Bad Gateway"
+

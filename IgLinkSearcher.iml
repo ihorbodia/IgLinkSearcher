@@ -14,5 +14,6 @@
     <orderEntry type="library" name="org.apache.commons:commons-lang3:3.8.1" level="project" />
     <orderEntry type="library" name="org.apache.directory.studio:org.apache.commons.io:2.4" level="project" />
     <orderEntry type="library" name="Keys" level="project" />
+    <orderEntry type="library" name="org.apache.commons:commons-io:1.3.2" level="project" />
   </component>
 </module>

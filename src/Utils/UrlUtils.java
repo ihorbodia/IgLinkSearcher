@@ -1,7 +1,7 @@
 package Utils;
 
 import Models.CsvItemModel;
-import org.apache.commons.lang3.StringUtils;
+import org.tinylog.Logger;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -9,23 +9,23 @@ import java.net.URLEncoder;
 public class UrlUtils {
 
     public static String createURLForTwitterSearch(CsvItemModel item) {
-        String searchTerm = "twitter " + item.getPureName();
+        String searchTerm = "twitter " + StrUtils.extractWebSiteFromLongLink(item.URL);
         String result = null;
         try {
             result = "https://www.google.com/search?q=" + URLEncoder.encode(searchTerm, "UTF-8") + "&pws=0&gl=us&gws_rd=cr&num=15";
         } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+            Logger.error(e);
         }
         return result;
     }
 
     public static String createURLForIgSearch(CsvItemModel item) {
-        String searchTerm = "site:www.instagram.com " + item.companyName + " " + item.getPureName() + " " + item.URL;
+        String searchTerm = "site:www.instagram.com "+ StrUtils.extractWebSiteFromLongLink(item.URL);
         String result = null;
         try {
             result = "https://www.google.com/search?q=" + URLEncoder.encode(searchTerm, "UTF-8") + "&pws=0&gl=us&gws_rd=cr&num=15";
         } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
+            Logger.error(e);
         }
         return result;
     }

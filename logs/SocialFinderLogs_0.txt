@@ -1,6 +1,0 @@
-23:44:49 INFO: Servcies.DIResolver.<init>()
- Application started...
-
-23:44:52 INFO: Commands.SelectInputDataFileActionCommand.actionPerformed()
- Select input data file button action performed
-

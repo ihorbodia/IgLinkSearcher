@@ -52,7 +52,7 @@ public class ProxyEngine extends WebEngine {
                 Thread.sleep(requestDelay);
             }
         } catch (InterruptedException e) {
-            Logger.tag("SYSTEM").error("Interrupt exception");
+            Logger.error("Interrupt exception");
         }
     }
 
@@ -64,6 +64,7 @@ public class ProxyEngine extends WebEngine {
                 .method(Connection.Method.GET)
                 .ignoreHttpErrors(true)
                 .ignoreContentType(true)
+                .timeout(30000)
                 .timeout(requestDelay * 12)
                 .validateTLSCertificates(false)
                 .execute();

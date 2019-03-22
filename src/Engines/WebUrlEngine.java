@@ -46,7 +46,7 @@ public class WebUrlEngine extends WebEngine {
     private void isThreadSleep(int currentAttempt) {
         try {
             if (currentAttempt <= attempts) {
-                Thread.sleep(30000);
+                Thread.sleep(15000);
             }
         } catch (InterruptedException e) {
             Logger.error("Interrupt exception");
@@ -61,6 +61,7 @@ public class WebUrlEngine extends WebEngine {
                 .proxy(proxyEngine.getNewProxy())
                 .method(Connection.Method.GET)
                 .ignoreHttpErrors(true)
+                .timeout(30000)
                 .ignoreContentType(true)
                 .validateTLSCertificates(false)
                 .execute();

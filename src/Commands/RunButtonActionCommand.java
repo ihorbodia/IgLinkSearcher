@@ -27,20 +27,21 @@ public class RunButtonActionCommand extends AbstractAction {
         SearchingModeFactory searchingModeFactory = new SearchingModeFactory(diResolver);
         SearchModeStrategyBase searchModeStrategy = searchingModeFactory.createSearchModeStrategy();
 
-        try {
         Thread worker = new Thread(() -> {
-            diResolver.setCurrentWorker(searchModeStrategy);
-            guiService.updateStatusText("Starting");
-            guiService.changeApplicationStateToWork(true);
-            propertiesService.saveIsWork(true);
-            searchModeStrategy.processData(diResolver);
-            guiService.changeApplicationStateToWork(false);
-            guiService.updateStatusText("Stopped");
+            try {
+                diResolver.setCurrentWorker(searchModeStrategy);
+                guiService.updateStatusText("Starting");
+                guiService.changeApplicationStateToWork(true);
+                propertiesService.saveIsWork(true);
+                searchModeStrategy.processData(diResolver);
+                guiService.changeApplicationStateToWork(false);
+                guiService.updateStatusText("Finished");
+            } catch (Exception ex) {
+                Logger.error(ex, "Application aborted");
+                guiService.setStatusText(ex.getMessage());
+                guiService.changeApplicationStateToWork(false);
+            }
         });
         worker.start();
-        } catch (Exception ex) {
-            Logger.error(ex, "Application aborted");
-            guiService.setStatusText("Application aborted");
-        }
     }
 }
