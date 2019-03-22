@@ -1,0 +1,211 @@
+01:52:23 INFO: Servcies.DIResolver.<init>()
+ Application started...
+
+01:52:47 INFO: Engines.ProxyEngine.getNewProxy()
+ Proxy: 79.141.161.48:3128
+
+01:53:12 INFO: Engines.WebUrlEngine.getWebSourceData()
+ Attempt: 1
+
+01:53:12 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: Unable to tunnel through proxy. Proxy returns "HTTP/1.0 502 Bad Gateway"
+
+01:53:43 INFO: Engines.ProxyEngine.getNewProxy()
+ Proxy: 79.141.161.48:3128
+
+01:53:47 INFO: Engines.WebUrlEngine.getWebSourceData()
+ Attempt: 2
+
+01:53:47 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: Unable to tunnel through proxy. Proxy returns "HTTP/1.0 502 Bad Gateway"
+
+01:54:17 INFO: Engines.ProxyEngine.getNewProxy()
+ Proxy: 79.141.161.48:3128
+
+01:54:18 INFO: Engines.WebUrlEngine.getWebSourceData()
+ Attempt: 3
+
+01:54:18 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: Unable to tunnel through proxy. Proxy returns "HTTP/1.0 502 Bad Gateway"
+
+01:54:48 INFO: Engines.ProxyEngine.getNewProxy()
+ Proxy: 79.141.161.48:3128
+
+01:54:52 INFO: Engines.WebUrlEngine.getWebSourceData()
+ Attempt: 4
+
+01:54:52 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: Unable to tunnel through proxy. Proxy returns "HTTP/1.0 502 Bad Gateway"
+
+01:55:23 INFO: Engines.ProxyEngine.getNewProxy()
+ Proxy: 79.141.161.48:3128
+
+01:55:26 INFO: Engines.WebUrlEngine.getWebSourceData()
+ Attempt: 5
+
+01:55:26 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: Unable to tunnel through proxy. Proxy returns "HTTP/1.0 502 Bad Gateway"
+
+01:55:56 INFO: Engines.ProxyEngine.getNewProxy()
+ Proxy: 79.141.161.48:3128
+
+01:56:08 INFO: Engines.WebUrlEngine.getWebSourceData()
+ Attempt: 6
+
+01:56:08 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: Unable to tunnel through proxy. Proxy returns "HTTP/1.0 502 Bad Gateway"
+
+01:56:38 INFO: Engines.ProxyEngine.getNewProxy()
+ Proxy: 79.141.161.48:3128
+
+01:56:53 INFO: Engines.WebUrlEngine.getWebSourceData()
+ Attempt: 7
+
+01:56:53 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: Read timed out
+
+01:57:36 INFO: Engines.ProxyEngine.getNewProxy()
+ Proxy: 79.141.161.48:3128
+
+01:57:52 INFO: Engines.WebUrlEngine.getWebSourceData()
+ Attempt: 8
+
+01:57:52 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: Unable to tunnel through proxy. Proxy returns "HTTP/1.0 502 Bad Gateway"
+
+01:58:22 INFO: Engines.ProxyEngine.getNewProxy()
+ Proxy: 79.141.161.48:3128
+
+01:58:23 INFO: Engines.WebUrlEngine.getWebSourceData()
+ Attempt: 9
+
+01:58:23 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: Unable to tunnel through proxy. Proxy returns "HTTP/1.0 502 Bad Gateway"
+
+01:58:53 INFO: Engines.ProxyEngine.getNewProxy()
+ Proxy: 79.141.161.48:3128
+
+01:58:53 INFO: Engines.WebUrlEngine.getWebSourceData()
+ Attempt: 10
+
+01:58:53 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: Unable to tunnel through proxy. Proxy returns "HTTP/1.0 502 Bad Gateway"
+
+01:59:24 INFO: Engines.ProxyEngine.getNewProxy()
+ Proxy: 79.141.161.48:3128
+
+01:59:24 INFO: Engines.WebUrlEngine.getWebSourceData()
+ Attempt: 11
+
+01:59:24 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: Unable to tunnel through proxy. Proxy returns "HTTP/1.0 502 Bad Gateway"
+
+01:59:54 INFO: Engines.ProxyEngine.getNewProxy()
+ Proxy: 79.141.161.48:3128
+
+02:00:00 INFO: Engines.WebUrlEngine.getWebSourceData()
+ Attempt: 12
+
+02:00:00 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: Unable to tunnel through proxy. Proxy returns "HTTP/1.0 502 Bad Gateway"
+
+02:00:30 ERROR: Engines.ProxyEngine.getNewProxy()
+ Cannot get proxy, null, waiting for next attempt.
+
+02:00:36 ERROR: Engines.ProxyEngine.getNewProxy()
+ Cannot get proxy, null, waiting for next attempt.
+
+02:00:41 ERROR: Engines.ProxyEngine.getNewProxy()
+ Cannot get proxy, null, waiting for next attempt.
+
+02:00:46 ERROR: Engines.ProxyEngine.getNewProxy()
+ Cannot get proxy, null, waiting for next attempt.
+
+02:01:08 ERROR: Engines.ProxyEngine.getNewProxy()
+ Cannot get proxy, null, waiting for next attempt.
+
+02:01:38 ERROR: Engines.ProxyEngine.getNewProxy()
+ Cannot get proxy, null, waiting for next attempt.
+
+02:02:14 ERROR: Engines.ProxyEngine.getNewProxy()
+ Cannot get proxy, Read timed out, waiting for next attempt.
+
+02:02:49 ERROR: Engines.ProxyEngine.getNewProxy()
+ Cannot get proxy, Read timed out, waiting for next attempt.
+
+02:02:54 ERROR: Engines.ProxyEngine.getNewProxy()
+ Cannot get proxy, null, waiting for next attempt.
+
+02:03:00 ERROR: Engines.ProxyEngine.getNewProxy()
+ Cannot get proxy, null, waiting for next attempt.
+
+02:03:05 ERROR: Engines.ProxyEngine.getNewProxy()
+ Cannot get proxy, null, waiting for next attempt.
+
+02:03:10 ERROR: Engines.ProxyEngine.getNewProxy()
+ Cannot get proxy, null, waiting for next attempt.
+
+02:03:15 ERROR: Engines.ProxyEngine.getNewProxy()
+ Cannot get proxy, null, waiting for next attempt.
+
+02:03:21 ERROR: Engines.ProxyEngine.getNewProxy()
+ Cannot get proxy, null, waiting for next attempt.
+
+02:03:26 ERROR: Engines.ProxyEngine.getNewProxy()
+ Cannot get proxy, null, waiting for next attempt.
+
+02:03:32 ERROR: Engines.ProxyEngine.getNewProxy()
+ Cannot get proxy, null, waiting for next attempt.
+
+02:03:44 INFO: Engines.ProxyEngine.getNewProxy()
+ Proxy: 187.216.82.54:3128
+
+02:03:46 INFO: Engines.WebUrlEngine.getWebSourceData()
+ Attempt: 13
+
+02:03:46 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: null
+
+02:04:17 INFO: Engines.ProxyEngine.getNewProxy()
+ Proxy: 187.216.82.54:3128
+
+02:04:20 INFO: Engines.WebUrlEngine.getWebSourceData()
+ Attempt: 14
+
+02:04:20 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: null
+
+02:04:50 INFO: Engines.ProxyEngine.getNewProxy()
+ Proxy: 187.216.82.54:3128
+
+02:04:52 INFO: Engines.WebUrlEngine.getWebSourceData()
+ Attempt: 15
+
+02:04:52 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: null
+
+02:05:50 INFO: Engines.ProxyEngine.getNewProxy()
+ Proxy: 187.216.82.54:3128
+
+02:05:52 INFO: Engines.WebUrlEngine.getWebSourceData()
+ Attempt: 16
+
+02:05:52 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: null
+

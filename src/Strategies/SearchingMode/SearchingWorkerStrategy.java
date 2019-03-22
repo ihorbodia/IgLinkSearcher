@@ -1,18 +1,22 @@
 package Strategies.SearchingMode;
 
 import Models.CsvItemModel;
+import Models.RequestData;
 import Models.SearchResultItem;
+import Specifications.Abstract.AbstractSpecification;
+import Specifications.Abstract.Specification;
+import Specifications.ContainingBusinessDataSpecification;
+import Specifications.IgLinksRegexSpecification;
+import Specifications.TwitterLinksRegexSpecification;
 import Strategies.ParsingStrategies.InstagramParsingStrategy;
 import Strategies.ParsingStrategies.ParsingStrategyBase;
 import Strategies.ParsingStrategies.TwitterParsingStrategy;
 import Servcies.DIResolver;
 import Servcies.GuiService;
 import Servcies.InputDataService;
-import Utils.SearchUtils;
 import Utils.StrUtils;
-import org.apache.commons.lang3.StringUtils;
+import Utils.UrlUtils;
 
-import javax.naming.directory.SearchResult;
 import java.util.List;
 
 public class SearchingWorkerStrategy extends SearchModeStrategyBase {
@@ -30,58 +34,49 @@ public class SearchingWorkerStrategy extends SearchModeStrategyBase {
     @Override
     public void processData(DIResolver diResolver) {
         int index = diResolver.getPropertiesService().getIndex();
-        GuiService guiService = diResolver.getGuiService();
         List<CsvItemModel> csvFileData = diResolver.getInputDataService().getInputCsvModelItems();
         int size = diResolver.getInputDataService().getInputCsvModelItems().size();
+
+        ParsingStrategyBase instagramParsingStrategy = new InstagramParsingStrategy(diResolver);
+        ParsingStrategyBase twitterParsingStrategy = new TwitterParsingStrategy(diResolver);
+
+        String notFoundLabel = "Not found";
 
         for (int i = index; i < size;  i++) {
             if (!isWork) {
                 break;
             }
+            guiService.updateStatusText("Processing started");
 
-            ParsingStrategyBase instagramParsingStrategy = new InstagramParsingStrategy(diResolver);
-            ParsingStrategyBase twitterParsingStrategy = new TwitterParsingStrategy(diResolver);
+            CsvItemModel currentCsvItemModel = csvFileData.get(i);
 
-            instagramParsingStrategy.getSocialMediaResults(csvFileData.get(i));
-            twitterParsingStrategy.getSocialMediaResults(csvFileData.get(i));
+            List<SearchResultItem> igResults = instagramParsingStrategy.getSocialMediaResults(currentCsvItemModel);
+            List<SearchResultItem> twitterResults = twitterParsingStrategy.getSocialMediaResults(currentCsvItemModel);
 
-            if (igBody == null && twitterBody == null) {
-                csvFileData.get(i).notFound = "Not found";
-                inputDataService.updateResultCsvItems();
-                continue;
-            }
+            AbstractSpecification<SearchResultItem> igLinksSpecification =
+                    new IgLinksRegexSpecification().and(new ContainingBusinessDataSpecification(currentCsvItemModel));
 
-            System.out.println(csvFileData.get(i).companyName);
-            checkResultToLinks(results, csvFileData.get(i));
-            /*REFACTORING*/
+            AbstractSpecification<SearchResultItem> twitterLinksSpecification =
+                    new TwitterLinksRegexSpecification().and(new ContainingBusinessDataSpecification(currentCsvItemModel));
 
+            SearchResultItem igResult = filterResults(igResults, igLinksSpecification);
+            SearchResultItem twitterResult = filterResults(twitterResults, twitterLinksSpecification);
+
+            currentCsvItemModel.foundInstagram = igResult == null ? notFoundLabel : StrUtils.getLinkFromURL(igResult.SearchedLink, StrUtils.igLinkSearchPattern);
+            currentCsvItemModel.foundTwitter = twitterResult == null ? notFoundLabel : StrUtils.getLinkFromURL(twitterResult.SearchedLink, StrUtils.twitterLinkSearchPattern);
+
+            guiService.updateStatusText(String.format("Processed %d\\%d items", i, size));
             inputDataService.updateResultCsvItems();
         }
     }
 
-    private void checkResultToLinks(SearchResult results, CsvItemModel csvItem) {
-        if (results.getIgResults().size() == 0 && results.getTwitterResults().size() == 0) {
-            csvItem.notFound = "Not found";
-            guiService.updateStatusText("Result not found");
-            return;
+    private <T> T filterResults(List<T> set, Specification spec) {
+        for(T t : set) {
+            if(spec.isSatisfiedBy(t) ) {
+                return t;
+            }
         }
-
-        SearchResultItem igResultItem = SearchUtils.getRightResultItem(results.getIgResults(), csvItem);
-        SearchResultItem twitterResultItem = SearchUtils.getRightResultItem(results.getTwitterResults(), csvItem);
-
-        if (igResultItem != null && igSearch) {
-            csvItem.foundInstagram = SearchUtils.getSocialAccountFromString(igResultItem.SearchedLink.toLowerCase(), StrUtils.igLinkSearchPattern);
-        }
-
-        if (twitterResultItem != null && twitterSearch) {
-            csvItem.foundTwitter = SearchUtils.getSocialAccountFromString(twitterResultItem.SearchedLink.toLowerCase(), StrUtils.twitterLinkSearchPattern);
-        }
-
-        if (StringUtils.isEmpty(csvItem.foundInstagram) && StringUtils.isEmpty(csvItem.foundTwitter)) {
-            csvItem.notFound = "Not found";
-        } else {
-            csvItem.notFound = "";
-        }
+        return null;
     }
 
     @Override

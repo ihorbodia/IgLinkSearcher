@@ -16,19 +16,14 @@ public class SearchingModeFactory {
     public SearchModeStrategyBase createSearchModeStrategy() {
         SearchModeStrategyBase searchModeStrategy = null;
 
-        GuiService guiService = diResolver.getGuiService();
         InputDataService inputDataService = diResolver.getInputDataService();
         PropertiesService propertiesService = diResolver.getPropertiesService();
 
         File inputFile = propertiesService.getSelectedInputFile();
         if (DirUtils.isFileOk(inputFile, "csv")) {
-            guiService.setInputFilePath(inputFile.getAbsolutePath());
             inputDataService.initInputFile(inputFile);
-        }
-
-        if (diResolver.getPropertiesService().getIsWork() && DirUtils.isFileOk(inputFile, "csv")) {
-            searchModeStrategy = new SearchingWorkerStrategy(diResolver);
             inputDataService.initInputFileData();
+            searchModeStrategy = new SearchingWorkerStrategy(diResolver);
         }
         return searchModeStrategy;
     }

@@ -30,20 +30,20 @@ public class UrlUtils {
         return result;
     }
 
-    public static String clearLink(String link) {
-        if (StringUtils.isEmpty(link)) {
-            return "";
-        }
-        link = link.replace("http://www.google.com/url?url=", "");
-        if (link.startsWith("www")) {
-            link = "http://" + link;
-        }
-        if (link.startsWith("/url")) {
-            link = link.substring(link.indexOf("=") + 1);
-        }
-        if (link.indexOf("&") > 0) {
-            link = link.substring(0, link.indexOf("&"));
-        }
-        return link;
-    }
+//    public static String clearLink(String link) {
+//        if (StringUtils.isEmpty(link)) {
+//            return "";
+//        }
+//        link = link.replace("http://www.google.com/url?url=", "");
+//        if (link.startsWith("www")) {
+//            link = "http://" + link;
+//        }
+//        if (link.startsWith("/url")) {
+//            link = link.substring(link.indexOf("=") + 1);
+//        }
+//        if (link.indexOf("&") > 0) {
+//            link = link.substring(0, link.indexOf("&"));
+//        }
+//        return link;
+//    }
 }

@@ -1,0 +1,3 @@
+23:46:14 INFO: Servcies.DIResolver.<init>()
+ Application started...
+

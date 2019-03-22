@@ -30,12 +30,13 @@ public class WebUrlEngine extends WebEngine {
             try {
                 Connection.Response response = makeRequest(requestData);
                 if (isValidResponse(response)) {
-                    Logger.tag("SYSTEM").info("Response OK from: " + requestData.requestURL);
+                    Logger.info("Response OK from: " + requestData.requestURL);
                     return response.parse();
                 }
                 throw new Exception();
             } catch (Exception ex) {
-                Logger.tag("SYSTEM").error("Cannot get page source, waiting for next attempt: " + requestData.requestURL +" \nCause: " + ex.getMessage());
+                Logger.info("Attempt: "+ i);
+                Logger.error("Cannot get page source, waiting for next attempt: " + requestData.requestURL +" \nCause: " + ex.getMessage());
             }
             isThreadSleep(i);
         }
@@ -45,10 +46,10 @@ public class WebUrlEngine extends WebEngine {
     private void isThreadSleep(int currentAttempt) {
         try {
             if (currentAttempt <= attempts) {
-                Thread.sleep(5000);
+                Thread.sleep(30000);
             }
         } catch (InterruptedException e) {
-            Logger.tag("SYSTEM").error("Interrupt exception");
+            Logger.error("Interrupt exception");
         }
     }
 

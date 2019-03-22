@@ -1,0 +1,832 @@
+00:10:28 INFO: Servcies.DIResolver.<init>()
+ Application started...
+
+00:10:41 ERROR: Engines.ProxyEngine.getNewProxy()
+ Proxy: 159.89.119.45:8080
+
+00:10:50 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: null: java.lang.Exception
+	at Engines.WebUrlEngine.getWebSourceData(WebUrlEngine.java:36)
+	at Strategies.ParsingStrategies.ParsingStrategyBase.getSocialMediaDataFromResults(ParsingStrategyBase.java:26)
+	at Strategies.ParsingStrategies.InstagramParsingStrategy.getSocialMediaResults(InstagramParsingStrategy.java:19)
+	at Strategies.SearchingMode.SearchingWorkerStrategy.processData(SearchingWorkerStrategy.java:48)
+	at Commands.RunButtonActionCommand.lambda$actionPerformed$0(RunButtonActionCommand.java:36)
+	at java.lang.Thread.run(Thread.java:748)
+
+00:10:55 ERROR: Engines.ProxyEngine.getNewProxy()
+ Proxy: 199.119.96.155:13750
+
+00:10:55 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: Connection reset: java.net.SocketException: Connection reset
+	at java.net.SocketInputStream.read(SocketInputStream.java:210)
+	at java.net.SocketInputStream.read(SocketInputStream.java:141)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:246)
+	at java.io.BufferedInputStream.read1(BufferedInputStream.java:286)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:345)
+	at sun.net.www.http.HttpClient.parseHTTPHeader(HttpClient.java:735)
+	at sun.net.www.http.HttpClient.parseHTTP(HttpClient.java:678)
+	at sun.net.www.protocol.http.HttpURLConnection.doTunneling(HttpURLConnection.java:2037)
+	at sun.net.www.protocol.https.AbstractDelegateHttpsURLConnection.connect(AbstractDelegateHttpsURLConnection.java:183)
+	at sun.net.www.protocol.https.HttpsURLConnectionImpl.connect(HttpsURLConnectionImpl.java:153)
+	at org.jsoup.helper.HttpConnection$Response.execute(HttpConnection.java:746)
+	at org.jsoup.helper.HttpConnection$Response.execute(HttpConnection.java:722)
+	at org.jsoup.helper.HttpConnection.execute(HttpConnection.java:306)
+	at Engines.WebUrlEngine.makeRequest(WebUrlEngine.java:65)
+	at Engines.WebUrlEngine.getWebSourceData(WebUrlEngine.java:31)
+	at Strategies.ParsingStrategies.ParsingStrategyBase.getSocialMediaDataFromResults(ParsingStrategyBase.java:26)
+	at Strategies.ParsingStrategies.InstagramParsingStrategy.getSocialMediaResults(InstagramParsingStrategy.java:19)
+	at Strategies.SearchingMode.SearchingWorkerStrategy.processData(SearchingWorkerStrategy.java:48)
+	at Commands.RunButtonActionCommand.lambda$actionPerformed$0(RunButtonActionCommand.java:36)
+	at java.lang.Thread.run(Thread.java:748)
+
+00:11:01 ERROR: Engines.ProxyEngine.getNewProxy()
+ Proxy: 18.223.152.130:808
+
+00:11:29 INFO: Engines.WebUrlEngine.getWebSourceData()
+ Response OK from: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15
+
+00:11:48 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: Read timeout: java.net.SocketTimeoutException: Read timeout
+	at org.jsoup.internal.ConstrainableInputStream.read(ConstrainableInputStream.java:58)
+	at java.io.FilterInputStream.read(FilterInputStream.java:107)
+	at org.jsoup.internal.ConstrainableInputStream.readToByteBuffer(ConstrainableInputStream.java:87)
+	at org.jsoup.helper.DataUtil.readToByteBuffer(DataUtil.java:175)
+	at org.jsoup.helper.DataUtil.parseInputStream(DataUtil.java:104)
+	at org.jsoup.helper.HttpConnection$Response.parse(HttpConnection.java:851)
+	at Engines.WebUrlEngine.getWebSourceData(WebUrlEngine.java:34)
+	at Strategies.ParsingStrategies.ParsingStrategyBase.getSocialMediaDataFromResults(ParsingStrategyBase.java:26)
+	at Strategies.ParsingStrategies.InstagramParsingStrategy.getSocialMediaResults(InstagramParsingStrategy.java:19)
+	at Strategies.SearchingMode.SearchingWorkerStrategy.processData(SearchingWorkerStrategy.java:48)
+	at Commands.RunButtonActionCommand.lambda$actionPerformed$0(RunButtonActionCommand.java:36)
+	at java.lang.Thread.run(Thread.java:748)
+
+00:11:53 ERROR: Engines.ProxyEngine.getNewProxy()
+ Proxy: 159.89.119.45:8080
+
+00:12:01 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: null: java.lang.Exception
+	at Engines.WebUrlEngine.getWebSourceData(WebUrlEngine.java:36)
+	at Strategies.ParsingStrategies.ParsingStrategyBase.getSocialMediaDataFromResults(ParsingStrategyBase.java:26)
+	at Strategies.ParsingStrategies.InstagramParsingStrategy.getSocialMediaResults(InstagramParsingStrategy.java:19)
+	at Strategies.SearchingMode.SearchingWorkerStrategy.processData(SearchingWorkerStrategy.java:48)
+	at Commands.RunButtonActionCommand.lambda$actionPerformed$0(RunButtonActionCommand.java:36)
+	at java.lang.Thread.run(Thread.java:748)
+
+00:12:06 ERROR: Engines.ProxyEngine.getNewProxy()
+ Proxy: 159.65.204.30:8080
+
+00:12:07 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: null: java.lang.Exception
+	at Engines.WebUrlEngine.getWebSourceData(WebUrlEngine.java:36)
+	at Strategies.ParsingStrategies.ParsingStrategyBase.getSocialMediaDataFromResults(ParsingStrategyBase.java:26)
+	at Strategies.ParsingStrategies.InstagramParsingStrategy.getSocialMediaResults(InstagramParsingStrategy.java:19)
+	at Strategies.SearchingMode.SearchingWorkerStrategy.processData(SearchingWorkerStrategy.java:48)
+	at Commands.RunButtonActionCommand.lambda$actionPerformed$0(RunButtonActionCommand.java:36)
+	at java.lang.Thread.run(Thread.java:748)
+
+00:12:12 ERROR: Engines.ProxyEngine.getNewProxy()
+ Proxy: 159.65.204.30:8080
+
+00:12:13 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: null: java.lang.Exception
+	at Engines.WebUrlEngine.getWebSourceData(WebUrlEngine.java:36)
+	at Strategies.ParsingStrategies.ParsingStrategyBase.getSocialMediaDataFromResults(ParsingStrategyBase.java:26)
+	at Strategies.ParsingStrategies.InstagramParsingStrategy.getSocialMediaResults(InstagramParsingStrategy.java:19)
+	at Strategies.SearchingMode.SearchingWorkerStrategy.processData(SearchingWorkerStrategy.java:48)
+	at Commands.RunButtonActionCommand.lambda$actionPerformed$0(RunButtonActionCommand.java:36)
+	at java.lang.Thread.run(Thread.java:748)
+
+00:12:18 ERROR: Engines.ProxyEngine.getNewProxy()
+ Proxy: 199.119.96.155:13750
+
+00:12:19 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: Unexpected end of file from server: java.net.SocketException: Unexpected end of file from server
+	at sun.net.www.http.HttpClient.parseHTTPHeader(HttpClient.java:851)
+	at sun.net.www.http.HttpClient.parseHTTP(HttpClient.java:678)
+	at sun.net.www.protocol.http.HttpURLConnection.doTunneling(HttpURLConnection.java:2037)
+	at sun.net.www.protocol.https.AbstractDelegateHttpsURLConnection.connect(AbstractDelegateHttpsURLConnection.java:183)
+	at sun.net.www.protocol.https.HttpsURLConnectionImpl.connect(HttpsURLConnectionImpl.java:153)
+	at org.jsoup.helper.HttpConnection$Response.execute(HttpConnection.java:746)
+	at org.jsoup.helper.HttpConnection$Response.execute(HttpConnection.java:722)
+	at org.jsoup.helper.HttpConnection.execute(HttpConnection.java:306)
+	at Engines.WebUrlEngine.makeRequest(WebUrlEngine.java:65)
+	at Engines.WebUrlEngine.getWebSourceData(WebUrlEngine.java:31)
+	at Strategies.ParsingStrategies.ParsingStrategyBase.getSocialMediaDataFromResults(ParsingStrategyBase.java:26)
+	at Strategies.ParsingStrategies.InstagramParsingStrategy.getSocialMediaResults(InstagramParsingStrategy.java:19)
+	at Strategies.SearchingMode.SearchingWorkerStrategy.processData(SearchingWorkerStrategy.java:48)
+	at Commands.RunButtonActionCommand.lambda$actionPerformed$0(RunButtonActionCommand.java:36)
+	at java.lang.Thread.run(Thread.java:748)
+
+00:12:24 ERROR: Engines.ProxyEngine.getNewProxy()
+ Proxy: 18.223.152.130:808
+
+00:38:52 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: null: java.lang.Exception
+	at Engines.WebUrlEngine.getWebSourceData(WebUrlEngine.java:36)
+	at Strategies.ParsingStrategies.ParsingStrategyBase.getSocialMediaDataFromResults(ParsingStrategyBase.java:26)
+	at Strategies.ParsingStrategies.InstagramParsingStrategy.getSocialMediaResults(InstagramParsingStrategy.java:19)
+	at Strategies.SearchingMode.SearchingWorkerStrategy.processData(SearchingWorkerStrategy.java:48)
+	at Commands.RunButtonActionCommand.lambda$actionPerformed$0(RunButtonActionCommand.java:36)
+	at java.lang.Thread.run(Thread.java:748)
+
+00:38:57 ERROR: Engines.ProxyEngine.getNewProxy()
+ Proxy: 142.93.37.75:8080
+
+00:38:59 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: null: java.lang.Exception
+	at Engines.WebUrlEngine.getWebSourceData(WebUrlEngine.java:36)
+	at Strategies.ParsingStrategies.ParsingStrategyBase.getSocialMediaDataFromResults(ParsingStrategyBase.java:26)
+	at Strategies.ParsingStrategies.InstagramParsingStrategy.getSocialMediaResults(InstagramParsingStrategy.java:19)
+	at Strategies.SearchingMode.SearchingWorkerStrategy.processData(SearchingWorkerStrategy.java:48)
+	at Commands.RunButtonActionCommand.lambda$actionPerformed$0(RunButtonActionCommand.java:36)
+	at java.lang.Thread.run(Thread.java:748)
+
+00:39:04 ERROR: Engines.ProxyEngine.getNewProxy()
+ Proxy: 159.65.204.30:8080
+
+00:39:05 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: null: java.lang.Exception
+	at Engines.WebUrlEngine.getWebSourceData(WebUrlEngine.java:36)
+	at Strategies.ParsingStrategies.ParsingStrategyBase.getSocialMediaDataFromResults(ParsingStrategyBase.java:26)
+	at Strategies.ParsingStrategies.InstagramParsingStrategy.getSocialMediaResults(InstagramParsingStrategy.java:19)
+	at Strategies.SearchingMode.SearchingWorkerStrategy.processData(SearchingWorkerStrategy.java:48)
+	at Commands.RunButtonActionCommand.lambda$actionPerformed$0(RunButtonActionCommand.java:36)
+	at java.lang.Thread.run(Thread.java:748)
+
+00:39:10 ERROR: Engines.ProxyEngine.getNewProxy()
+ Proxy: 142.93.37.75:8080
+
+00:39:11 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: null: java.lang.Exception
+	at Engines.WebUrlEngine.getWebSourceData(WebUrlEngine.java:36)
+	at Strategies.ParsingStrategies.ParsingStrategyBase.getSocialMediaDataFromResults(ParsingStrategyBase.java:26)
+	at Strategies.ParsingStrategies.InstagramParsingStrategy.getSocialMediaResults(InstagramParsingStrategy.java:19)
+	at Strategies.SearchingMode.SearchingWorkerStrategy.processData(SearchingWorkerStrategy.java:48)
+	at Commands.RunButtonActionCommand.lambda$actionPerformed$0(RunButtonActionCommand.java:36)
+	at java.lang.Thread.run(Thread.java:748)
+
+00:39:16 ERROR: Engines.ProxyEngine.getNewProxy()
+ Proxy: 159.65.204.30:8080
+
+00:39:17 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: null: java.lang.Exception
+	at Engines.WebUrlEngine.getWebSourceData(WebUrlEngine.java:36)
+	at Strategies.ParsingStrategies.ParsingStrategyBase.getSocialMediaDataFromResults(ParsingStrategyBase.java:26)
+	at Strategies.ParsingStrategies.InstagramParsingStrategy.getSocialMediaResults(InstagramParsingStrategy.java:19)
+	at Strategies.SearchingMode.SearchingWorkerStrategy.processData(SearchingWorkerStrategy.java:48)
+	at Commands.RunButtonActionCommand.lambda$actionPerformed$0(RunButtonActionCommand.java:36)
+	at java.lang.Thread.run(Thread.java:748)
+
+00:39:22 ERROR: Engines.ProxyEngine.getNewProxy()
+ Proxy: 142.93.37.75:8080
+
+00:39:23 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: null: java.lang.Exception
+	at Engines.WebUrlEngine.getWebSourceData(WebUrlEngine.java:36)
+	at Strategies.ParsingStrategies.ParsingStrategyBase.getSocialMediaDataFromResults(ParsingStrategyBase.java:26)
+	at Strategies.ParsingStrategies.InstagramParsingStrategy.getSocialMediaResults(InstagramParsingStrategy.java:19)
+	at Strategies.SearchingMode.SearchingWorkerStrategy.processData(SearchingWorkerStrategy.java:48)
+	at Commands.RunButtonActionCommand.lambda$actionPerformed$0(RunButtonActionCommand.java:36)
+	at java.lang.Thread.run(Thread.java:748)
+
+00:39:29 ERROR: Engines.ProxyEngine.getNewProxy()
+ Proxy: 142.93.37.75:8080
+
+00:39:32 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: null: java.lang.Exception
+	at Engines.WebUrlEngine.getWebSourceData(WebUrlEngine.java:36)
+	at Strategies.ParsingStrategies.ParsingStrategyBase.getSocialMediaDataFromResults(ParsingStrategyBase.java:26)
+	at Strategies.ParsingStrategies.InstagramParsingStrategy.getSocialMediaResults(InstagramParsingStrategy.java:19)
+	at Strategies.SearchingMode.SearchingWorkerStrategy.processData(SearchingWorkerStrategy.java:48)
+	at Commands.RunButtonActionCommand.lambda$actionPerformed$0(RunButtonActionCommand.java:36)
+	at java.lang.Thread.run(Thread.java:748)
+
+00:39:37 ERROR: Engines.ProxyEngine.getNewProxy()
+ Proxy: 159.65.204.30:8080
+
+00:39:38 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: null: java.lang.Exception
+	at Engines.WebUrlEngine.getWebSourceData(WebUrlEngine.java:36)
+	at Strategies.ParsingStrategies.ParsingStrategyBase.getSocialMediaDataFromResults(ParsingStrategyBase.java:26)
+	at Strategies.ParsingStrategies.InstagramParsingStrategy.getSocialMediaResults(InstagramParsingStrategy.java:19)
+	at Strategies.SearchingMode.SearchingWorkerStrategy.processData(SearchingWorkerStrategy.java:48)
+	at Commands.RunButtonActionCommand.lambda$actionPerformed$0(RunButtonActionCommand.java:36)
+	at java.lang.Thread.run(Thread.java:748)
+
+00:39:43 ERROR: Engines.ProxyEngine.getNewProxy()
+ Proxy: 199.119.96.155:13750
+
+00:39:44 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: Connection reset: java.net.SocketException: Connection reset
+	at java.net.SocketInputStream.read(SocketInputStream.java:210)
+	at java.net.SocketInputStream.read(SocketInputStream.java:141)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:246)
+	at java.io.BufferedInputStream.read1(BufferedInputStream.java:286)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:345)
+	at sun.net.www.http.HttpClient.parseHTTPHeader(HttpClient.java:735)
+	at sun.net.www.http.HttpClient.parseHTTP(HttpClient.java:678)
+	at sun.net.www.protocol.http.HttpURLConnection.doTunneling(HttpURLConnection.java:2037)
+	at sun.net.www.protocol.https.AbstractDelegateHttpsURLConnection.connect(AbstractDelegateHttpsURLConnection.java:183)
+	at sun.net.www.protocol.https.HttpsURLConnectionImpl.connect(HttpsURLConnectionImpl.java:153)
+	at org.jsoup.helper.HttpConnection$Response.execute(HttpConnection.java:746)
+	at org.jsoup.helper.HttpConnection$Response.execute(HttpConnection.java:722)
+	at org.jsoup.helper.HttpConnection.execute(HttpConnection.java:306)
+	at Engines.WebUrlEngine.makeRequest(WebUrlEngine.java:65)
+	at Engines.WebUrlEngine.getWebSourceData(WebUrlEngine.java:31)
+	at Strategies.ParsingStrategies.ParsingStrategyBase.getSocialMediaDataFromResults(ParsingStrategyBase.java:26)
+	at Strategies.ParsingStrategies.InstagramParsingStrategy.getSocialMediaResults(InstagramParsingStrategy.java:19)
+	at Strategies.SearchingMode.SearchingWorkerStrategy.processData(SearchingWorkerStrategy.java:48)
+	at Commands.RunButtonActionCommand.lambda$actionPerformed$0(RunButtonActionCommand.java:36)
+	at java.lang.Thread.run(Thread.java:748)
+
+00:39:49 ERROR: Engines.ProxyEngine.getNewProxy()
+ Proxy: 159.65.204.30:8080
+
+00:39:50 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: null: java.lang.Exception
+	at Engines.WebUrlEngine.getWebSourceData(WebUrlEngine.java:36)
+	at Strategies.ParsingStrategies.ParsingStrategyBase.getSocialMediaDataFromResults(ParsingStrategyBase.java:26)
+	at Strategies.ParsingStrategies.InstagramParsingStrategy.getSocialMediaResults(InstagramParsingStrategy.java:19)
+	at Strategies.SearchingMode.SearchingWorkerStrategy.processData(SearchingWorkerStrategy.java:48)
+	at Commands.RunButtonActionCommand.lambda$actionPerformed$0(RunButtonActionCommand.java:36)
+	at java.lang.Thread.run(Thread.java:748)
+
+00:39:55 ERROR: Engines.ProxyEngine.getNewProxy()
+ Proxy: 199.119.96.155:13750
+
+00:39:56 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: Connection reset: java.net.SocketException: Connection reset
+	at java.net.SocketInputStream.read(SocketInputStream.java:210)
+	at java.net.SocketInputStream.read(SocketInputStream.java:141)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:246)
+	at java.io.BufferedInputStream.read1(BufferedInputStream.java:286)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:345)
+	at sun.net.www.http.HttpClient.parseHTTPHeader(HttpClient.java:735)
+	at sun.net.www.http.HttpClient.parseHTTP(HttpClient.java:678)
+	at sun.net.www.protocol.http.HttpURLConnection.doTunneling(HttpURLConnection.java:2037)
+	at sun.net.www.protocol.https.AbstractDelegateHttpsURLConnection.connect(AbstractDelegateHttpsURLConnection.java:183)
+	at sun.net.www.protocol.https.HttpsURLConnectionImpl.connect(HttpsURLConnectionImpl.java:153)
+	at org.jsoup.helper.HttpConnection$Response.execute(HttpConnection.java:746)
+	at org.jsoup.helper.HttpConnection$Response.execute(HttpConnection.java:722)
+	at org.jsoup.helper.HttpConnection.execute(HttpConnection.java:306)
+	at Engines.WebUrlEngine.makeRequest(WebUrlEngine.java:65)
+	at Engines.WebUrlEngine.getWebSourceData(WebUrlEngine.java:31)
+	at Strategies.ParsingStrategies.ParsingStrategyBase.getSocialMediaDataFromResults(ParsingStrategyBase.java:26)
+	at Strategies.ParsingStrategies.InstagramParsingStrategy.getSocialMediaResults(InstagramParsingStrategy.java:19)
+	at Strategies.SearchingMode.SearchingWorkerStrategy.processData(SearchingWorkerStrategy.java:48)
+	at Commands.RunButtonActionCommand.lambda$actionPerformed$0(RunButtonActionCommand.java:36)
+	at java.lang.Thread.run(Thread.java:748)
+
+00:40:01 ERROR: Engines.ProxyEngine.getNewProxy()
+ Proxy: 199.119.96.155:13750
+
+00:40:01 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: Connection reset: java.net.SocketException: Connection reset
+	at java.net.SocketInputStream.read(SocketInputStream.java:210)
+	at java.net.SocketInputStream.read(SocketInputStream.java:141)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:246)
+	at java.io.BufferedInputStream.read1(BufferedInputStream.java:286)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:345)
+	at sun.net.www.http.HttpClient.parseHTTPHeader(HttpClient.java:735)
+	at sun.net.www.http.HttpClient.parseHTTP(HttpClient.java:678)
+	at sun.net.www.protocol.http.HttpURLConnection.doTunneling(HttpURLConnection.java:2037)
+	at sun.net.www.protocol.https.AbstractDelegateHttpsURLConnection.connect(AbstractDelegateHttpsURLConnection.java:183)
+	at sun.net.www.protocol.https.HttpsURLConnectionImpl.connect(HttpsURLConnectionImpl.java:153)
+	at org.jsoup.helper.HttpConnection$Response.execute(HttpConnection.java:746)
+	at org.jsoup.helper.HttpConnection$Response.execute(HttpConnection.java:722)
+	at org.jsoup.helper.HttpConnection.execute(HttpConnection.java:306)
+	at Engines.WebUrlEngine.makeRequest(WebUrlEngine.java:65)
+	at Engines.WebUrlEngine.getWebSourceData(WebUrlEngine.java:31)
+	at Strategies.ParsingStrategies.ParsingStrategyBase.getSocialMediaDataFromResults(ParsingStrategyBase.java:26)
+	at Strategies.ParsingStrategies.InstagramParsingStrategy.getSocialMediaResults(InstagramParsingStrategy.java:19)
+	at Strategies.SearchingMode.SearchingWorkerStrategy.processData(SearchingWorkerStrategy.java:48)
+	at Commands.RunButtonActionCommand.lambda$actionPerformed$0(RunButtonActionCommand.java:36)
+	at java.lang.Thread.run(Thread.java:748)
+
+00:40:06 ERROR: Engines.ProxyEngine.getNewProxy()
+ Proxy: 199.119.96.155:13750
+
+00:40:07 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: Connection reset: java.net.SocketException: Connection reset
+	at java.net.SocketInputStream.read(SocketInputStream.java:210)
+	at java.net.SocketInputStream.read(SocketInputStream.java:141)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:246)
+	at java.io.BufferedInputStream.read1(BufferedInputStream.java:286)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:345)
+	at sun.net.www.http.HttpClient.parseHTTPHeader(HttpClient.java:735)
+	at sun.net.www.http.HttpClient.parseHTTP(HttpClient.java:678)
+	at sun.net.www.protocol.http.HttpURLConnection.doTunneling(HttpURLConnection.java:2037)
+	at sun.net.www.protocol.https.AbstractDelegateHttpsURLConnection.connect(AbstractDelegateHttpsURLConnection.java:183)
+	at sun.net.www.protocol.https.HttpsURLConnectionImpl.connect(HttpsURLConnectionImpl.java:153)
+	at org.jsoup.helper.HttpConnection$Response.execute(HttpConnection.java:746)
+	at org.jsoup.helper.HttpConnection$Response.execute(HttpConnection.java:722)
+	at org.jsoup.helper.HttpConnection.execute(HttpConnection.java:306)
+	at Engines.WebUrlEngine.makeRequest(WebUrlEngine.java:65)
+	at Engines.WebUrlEngine.getWebSourceData(WebUrlEngine.java:31)
+	at Strategies.ParsingStrategies.ParsingStrategyBase.getSocialMediaDataFromResults(ParsingStrategyBase.java:26)
+	at Strategies.ParsingStrategies.InstagramParsingStrategy.getSocialMediaResults(InstagramParsingStrategy.java:19)
+	at Strategies.SearchingMode.SearchingWorkerStrategy.processData(SearchingWorkerStrategy.java:48)
+	at Commands.RunButtonActionCommand.lambda$actionPerformed$0(RunButtonActionCommand.java:36)
+	at java.lang.Thread.run(Thread.java:748)
+
+00:40:12 ERROR: Engines.ProxyEngine.getNewProxy()
+ Proxy: 142.93.37.75:8080
+
+00:40:16 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: null: java.lang.Exception
+	at Engines.WebUrlEngine.getWebSourceData(WebUrlEngine.java:36)
+	at Strategies.ParsingStrategies.ParsingStrategyBase.getSocialMediaDataFromResults(ParsingStrategyBase.java:26)
+	at Strategies.ParsingStrategies.InstagramParsingStrategy.getSocialMediaResults(InstagramParsingStrategy.java:19)
+	at Strategies.SearchingMode.SearchingWorkerStrategy.processData(SearchingWorkerStrategy.java:48)
+	at Commands.RunButtonActionCommand.lambda$actionPerformed$0(RunButtonActionCommand.java:36)
+	at java.lang.Thread.run(Thread.java:748)
+
+00:40:21 ERROR: Engines.ProxyEngine.getNewProxy()
+ Proxy: 142.93.37.75:8080
+
+00:40:22 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: null: java.lang.Exception
+	at Engines.WebUrlEngine.getWebSourceData(WebUrlEngine.java:36)
+	at Strategies.ParsingStrategies.ParsingStrategyBase.getSocialMediaDataFromResults(ParsingStrategyBase.java:26)
+	at Strategies.ParsingStrategies.InstagramParsingStrategy.getSocialMediaResults(InstagramParsingStrategy.java:19)
+	at Strategies.SearchingMode.SearchingWorkerStrategy.processData(SearchingWorkerStrategy.java:48)
+	at Commands.RunButtonActionCommand.lambda$actionPerformed$0(RunButtonActionCommand.java:36)
+	at java.lang.Thread.run(Thread.java:748)
+
+00:40:27 ERROR: Engines.ProxyEngine.getNewProxy()
+ Proxy: 159.65.204.30:8080
+
+00:40:28 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: null: java.lang.Exception
+	at Engines.WebUrlEngine.getWebSourceData(WebUrlEngine.java:36)
+	at Strategies.ParsingStrategies.ParsingStrategyBase.getSocialMediaDataFromResults(ParsingStrategyBase.java:26)
+	at Strategies.ParsingStrategies.InstagramParsingStrategy.getSocialMediaResults(InstagramParsingStrategy.java:19)
+	at Strategies.SearchingMode.SearchingWorkerStrategy.processData(SearchingWorkerStrategy.java:48)
+	at Commands.RunButtonActionCommand.lambda$actionPerformed$0(RunButtonActionCommand.java:36)
+	at java.lang.Thread.run(Thread.java:748)
+
+00:40:33 ERROR: Engines.ProxyEngine.getNewProxy()
+ Proxy: 142.93.37.75:8080
+
+00:40:36 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: null: java.lang.Exception
+	at Engines.WebUrlEngine.getWebSourceData(WebUrlEngine.java:36)
+	at Strategies.ParsingStrategies.ParsingStrategyBase.getSocialMediaDataFromResults(ParsingStrategyBase.java:26)
+	at Strategies.ParsingStrategies.InstagramParsingStrategy.getSocialMediaResults(InstagramParsingStrategy.java:19)
+	at Strategies.SearchingMode.SearchingWorkerStrategy.processData(SearchingWorkerStrategy.java:48)
+	at Commands.RunButtonActionCommand.lambda$actionPerformed$0(RunButtonActionCommand.java:36)
+	at java.lang.Thread.run(Thread.java:748)
+
+00:40:41 ERROR: Engines.ProxyEngine.getNewProxy()
+ Proxy: 142.93.37.75:8080
+
+00:40:42 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: null: java.lang.Exception
+	at Engines.WebUrlEngine.getWebSourceData(WebUrlEngine.java:36)
+	at Strategies.ParsingStrategies.ParsingStrategyBase.getSocialMediaDataFromResults(ParsingStrategyBase.java:26)
+	at Strategies.ParsingStrategies.InstagramParsingStrategy.getSocialMediaResults(InstagramParsingStrategy.java:19)
+	at Strategies.SearchingMode.SearchingWorkerStrategy.processData(SearchingWorkerStrategy.java:48)
+	at Commands.RunButtonActionCommand.lambda$actionPerformed$0(RunButtonActionCommand.java:36)
+	at java.lang.Thread.run(Thread.java:748)
+
+00:40:48 ERROR: Engines.ProxyEngine.getNewProxy()
+ Proxy: 199.119.96.155:13750
+
+00:40:48 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: Unexpected end of file from server: java.net.SocketException: Unexpected end of file from server
+	at sun.net.www.http.HttpClient.parseHTTPHeader(HttpClient.java:851)
+	at sun.net.www.http.HttpClient.parseHTTP(HttpClient.java:678)
+	at sun.net.www.protocol.http.HttpURLConnection.doTunneling(HttpURLConnection.java:2037)
+	at sun.net.www.protocol.https.AbstractDelegateHttpsURLConnection.connect(AbstractDelegateHttpsURLConnection.java:183)
+	at sun.net.www.protocol.https.HttpsURLConnectionImpl.connect(HttpsURLConnectionImpl.java:153)
+	at org.jsoup.helper.HttpConnection$Response.execute(HttpConnection.java:746)
+	at org.jsoup.helper.HttpConnection$Response.execute(HttpConnection.java:722)
+	at org.jsoup.helper.HttpConnection.execute(HttpConnection.java:306)
+	at Engines.WebUrlEngine.makeRequest(WebUrlEngine.java:65)
+	at Engines.WebUrlEngine.getWebSourceData(WebUrlEngine.java:31)
+	at Strategies.ParsingStrategies.ParsingStrategyBase.getSocialMediaDataFromResults(ParsingStrategyBase.java:26)
+	at Strategies.ParsingStrategies.InstagramParsingStrategy.getSocialMediaResults(InstagramParsingStrategy.java:19)
+	at Strategies.SearchingMode.SearchingWorkerStrategy.processData(SearchingWorkerStrategy.java:48)
+	at Commands.RunButtonActionCommand.lambda$actionPerformed$0(RunButtonActionCommand.java:36)
+	at java.lang.Thread.run(Thread.java:748)
+
+00:40:53 ERROR: Engines.ProxyEngine.getNewProxy()
+ Proxy: 159.65.204.30:8080
+
+00:40:54 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: null: java.lang.Exception
+	at Engines.WebUrlEngine.getWebSourceData(WebUrlEngine.java:36)
+	at Strategies.ParsingStrategies.ParsingStrategyBase.getSocialMediaDataFromResults(ParsingStrategyBase.java:26)
+	at Strategies.ParsingStrategies.InstagramParsingStrategy.getSocialMediaResults(InstagramParsingStrategy.java:19)
+	at Strategies.SearchingMode.SearchingWorkerStrategy.processData(SearchingWorkerStrategy.java:48)
+	at Commands.RunButtonActionCommand.lambda$actionPerformed$0(RunButtonActionCommand.java:36)
+	at java.lang.Thread.run(Thread.java:748)
+
+00:41:00 ERROR: Engines.ProxyEngine.getNewProxy()
+ Proxy: 199.119.96.155:13750
+
+00:41:00 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: Unexpected end of file from server: java.net.SocketException: Unexpected end of file from server
+	at sun.net.www.http.HttpClient.parseHTTPHeader(HttpClient.java:851)
+	at sun.net.www.http.HttpClient.parseHTTP(HttpClient.java:678)
+	at sun.net.www.protocol.http.HttpURLConnection.doTunneling(HttpURLConnection.java:2037)
+	at sun.net.www.protocol.https.AbstractDelegateHttpsURLConnection.connect(AbstractDelegateHttpsURLConnection.java:183)
+	at sun.net.www.protocol.https.HttpsURLConnectionImpl.connect(HttpsURLConnectionImpl.java:153)
+	at org.jsoup.helper.HttpConnection$Response.execute(HttpConnection.java:746)
+	at org.jsoup.helper.HttpConnection$Response.execute(HttpConnection.java:722)
+	at org.jsoup.helper.HttpConnection.execute(HttpConnection.java:306)
+	at Engines.WebUrlEngine.makeRequest(WebUrlEngine.java:65)
+	at Engines.WebUrlEngine.getWebSourceData(WebUrlEngine.java:31)
+	at Strategies.ParsingStrategies.ParsingStrategyBase.getSocialMediaDataFromResults(ParsingStrategyBase.java:26)
+	at Strategies.ParsingStrategies.InstagramParsingStrategy.getSocialMediaResults(InstagramParsingStrategy.java:19)
+	at Strategies.SearchingMode.SearchingWorkerStrategy.processData(SearchingWorkerStrategy.java:48)
+	at Commands.RunButtonActionCommand.lambda$actionPerformed$0(RunButtonActionCommand.java:36)
+	at java.lang.Thread.run(Thread.java:748)
+
+00:41:05 ERROR: Engines.ProxyEngine.getNewProxy()
+ Proxy: 142.93.37.75:8080
+
+00:41:06 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: null: java.lang.Exception
+	at Engines.WebUrlEngine.getWebSourceData(WebUrlEngine.java:36)
+	at Strategies.ParsingStrategies.ParsingStrategyBase.getSocialMediaDataFromResults(ParsingStrategyBase.java:26)
+	at Strategies.ParsingStrategies.InstagramParsingStrategy.getSocialMediaResults(InstagramParsingStrategy.java:19)
+	at Strategies.SearchingMode.SearchingWorkerStrategy.processData(SearchingWorkerStrategy.java:48)
+	at Commands.RunButtonActionCommand.lambda$actionPerformed$0(RunButtonActionCommand.java:36)
+	at java.lang.Thread.run(Thread.java:748)
+
+00:41:12 ERROR: Engines.ProxyEngine.getNewProxy()
+ Proxy: 159.65.204.30:8080
+
+00:41:12 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: null: java.lang.Exception
+	at Engines.WebUrlEngine.getWebSourceData(WebUrlEngine.java:36)
+	at Strategies.ParsingStrategies.ParsingStrategyBase.getSocialMediaDataFromResults(ParsingStrategyBase.java:26)
+	at Strategies.ParsingStrategies.InstagramParsingStrategy.getSocialMediaResults(InstagramParsingStrategy.java:19)
+	at Strategies.SearchingMode.SearchingWorkerStrategy.processData(SearchingWorkerStrategy.java:48)
+	at Commands.RunButtonActionCommand.lambda$actionPerformed$0(RunButtonActionCommand.java:36)
+	at java.lang.Thread.run(Thread.java:748)
+
+00:41:18 ERROR: Engines.ProxyEngine.getNewProxy()
+ Proxy: 159.65.204.30:8080
+
+00:41:19 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: null: java.lang.Exception
+	at Engines.WebUrlEngine.getWebSourceData(WebUrlEngine.java:36)
+	at Strategies.ParsingStrategies.ParsingStrategyBase.getSocialMediaDataFromResults(ParsingStrategyBase.java:26)
+	at Strategies.ParsingStrategies.InstagramParsingStrategy.getSocialMediaResults(InstagramParsingStrategy.java:19)
+	at Strategies.SearchingMode.SearchingWorkerStrategy.processData(SearchingWorkerStrategy.java:48)
+	at Commands.RunButtonActionCommand.lambda$actionPerformed$0(RunButtonActionCommand.java:36)
+	at java.lang.Thread.run(Thread.java:748)
+
+00:41:24 ERROR: Engines.ProxyEngine.getNewProxy()
+ Proxy: 199.119.96.155:13750
+
+00:41:24 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: Unexpected end of file from server: java.net.SocketException: Unexpected end of file from server
+	at sun.net.www.http.HttpClient.parseHTTPHeader(HttpClient.java:851)
+	at sun.net.www.http.HttpClient.parseHTTP(HttpClient.java:678)
+	at sun.net.www.protocol.http.HttpURLConnection.doTunneling(HttpURLConnection.java:2037)
+	at sun.net.www.protocol.https.AbstractDelegateHttpsURLConnection.connect(AbstractDelegateHttpsURLConnection.java:183)
+	at sun.net.www.protocol.https.HttpsURLConnectionImpl.connect(HttpsURLConnectionImpl.java:153)
+	at org.jsoup.helper.HttpConnection$Response.execute(HttpConnection.java:746)
+	at org.jsoup.helper.HttpConnection$Response.execute(HttpConnection.java:722)
+	at org.jsoup.helper.HttpConnection.execute(HttpConnection.java:306)
+	at Engines.WebUrlEngine.makeRequest(WebUrlEngine.java:65)
+	at Engines.WebUrlEngine.getWebSourceData(WebUrlEngine.java:31)
+	at Strategies.ParsingStrategies.ParsingStrategyBase.getSocialMediaDataFromResults(ParsingStrategyBase.java:26)
+	at Strategies.ParsingStrategies.InstagramParsingStrategy.getSocialMediaResults(InstagramParsingStrategy.java:19)
+	at Strategies.SearchingMode.SearchingWorkerStrategy.processData(SearchingWorkerStrategy.java:48)
+	at Commands.RunButtonActionCommand.lambda$actionPerformed$0(RunButtonActionCommand.java:36)
+	at java.lang.Thread.run(Thread.java:748)
+
+00:41:30 ERROR: Engines.ProxyEngine.getNewProxy()
+ Proxy: 199.119.96.155:13750
+
+00:41:30 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: Unexpected end of file from server: java.net.SocketException: Unexpected end of file from server
+	at sun.net.www.http.HttpClient.parseHTTPHeader(HttpClient.java:851)
+	at sun.net.www.http.HttpClient.parseHTTP(HttpClient.java:678)
+	at sun.net.www.protocol.http.HttpURLConnection.doTunneling(HttpURLConnection.java:2037)
+	at sun.net.www.protocol.https.AbstractDelegateHttpsURLConnection.connect(AbstractDelegateHttpsURLConnection.java:183)
+	at sun.net.www.protocol.https.HttpsURLConnectionImpl.connect(HttpsURLConnectionImpl.java:153)
+	at org.jsoup.helper.HttpConnection$Response.execute(HttpConnection.java:746)
+	at org.jsoup.helper.HttpConnection$Response.execute(HttpConnection.java:722)
+	at org.jsoup.helper.HttpConnection.execute(HttpConnection.java:306)
+	at Engines.WebUrlEngine.makeRequest(WebUrlEngine.java:65)
+	at Engines.WebUrlEngine.getWebSourceData(WebUrlEngine.java:31)
+	at Strategies.ParsingStrategies.ParsingStrategyBase.getSocialMediaDataFromResults(ParsingStrategyBase.java:26)
+	at Strategies.ParsingStrategies.InstagramParsingStrategy.getSocialMediaResults(InstagramParsingStrategy.java:19)
+	at Strategies.SearchingMode.SearchingWorkerStrategy.processData(SearchingWorkerStrategy.java:48)
+	at Commands.RunButtonActionCommand.lambda$actionPerformed$0(RunButtonActionCommand.java:36)
+	at java.lang.Thread.run(Thread.java:748)
+
+00:41:35 ERROR: Engines.ProxyEngine.getNewProxy()
+ Proxy: 142.93.37.75:8080
+
+00:41:38 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: null: java.lang.Exception
+	at Engines.WebUrlEngine.getWebSourceData(WebUrlEngine.java:36)
+	at Strategies.ParsingStrategies.ParsingStrategyBase.getSocialMediaDataFromResults(ParsingStrategyBase.java:26)
+	at Strategies.ParsingStrategies.InstagramParsingStrategy.getSocialMediaResults(InstagramParsingStrategy.java:19)
+	at Strategies.SearchingMode.SearchingWorkerStrategy.processData(SearchingWorkerStrategy.java:48)
+	at Commands.RunButtonActionCommand.lambda$actionPerformed$0(RunButtonActionCommand.java:36)
+	at java.lang.Thread.run(Thread.java:748)
+
+00:41:44 ERROR: Engines.ProxyEngine.getNewProxy()
+ Proxy: 199.119.96.155:13750
+
+00:41:44 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: Connection reset: java.net.SocketException: Connection reset
+	at java.net.SocketInputStream.read(SocketInputStream.java:210)
+	at java.net.SocketInputStream.read(SocketInputStream.java:141)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:246)
+	at java.io.BufferedInputStream.read1(BufferedInputStream.java:286)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:345)
+	at sun.net.www.http.HttpClient.parseHTTPHeader(HttpClient.java:735)
+	at sun.net.www.http.HttpClient.parseHTTP(HttpClient.java:678)
+	at sun.net.www.protocol.http.HttpURLConnection.doTunneling(HttpURLConnection.java:2037)
+	at sun.net.www.protocol.https.AbstractDelegateHttpsURLConnection.connect(AbstractDelegateHttpsURLConnection.java:183)
+	at sun.net.www.protocol.https.HttpsURLConnectionImpl.connect(HttpsURLConnectionImpl.java:153)
+	at org.jsoup.helper.HttpConnection$Response.execute(HttpConnection.java:746)
+	at org.jsoup.helper.HttpConnection$Response.execute(HttpConnection.java:722)
+	at org.jsoup.helper.HttpConnection.execute(HttpConnection.java:306)
+	at Engines.WebUrlEngine.makeRequest(WebUrlEngine.java:65)
+	at Engines.WebUrlEngine.getWebSourceData(WebUrlEngine.java:31)
+	at Strategies.ParsingStrategies.ParsingStrategyBase.getSocialMediaDataFromResults(ParsingStrategyBase.java:26)
+	at Strategies.ParsingStrategies.InstagramParsingStrategy.getSocialMediaResults(InstagramParsingStrategy.java:19)
+	at Strategies.SearchingMode.SearchingWorkerStrategy.processData(SearchingWorkerStrategy.java:48)
+	at Commands.RunButtonActionCommand.lambda$actionPerformed$0(RunButtonActionCommand.java:36)
+	at java.lang.Thread.run(Thread.java:748)
+
+00:41:49 ERROR: Engines.ProxyEngine.getNewProxy()
+ Proxy: 199.119.96.155:13750
+
+00:41:50 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: Unexpected end of file from server: java.net.SocketException: Unexpected end of file from server
+	at sun.net.www.http.HttpClient.parseHTTPHeader(HttpClient.java:851)
+	at sun.net.www.http.HttpClient.parseHTTP(HttpClient.java:678)
+	at sun.net.www.protocol.http.HttpURLConnection.doTunneling(HttpURLConnection.java:2037)
+	at sun.net.www.protocol.https.AbstractDelegateHttpsURLConnection.connect(AbstractDelegateHttpsURLConnection.java:183)
+	at sun.net.www.protocol.https.HttpsURLConnectionImpl.connect(HttpsURLConnectionImpl.java:153)
+	at org.jsoup.helper.HttpConnection$Response.execute(HttpConnection.java:746)
+	at org.jsoup.helper.HttpConnection$Response.execute(HttpConnection.java:722)
+	at org.jsoup.helper.HttpConnection.execute(HttpConnection.java:306)
+	at Engines.WebUrlEngine.makeRequest(WebUrlEngine.java:65)
+	at Engines.WebUrlEngine.getWebSourceData(WebUrlEngine.java:31)
+	at Strategies.ParsingStrategies.ParsingStrategyBase.getSocialMediaDataFromResults(ParsingStrategyBase.java:26)
+	at Strategies.ParsingStrategies.InstagramParsingStrategy.getSocialMediaResults(InstagramParsingStrategy.java:19)
+	at Strategies.SearchingMode.SearchingWorkerStrategy.processData(SearchingWorkerStrategy.java:48)
+	at Commands.RunButtonActionCommand.lambda$actionPerformed$0(RunButtonActionCommand.java:36)
+	at java.lang.Thread.run(Thread.java:748)
+
+00:41:55 ERROR: Engines.ProxyEngine.getNewProxy()
+ Proxy: 199.119.96.155:13750
+
+00:41:55 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: Connection reset: java.net.SocketException: Connection reset
+	at java.net.SocketInputStream.read(SocketInputStream.java:210)
+	at java.net.SocketInputStream.read(SocketInputStream.java:141)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:246)
+	at java.io.BufferedInputStream.read1(BufferedInputStream.java:286)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:345)
+	at sun.net.www.http.HttpClient.parseHTTPHeader(HttpClient.java:735)
+	at sun.net.www.http.HttpClient.parseHTTP(HttpClient.java:678)
+	at sun.net.www.protocol.http.HttpURLConnection.doTunneling(HttpURLConnection.java:2037)
+	at sun.net.www.protocol.https.AbstractDelegateHttpsURLConnection.connect(AbstractDelegateHttpsURLConnection.java:183)
+	at sun.net.www.protocol.https.HttpsURLConnectionImpl.connect(HttpsURLConnectionImpl.java:153)
+	at org.jsoup.helper.HttpConnection$Response.execute(HttpConnection.java:746)
+	at org.jsoup.helper.HttpConnection$Response.execute(HttpConnection.java:722)
+	at org.jsoup.helper.HttpConnection.execute(HttpConnection.java:306)
+	at Engines.WebUrlEngine.makeRequest(WebUrlEngine.java:65)
+	at Engines.WebUrlEngine.getWebSourceData(WebUrlEngine.java:31)
+	at Strategies.ParsingStrategies.ParsingStrategyBase.getSocialMediaDataFromResults(ParsingStrategyBase.java:26)
+	at Strategies.ParsingStrategies.InstagramParsingStrategy.getSocialMediaResults(InstagramParsingStrategy.java:19)
+	at Strategies.SearchingMode.SearchingWorkerStrategy.processData(SearchingWorkerStrategy.java:48)
+	at Commands.RunButtonActionCommand.lambda$actionPerformed$0(RunButtonActionCommand.java:36)
+	at java.lang.Thread.run(Thread.java:748)
+
+00:42:01 ERROR: Engines.ProxyEngine.getNewProxy()
+ Proxy: 159.65.204.30:8080
+
+00:42:02 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: null: java.lang.Exception
+	at Engines.WebUrlEngine.getWebSourceData(WebUrlEngine.java:36)
+	at Strategies.ParsingStrategies.ParsingStrategyBase.getSocialMediaDataFromResults(ParsingStrategyBase.java:26)
+	at Strategies.ParsingStrategies.InstagramParsingStrategy.getSocialMediaResults(InstagramParsingStrategy.java:19)
+	at Strategies.SearchingMode.SearchingWorkerStrategy.processData(SearchingWorkerStrategy.java:48)
+	at Commands.RunButtonActionCommand.lambda$actionPerformed$0(RunButtonActionCommand.java:36)
+	at java.lang.Thread.run(Thread.java:748)
+
+00:42:07 ERROR: Engines.ProxyEngine.getNewProxy()
+ Proxy: 142.93.37.75:8080
+
+00:42:08 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: null: java.lang.Exception
+	at Engines.WebUrlEngine.getWebSourceData(WebUrlEngine.java:36)
+	at Strategies.ParsingStrategies.ParsingStrategyBase.getSocialMediaDataFromResults(ParsingStrategyBase.java:26)
+	at Strategies.ParsingStrategies.InstagramParsingStrategy.getSocialMediaResults(InstagramParsingStrategy.java:19)
+	at Strategies.SearchingMode.SearchingWorkerStrategy.processData(SearchingWorkerStrategy.java:48)
+	at Commands.RunButtonActionCommand.lambda$actionPerformed$0(RunButtonActionCommand.java:36)
+	at java.lang.Thread.run(Thread.java:748)
+
+00:42:13 ERROR: Engines.ProxyEngine.getNewProxy()
+ Proxy: 142.93.37.75:8080
+
+00:42:15 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: null: java.lang.Exception
+	at Engines.WebUrlEngine.getWebSourceData(WebUrlEngine.java:36)
+	at Strategies.ParsingStrategies.ParsingStrategyBase.getSocialMediaDataFromResults(ParsingStrategyBase.java:26)
+	at Strategies.ParsingStrategies.InstagramParsingStrategy.getSocialMediaResults(InstagramParsingStrategy.java:19)
+	at Strategies.SearchingMode.SearchingWorkerStrategy.processData(SearchingWorkerStrategy.java:48)
+	at Commands.RunButtonActionCommand.lambda$actionPerformed$0(RunButtonActionCommand.java:36)
+	at java.lang.Thread.run(Thread.java:748)
+
+00:42:20 ERROR: Engines.ProxyEngine.getNewProxy()
+ Proxy: 199.119.96.155:13750
+
+00:42:20 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: Unexpected end of file from server: java.net.SocketException: Unexpected end of file from server
+	at sun.net.www.http.HttpClient.parseHTTPHeader(HttpClient.java:851)
+	at sun.net.www.http.HttpClient.parseHTTP(HttpClient.java:678)
+	at sun.net.www.protocol.http.HttpURLConnection.doTunneling(HttpURLConnection.java:2037)
+	at sun.net.www.protocol.https.AbstractDelegateHttpsURLConnection.connect(AbstractDelegateHttpsURLConnection.java:183)
+	at sun.net.www.protocol.https.HttpsURLConnectionImpl.connect(HttpsURLConnectionImpl.java:153)
+	at org.jsoup.helper.HttpConnection$Response.execute(HttpConnection.java:746)
+	at org.jsoup.helper.HttpConnection$Response.execute(HttpConnection.java:722)
+	at org.jsoup.helper.HttpConnection.execute(HttpConnection.java:306)
+	at Engines.WebUrlEngine.makeRequest(WebUrlEngine.java:65)
+	at Engines.WebUrlEngine.getWebSourceData(WebUrlEngine.java:31)
+	at Strategies.ParsingStrategies.ParsingStrategyBase.getSocialMediaDataFromResults(ParsingStrategyBase.java:26)
+	at Strategies.ParsingStrategies.InstagramParsingStrategy.getSocialMediaResults(InstagramParsingStrategy.java:19)
+	at Strategies.SearchingMode.SearchingWorkerStrategy.processData(SearchingWorkerStrategy.java:48)
+	at Commands.RunButtonActionCommand.lambda$actionPerformed$0(RunButtonActionCommand.java:36)
+	at java.lang.Thread.run(Thread.java:748)
+
+00:42:26 ERROR: Engines.ProxyEngine.getNewProxy()
+ Proxy: 159.65.204.30:8080
+
+00:42:26 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: null: java.lang.Exception
+	at Engines.WebUrlEngine.getWebSourceData(WebUrlEngine.java:36)
+	at Strategies.ParsingStrategies.ParsingStrategyBase.getSocialMediaDataFromResults(ParsingStrategyBase.java:26)
+	at Strategies.ParsingStrategies.InstagramParsingStrategy.getSocialMediaResults(InstagramParsingStrategy.java:19)
+	at Strategies.SearchingMode.SearchingWorkerStrategy.processData(SearchingWorkerStrategy.java:48)
+	at Commands.RunButtonActionCommand.lambda$actionPerformed$0(RunButtonActionCommand.java:36)
+	at java.lang.Thread.run(Thread.java:748)
+
+00:42:32 ERROR: Engines.ProxyEngine.getNewProxy()
+ Proxy: 142.93.37.75:8080
+
+00:42:33 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: null: java.lang.Exception
+	at Engines.WebUrlEngine.getWebSourceData(WebUrlEngine.java:36)
+	at Strategies.ParsingStrategies.ParsingStrategyBase.getSocialMediaDataFromResults(ParsingStrategyBase.java:26)
+	at Strategies.ParsingStrategies.InstagramParsingStrategy.getSocialMediaResults(InstagramParsingStrategy.java:19)
+	at Strategies.SearchingMode.SearchingWorkerStrategy.processData(SearchingWorkerStrategy.java:48)
+	at Commands.RunButtonActionCommand.lambda$actionPerformed$0(RunButtonActionCommand.java:36)
+	at java.lang.Thread.run(Thread.java:748)
+
+00:42:38 ERROR: Engines.ProxyEngine.getNewProxy()
+ Proxy: 159.65.204.30:8080
+
+00:42:39 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: null: java.lang.Exception
+	at Engines.WebUrlEngine.getWebSourceData(WebUrlEngine.java:36)
+	at Strategies.ParsingStrategies.ParsingStrategyBase.getSocialMediaDataFromResults(ParsingStrategyBase.java:26)
+	at Strategies.ParsingStrategies.InstagramParsingStrategy.getSocialMediaResults(InstagramParsingStrategy.java:19)
+	at Strategies.SearchingMode.SearchingWorkerStrategy.processData(SearchingWorkerStrategy.java:48)
+	at Commands.RunButtonActionCommand.lambda$actionPerformed$0(RunButtonActionCommand.java:36)
+	at java.lang.Thread.run(Thread.java:748)
+
+00:42:44 ERROR: Engines.ProxyEngine.getNewProxy()
+ Proxy: 142.93.37.75:8080
+
+00:42:45 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: null: java.lang.Exception
+	at Engines.WebUrlEngine.getWebSourceData(WebUrlEngine.java:36)
+	at Strategies.ParsingStrategies.ParsingStrategyBase.getSocialMediaDataFromResults(ParsingStrategyBase.java:26)
+	at Strategies.ParsingStrategies.InstagramParsingStrategy.getSocialMediaResults(InstagramParsingStrategy.java:19)
+	at Strategies.SearchingMode.SearchingWorkerStrategy.processData(SearchingWorkerStrategy.java:48)
+	at Commands.RunButtonActionCommand.lambda$actionPerformed$0(RunButtonActionCommand.java:36)
+	at java.lang.Thread.run(Thread.java:748)
+
+00:42:50 ERROR: Engines.ProxyEngine.getNewProxy()
+ Proxy: 142.93.37.75:8080
+
+00:42:51 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: null: java.lang.Exception
+	at Engines.WebUrlEngine.getWebSourceData(WebUrlEngine.java:36)
+	at Strategies.ParsingStrategies.ParsingStrategyBase.getSocialMediaDataFromResults(ParsingStrategyBase.java:26)
+	at Strategies.ParsingStrategies.InstagramParsingStrategy.getSocialMediaResults(InstagramParsingStrategy.java:19)
+	at Strategies.SearchingMode.SearchingWorkerStrategy.processData(SearchingWorkerStrategy.java:48)
+	at Commands.RunButtonActionCommand.lambda$actionPerformed$0(RunButtonActionCommand.java:36)
+	at java.lang.Thread.run(Thread.java:748)
+
+00:42:57 ERROR: Engines.ProxyEngine.getNewProxy()
+ Proxy: 159.65.204.30:8080
+
+00:42:58 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: null: java.lang.Exception
+	at Engines.WebUrlEngine.getWebSourceData(WebUrlEngine.java:36)
+	at Strategies.ParsingStrategies.ParsingStrategyBase.getSocialMediaDataFromResults(ParsingStrategyBase.java:26)
+	at Strategies.ParsingStrategies.InstagramParsingStrategy.getSocialMediaResults(InstagramParsingStrategy.java:19)
+	at Strategies.SearchingMode.SearchingWorkerStrategy.processData(SearchingWorkerStrategy.java:48)
+	at Commands.RunButtonActionCommand.lambda$actionPerformed$0(RunButtonActionCommand.java:36)
+	at java.lang.Thread.run(Thread.java:748)
+
+00:43:03 ERROR: Engines.ProxyEngine.getNewProxy()
+ Proxy: 142.93.37.75:8080
+
+00:43:04 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: null: java.lang.Exception
+	at Engines.WebUrlEngine.getWebSourceData(WebUrlEngine.java:36)
+	at Strategies.ParsingStrategies.ParsingStrategyBase.getSocialMediaDataFromResults(ParsingStrategyBase.java:26)
+	at Strategies.ParsingStrategies.InstagramParsingStrategy.getSocialMediaResults(InstagramParsingStrategy.java:19)
+	at Strategies.SearchingMode.SearchingWorkerStrategy.processData(SearchingWorkerStrategy.java:48)
+	at Commands.RunButtonActionCommand.lambda$actionPerformed$0(RunButtonActionCommand.java:36)
+	at java.lang.Thread.run(Thread.java:748)
+
+00:43:09 ERROR: Engines.ProxyEngine.getNewProxy()
+ Proxy: 159.65.204.30:8080
+
+00:43:10 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: null: java.lang.Exception
+	at Engines.WebUrlEngine.getWebSourceData(WebUrlEngine.java:36)
+	at Strategies.ParsingStrategies.ParsingStrategyBase.getSocialMediaDataFromResults(ParsingStrategyBase.java:26)
+	at Strategies.ParsingStrategies.InstagramParsingStrategy.getSocialMediaResults(InstagramParsingStrategy.java:19)
+	at Strategies.SearchingMode.SearchingWorkerStrategy.processData(SearchingWorkerStrategy.java:48)
+	at Commands.RunButtonActionCommand.lambda$actionPerformed$0(RunButtonActionCommand.java:36)
+	at java.lang.Thread.run(Thread.java:748)
+
+00:43:15 ERROR: Engines.ProxyEngine.getNewProxy()
+ Proxy: 199.119.96.155:13750
+
+00:43:16 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: Unexpected end of file from server: java.net.SocketException: Unexpected end of file from server
+	at sun.net.www.http.HttpClient.parseHTTPHeader(HttpClient.java:851)
+	at sun.net.www.http.HttpClient.parseHTTP(HttpClient.java:678)
+	at sun.net.www.protocol.http.HttpURLConnection.doTunneling(HttpURLConnection.java:2037)
+	at sun.net.www.protocol.https.AbstractDelegateHttpsURLConnection.connect(AbstractDelegateHttpsURLConnection.java:183)
+	at sun.net.www.protocol.https.HttpsURLConnectionImpl.connect(HttpsURLConnectionImpl.java:153)
+	at org.jsoup.helper.HttpConnection$Response.execute(HttpConnection.java:746)
+	at org.jsoup.helper.HttpConnection$Response.execute(HttpConnection.java:722)
+	at org.jsoup.helper.HttpConnection.execute(HttpConnection.java:306)
+	at Engines.WebUrlEngine.makeRequest(WebUrlEngine.java:65)
+	at Engines.WebUrlEngine.getWebSourceData(WebUrlEngine.java:31)
+	at Strategies.ParsingStrategies.ParsingStrategyBase.getSocialMediaDataFromResults(ParsingStrategyBase.java:26)
+	at Strategies.ParsingStrategies.InstagramParsingStrategy.getSocialMediaResults(InstagramParsingStrategy.java:19)
+	at Strategies.SearchingMode.SearchingWorkerStrategy.processData(SearchingWorkerStrategy.java:48)
+	at Commands.RunButtonActionCommand.lambda$actionPerformed$0(RunButtonActionCommand.java:36)
+	at java.lang.Thread.run(Thread.java:748)
+

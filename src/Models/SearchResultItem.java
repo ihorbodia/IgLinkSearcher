@@ -1,6 +1,5 @@
 package Models;
 
-import Utils.UrlUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.jsoup.nodes.Element;
 
@@ -15,7 +14,7 @@ public class SearchResultItem {
         if (StringUtils.isEmpty(SearchedLink)){
             SearchedLink = div.select("h3.r > a").attr("href");
         }
-        SearchedLink = UrlUtils.clearLink(SearchedLink);
+        //SearchedLink =  UrlUtils.clearLink(SearchedLink);
         Description = div.select("div.s").text();
     }
 }

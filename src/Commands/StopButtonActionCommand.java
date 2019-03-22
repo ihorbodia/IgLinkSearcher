@@ -23,5 +23,6 @@ public class StopButtonActionCommand extends AbstractAction {
         propertiesService.saveIndex(0);
         guiService.updateStatusText("Stopping...");
         propertiesService.saveIsWork(false);
+        diResolver.getCurrentWorker().stopProcessing();
     }
 }

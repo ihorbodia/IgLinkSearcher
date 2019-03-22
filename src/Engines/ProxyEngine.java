@@ -21,7 +21,7 @@ public class ProxyEngine extends WebEngine {
 
     Proxy getNewProxy() {
         RequestData requestData = new RequestData(
-                "http://pubproxy.com/api/proxy?google=true&last_check=3&api=" + Keys.getProxyKey() + "&format=txt&country=US,CA,UK");
+                "http://pubproxy.com/api/proxy?google=true&last_check=1&api=" + Keys.getProxyKey() + "&format=txt");
         for (int i = 1; i <= attempts; i++) {
             boolean isContinueWork = diResolver.getPropertiesService().getIsWork();
             if(!isContinueWork) {
@@ -32,12 +32,13 @@ public class ProxyEngine extends WebEngine {
                 if (isValidResponse(response)) {
                     String textProxy = response.parse().text();
                     if (!StringUtils.isEmpty(textProxy)) {
+                        Logger.info("Proxy: " + textProxy);
                         return new Proxy(Proxy.Type.HTTP, new InetSocketAddress(textProxy.split(":")[0], Integer.parseInt(textProxy.split(":")[1])));
                     }
                 }
                 throw new Exception();
             } catch (Exception ex) {
-                Logger.tag("SYSTEM").error("Cannot get proxy, " + ex.getMessage() + ", waiting for next attempt.");
+                Logger.error("Cannot get proxy, " + ex.getMessage() + ", waiting for next attempt.");
             }
 
             isThreadSleep(i);

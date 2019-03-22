@@ -1,0 +1,104 @@
+01:13:58 INFO: Servcies.DIResolver.<init>()
+ Application started...
+
+01:14:39 ERROR: Engines.ProxyEngine.getNewProxy()
+ Proxy: 207.188.231.141:8080
+
+01:14:54 INFO: Engines.WebUrlEngine.getWebSourceData()
+ Response OK from: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15
+
+01:15:23 ERROR: Engines.ProxyEngine.getNewProxy()
+ Proxy: 159.65.204.30:8080
+
+01:15:30 INFO: Engines.WebUrlEngine.getWebSourceData()
+ Attempt: 1
+
+01:15:30 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: null: java.lang.Exception
+	at Engines.WebUrlEngine.getWebSourceData(WebUrlEngine.java:36)
+	at Strategies.ParsingStrategies.ParsingStrategyBase.getSocialMediaDataFromResults(ParsingStrategyBase.java:26)
+	at Strategies.ParsingStrategies.TwitterParsingStrategy.getSocialMediaResults(TwitterParsingStrategy.java:18)
+	at Strategies.SearchingMode.SearchingWorkerStrategy.processData(SearchingWorkerStrategy.java:49)
+	at Commands.RunButtonActionCommand.lambda$actionPerformed$0(RunButtonActionCommand.java:36)
+	at java.lang.Thread.run(Thread.java:748)
+
+01:16:06 ERROR: Engines.ProxyEngine.getNewProxy()
+ Proxy: 207.188.231.141:8080
+
+01:16:58 INFO: Engines.WebUrlEngine.getWebSourceData()
+ Response OK from: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15
+
+01:16:59 INFO: Engines.WebUrlEngine.getWebSourceData()
+ Attempt: 2
+
+01:17:37 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: Read timeout: java.net.SocketTimeoutException: Read timeout
+	at org.jsoup.internal.ConstrainableInputStream.read(ConstrainableInputStream.java:58)
+	at java.io.FilterInputStream.read(FilterInputStream.java:107)
+	at org.jsoup.internal.ConstrainableInputStream.readToByteBuffer(ConstrainableInputStream.java:87)
+	at org.jsoup.helper.DataUtil.readToByteBuffer(DataUtil.java:175)
+	at org.jsoup.helper.DataUtil.parseInputStream(DataUtil.java:104)
+	at org.jsoup.helper.HttpConnection$Response.parse(HttpConnection.java:851)
+	at Engines.WebUrlEngine.getWebSourceData(WebUrlEngine.java:34)
+	at Strategies.ParsingStrategies.ParsingStrategyBase.getSocialMediaDataFromResults(ParsingStrategyBase.java:26)
+	at Strategies.ParsingStrategies.TwitterParsingStrategy.getSocialMediaResults(TwitterParsingStrategy.java:18)
+	at Strategies.SearchingMode.SearchingWorkerStrategy.processData(SearchingWorkerStrategy.java:49)
+	at Commands.RunButtonActionCommand.lambda$actionPerformed$0(RunButtonActionCommand.java:36)
+	at java.lang.Thread.run(Thread.java:748)
+
+01:18:08 ERROR: Engines.ProxyEngine.getNewProxy()
+ Proxy: 159.65.204.30:8080
+
+01:18:09 INFO: Engines.WebUrlEngine.getWebSourceData()
+ Attempt: 3
+
+01:18:09 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: null: java.lang.Exception
+	at Engines.WebUrlEngine.getWebSourceData(WebUrlEngine.java:36)
+	at Strategies.ParsingStrategies.ParsingStrategyBase.getSocialMediaDataFromResults(ParsingStrategyBase.java:26)
+	at Strategies.ParsingStrategies.TwitterParsingStrategy.getSocialMediaResults(TwitterParsingStrategy.java:18)
+	at Strategies.SearchingMode.SearchingWorkerStrategy.processData(SearchingWorkerStrategy.java:49)
+	at Commands.RunButtonActionCommand.lambda$actionPerformed$0(RunButtonActionCommand.java:36)
+	at java.lang.Thread.run(Thread.java:748)
+
+01:18:39 ERROR: Engines.ProxyEngine.getNewProxy()
+ Proxy: 187.216.82.54:3128
+
+01:18:42 INFO: Engines.WebUrlEngine.getWebSourceData()
+ Attempt: 4
+
+01:18:42 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: null: java.lang.Exception
+	at Engines.WebUrlEngine.getWebSourceData(WebUrlEngine.java:36)
+	at Strategies.ParsingStrategies.ParsingStrategyBase.getSocialMediaDataFromResults(ParsingStrategyBase.java:26)
+	at Strategies.ParsingStrategies.TwitterParsingStrategy.getSocialMediaResults(TwitterParsingStrategy.java:18)
+	at Strategies.SearchingMode.SearchingWorkerStrategy.processData(SearchingWorkerStrategy.java:49)
+	at Commands.RunButtonActionCommand.lambda$actionPerformed$0(RunButtonActionCommand.java:36)
+	at java.lang.Thread.run(Thread.java:748)
+
+01:19:14 ERROR: Engines.ProxyEngine.getNewProxy()
+ Proxy: 159.65.204.30:8080
+
+01:19:15 INFO: Engines.WebUrlEngine.getWebSourceData()
+ Attempt: 5
+
+01:19:15 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: null: java.lang.Exception
+	at Engines.WebUrlEngine.getWebSourceData(WebUrlEngine.java:36)
+	at Strategies.ParsingStrategies.ParsingStrategyBase.getSocialMediaDataFromResults(ParsingStrategyBase.java:26)
+	at Strategies.ParsingStrategies.TwitterParsingStrategy.getSocialMediaResults(TwitterParsingStrategy.java:18)
+	at Strategies.SearchingMode.SearchingWorkerStrategy.processData(SearchingWorkerStrategy.java:49)
+	at Commands.RunButtonActionCommand.lambda$actionPerformed$0(RunButtonActionCommand.java:36)
+	at java.lang.Thread.run(Thread.java:748)
+
+01:19:45 ERROR: Engines.ProxyEngine.getNewProxy()
+ Proxy: 207.188.231.141:8080
+
+01:19:47 INFO: Engines.WebUrlEngine.getWebSourceData()
+ Response OK from: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15
+

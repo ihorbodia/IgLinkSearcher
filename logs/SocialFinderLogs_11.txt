@@ -1,0 +1,9 @@
+00:51:49 INFO: Servcies.DIResolver.<init>()
+ Application started...
+
+00:52:18 ERROR: Engines.ProxyEngine.getNewProxy()
+ Proxy: 159.65.204.30:8080
+
+00:52:27 INFO: Engines.WebUrlEngine.getWebSourceData()
+ Response OK from: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15
+

@@ -1,0 +1,35 @@
+23:56:06 INFO: Servcies.DIResolver.<init>()
+ Application started...
+
+23:57:25 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: null
+
+23:58:12 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: null
+
+23:58:43 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: null
+
+23:59:42 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: null
+
+23:59:53 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: Unexpected end of file from server
+
+00:00:57 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: null
+
+00:02:07 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: null
+
+00:07:22 ERROR: Engines.WebUrlEngine.getWebSourceData()
+ Cannot get page source, waiting for next attempt: https://www.google.com/search?q=site%3Awww.instagram.com+mar+mbart+www.mbart.com&pws=0&gl=us&gws_rd=cr&num=15 
+Cause: null
+
