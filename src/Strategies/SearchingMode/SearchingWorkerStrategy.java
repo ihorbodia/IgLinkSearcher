@@ -2,19 +2,14 @@ package Strategies.SearchingMode;
 
 import Exceptions.InputFileEmptyException;
 import Models.CsvItemModel;
-import Models.SearchResultItem;
 import Servcies.PropertiesService;
-import Specifications.Abstract.AbstractSpecification;
-import Specifications.Abstract.Specification;
-import Specifications.ContainingBusinessDataSpecification;
-import Specifications.IgLinksRegexSpecification;
-import Specifications.TwitterLinksRegexSpecification;
 import Strategies.ParsingStrategies.InstagramParsingStrategy;
 import Strategies.ParsingStrategies.ParsingStrategyBase;
 import Strategies.ParsingStrategies.TwitterParsingStrategy;
 import Servcies.DIResolver;
 import Servcies.GuiService;
 import Servcies.InputDataService;
+import javafx.concurrent.Task;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,17 +45,24 @@ public class SearchingWorkerStrategy extends SearchModeStrategyBase {
         if (propertiesService.getIsTwitterSearch()) {
             parsingStrategyBases.add(new TwitterParsingStrategy(diResolver));
         }
+        List<Runnable> tasks = new ArrayList<>();
+
+
 
         for (int i = index; i < size;  i++) {
             if (!isWork) {
                 break;
             }
-            guiService.updateStatusText(String.format("Processed %d/%d items.", i, size));
+            //guiService.updateStatusText(String.format("Processed %d/%d items.", i, size));
+            tasks.add(() -> {
+
+            });
+
             for (ParsingStrategyBase parsingStrategy : parsingStrategyBases) {
                 parsingStrategy.getSocialMediaResults(csvFileData.get(i));
             }
             inputDataService.updateResultCsvItems();
-            propertiesService.saveIndex(i);
+            //propertiesService.saveIndex(i);
         }
     }
 
