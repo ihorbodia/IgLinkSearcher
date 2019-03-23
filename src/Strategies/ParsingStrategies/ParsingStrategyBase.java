@@ -22,7 +22,7 @@ public abstract class ParsingStrategyBase {
     public abstract void getSocialMediaResults(CsvItemModel csvItemModel);
 
     void getSocialMediaDataFromResults(RequestData requestData) {
-        WebUrlEngine webUrlEngine = new WebUrlEngine(diResolver);
+        WebUrlEngine webUrlEngine = new WebUrlEngine(diResolver, 15000, 20000, 10);
         Element body = webUrlEngine.getWebSourceData(requestData);
 
         elements = body != null ? body.select("#res").select("div.g") : new Elements();

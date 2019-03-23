@@ -11,18 +11,16 @@ import java.io.IOException;
 
 public class WebUrlEngine extends WebEngine {
 
-    private final ProxyEngine proxyEngine;
     private final UserAgentsRotatorService userAgentsRotatorService;
-    private final DIResolver diResolver;
-
-    public WebUrlEngine(DIResolver diResolver) {
-        this.proxyEngine = new ProxyEngine(diResolver);
-        this.userAgentsRotatorService = new UserAgentsRotatorService();
-        this.diResolver = diResolver;
+    private final ProxyEngine proxyEngine;
+    public WebUrlEngine(DIResolver diResolver, int requestDelay, int requestTimeout, int attemptsCount) {
+        super(diResolver, requestDelay, requestTimeout, attemptsCount);
+        this.userAgentsRotatorService = diResolver.getUserAgentsRotatorService();
+        this.proxyEngine = new ProxyEngine(diResolver, 5000, 15000, 50);
     }
 
     public Element getWebSourceData(RequestData requestData) {
-        for (int i = 1; i <= attempts; i++) {
+        for (int i = 1; i <= attemptsCount; i++) {
             boolean isContinueWork = diResolver.getPropertiesService().getIsWork();
             if(!isContinueWork) {
                 return null;
@@ -45,8 +43,8 @@ public class WebUrlEngine extends WebEngine {
 
     private void isThreadSleep(int currentAttempt) {
         try {
-            if (currentAttempt <= attempts) {
-                Thread.sleep(15000);
+            if (currentAttempt <= attemptsCount) {
+                Thread.sleep(requestDelay);
             }
         } catch (InterruptedException e) {
             Logger.error("Interrupt exception");
@@ -63,6 +61,7 @@ public class WebUrlEngine extends WebEngine {
                 .ignoreHttpErrors(true)
                 .timeout(30000)
                 .ignoreContentType(true)
+                .timeout(requestTimeout)
                 .validateTLSCertificates(false)
                 .execute();
     }

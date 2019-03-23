@@ -14,15 +14,14 @@ import java.net.Proxy;
 
 public class ProxyEngine extends WebEngine {
 
-    private final DIResolver diResolver;
-    ProxyEngine(DIResolver diResolver) {
-        this.diResolver = diResolver;
+    public ProxyEngine(DIResolver diResolver, int requestDelay, int requestTimeout, int attemptsCount) {
+        super(diResolver, requestDelay, requestTimeout, attemptsCount);
     }
 
     Proxy getNewProxy() {
         RequestData requestData = new RequestData(
                 "http://pubproxy.com/api/proxy?google=true&last_check=1&api=" + Keys.getProxyKey() + "&format=txt");
-        for (int i = 1; i <= attempts; i++) {
+        for (int i = 1; i <= attemptsCount; i++) {
             boolean isContinueWork = diResolver.getPropertiesService().getIsWork();
             if(!isContinueWork) {
                 return null;
@@ -48,7 +47,7 @@ public class ProxyEngine extends WebEngine {
 
     private void isThreadSleep(int currentAttempt) {
         try {
-            if (currentAttempt <= attempts) {
+            if (currentAttempt <= attemptsCount) {
                 Thread.sleep(requestDelay);
             }
         } catch (InterruptedException e) {
@@ -64,8 +63,7 @@ public class ProxyEngine extends WebEngine {
                 .method(Connection.Method.GET)
                 .ignoreHttpErrors(true)
                 .ignoreContentType(true)
-                .timeout(30000)
-                .timeout(requestDelay * 12)
+                .timeout(requestTimeout)
                 .validateTLSCertificates(false)
                 .execute();
     }

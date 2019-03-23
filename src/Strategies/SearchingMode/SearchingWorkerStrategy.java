@@ -15,7 +15,6 @@ import Strategies.ParsingStrategies.TwitterParsingStrategy;
 import Servcies.DIResolver;
 import Servcies.GuiService;
 import Servcies.InputDataService;
-import Utils.StrUtils;
 
 import java.util.ArrayList;
 import java.util.List;
