@@ -14,6 +14,7 @@ import java.net.Proxy;
 
 public class ProxyEngine extends WebEngine {
 
+    private String lastGrabbedProxy;
     public ProxyEngine(DIResolver diResolver, int requestDelay, int requestTimeout, int attemptsCount) {
         super(diResolver, requestDelay, requestTimeout, attemptsCount);
     }
@@ -30,8 +31,9 @@ public class ProxyEngine extends WebEngine {
                 Connection.Response response = makeRequest(requestData);
                 if (isValidResponse(response)) {
                     String textProxy = response.parse().text();
-                    if (!StringUtils.isEmpty(textProxy)) {
+                    if (isProxyOk(textProxy)) {
                         Logger.info("Proxy: " + textProxy);
+                        lastGrabbedProxy = textProxy;
                         return new Proxy(Proxy.Type.HTTP, new InetSocketAddress(textProxy.split(":")[0], Integer.parseInt(textProxy.split(":")[1])));
                     }
                 }
@@ -43,6 +45,13 @@ public class ProxyEngine extends WebEngine {
             isThreadSleep(i);
         }
         return null;
+    }
+
+    private boolean isProxyOk(String textProxy) {
+        if (StringUtils.isEmpty(textProxy) && textProxy.equalsIgnoreCase(lastGrabbedProxy)) {
+            return false;
+        }
+        return true;
     }
 
     private void isThreadSleep(int currentAttempt) {

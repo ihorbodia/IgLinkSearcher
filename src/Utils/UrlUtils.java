@@ -9,7 +9,7 @@ import java.net.URLEncoder;
 public class UrlUtils {
 
     public static String createURLForTwitterSearch(CsvItemModel item) {
-        String searchTerm = "twitter " + StrUtils.extractWebSiteFromLongLink(item.URL);
+        String searchTerm = "twitter " + item.getPureName();
         String result = null;
         try {
             result = "https://www.google.com/search?q=" + URLEncoder.encode(searchTerm, "UTF-8") + "&pws=0&gl=us&gws_rd=cr&num=15";
@@ -20,7 +20,7 @@ public class UrlUtils {
     }
 
     public static String createURLForIgSearch(CsvItemModel item) {
-        String searchTerm = "site:www.instagram.com "+ StrUtils.extractWebSiteFromLongLink(item.URL);
+        String searchTerm = "site:www.instagram.com " + item.companyName + " " + item.getPureName() + " " + item.URL;
         String result = null;
         try {
             result = "https://www.google.com/search?q=" + URLEncoder.encode(searchTerm, "UTF-8") + "&pws=0&gl=us&gws_rd=cr&num=15";

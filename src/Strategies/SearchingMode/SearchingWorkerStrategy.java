@@ -9,10 +9,15 @@ import Strategies.ParsingStrategies.TwitterParsingStrategy;
 import Servcies.DIResolver;
 import Servcies.GuiService;
 import Servcies.InputDataService;
+import Tasks.RequestTask;
+import Tasks.Worker;
 import javafx.concurrent.Task;
+import org.tinylog.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class SearchingWorkerStrategy extends SearchModeStrategyBase {
     public SearchingWorkerStrategy(DIResolver diResolver) {
@@ -25,6 +30,7 @@ public class SearchingWorkerStrategy extends SearchModeStrategyBase {
     private final InputDataService inputDataService;
     private final PropertiesService propertiesService;
     private boolean isWork = true;
+    private ExecutorService executor;
 
     @Override
     public void processData(DIResolver diResolver) {
@@ -45,29 +51,32 @@ public class SearchingWorkerStrategy extends SearchModeStrategyBase {
         if (propertiesService.getIsTwitterSearch()) {
             parsingStrategyBases.add(new TwitterParsingStrategy(diResolver));
         }
-        List<Runnable> tasks = new ArrayList<>();
+        List<RequestTask> tasks = new ArrayList<>();
 
-
-
-        for (int i = index; i < size;  i++) {
-            if (!isWork) {
-                break;
-            }
-            //guiService.updateStatusText(String.format("Processed %d/%d items.", i, size));
-            tasks.add(() -> {
-
-            });
-
-            for (ParsingStrategyBase parsingStrategy : parsingStrategyBases) {
-                parsingStrategy.getSocialMediaResults(csvFileData.get(i));
-            }
-            inputDataService.updateResultCsvItems();
-            //propertiesService.saveIndex(i);
+        for (int i = index; i < size; i++) {
+            tasks.add(new RequestTask(csvFileData.get(i), parsingStrategyBases));
         }
+        //guiService.updateStatusText(String.format("Processed %d/%d items.", i, size));
+
+        executor = Executors.newFixedThreadPool(5);
+
+        for (RequestTask task : tasks) {
+            Runnable worker = new Worker(task);
+            executor.execute(worker);
+        }
+        // All tasks were executed, now shutdown
+        //executor.shutdown();
+        while (!executor.isTerminated()) {
+        }
+        System.out.println("Program finished");
+
+        inputDataService.updateResultCsvItems();
+        //propertiesService.saveIndex(i);
     }
 
     @Override
     public void stopProcessing() {
         isWork = false;
+        executor.shutdown();
     }
 }

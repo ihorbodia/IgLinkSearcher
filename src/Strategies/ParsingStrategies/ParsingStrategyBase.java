@@ -3,7 +3,6 @@ package Strategies.ParsingStrategies;
 import Engines.WebUrlEngine;
 import Models.CsvItemModel;
 import Models.RequestData;
-import Models.SearchResultItem;
 import Servcies.DIResolver;
 import Specifications.Abstract.Specification;
 import org.jsoup.nodes.Element;
@@ -22,7 +21,7 @@ public abstract class ParsingStrategyBase {
     public abstract void getSocialMediaResults(CsvItemModel csvItemModel);
 
     void getSocialMediaDataFromResults(RequestData requestData) {
-        WebUrlEngine webUrlEngine = new WebUrlEngine(diResolver, 15000, 20000, 10);
+        WebUrlEngine webUrlEngine = new WebUrlEngine(diResolver, 15000, 20000, 15);
         Element body = webUrlEngine.getWebSourceData(requestData);
 
         elements = body != null ? body.select("#res").select("div.g") : new Elements();

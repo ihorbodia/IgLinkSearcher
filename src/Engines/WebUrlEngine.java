@@ -59,7 +59,6 @@ public class WebUrlEngine extends WebEngine {
                 .proxy(proxyEngine.getNewProxy())
                 .method(Connection.Method.GET)
                 .ignoreHttpErrors(true)
-                .timeout(30000)
                 .ignoreContentType(true)
                 .timeout(requestTimeout)
                 .validateTLSCertificates(false)

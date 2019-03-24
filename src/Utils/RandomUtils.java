@@ -10,6 +10,10 @@ public class RandomUtils {
         return rnd.nextInt(max - min) + min;
     }
 
+    public static int getRandomMilliseconds(int minValue, int maxValue) {
+        return rnd.nextInt(maxValue - minValue) + minValue;
+    }
+
     public static int getRandomValue(int maximumValue) {
         return rnd.nextInt(maximumValue);
     }
