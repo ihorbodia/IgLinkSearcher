@@ -32,6 +32,7 @@ public class InstagramParsingStrategy extends ParsingStrategyBase {
                 new IgLinksRegexSpecification().and(new ContainingBusinessDataSpecification(csvItemModel));
 
         SearchResultItem igResult = filterResults(searchResultItems, igLinksSpecification);
-        csvItemModel.foundInstagram = igResult == null ? notFoundLabel : StrUtils.getLinkFromURL(igResult.SearchedLink, StrUtils.twitterLinkSearchPattern);
+        String foundInstagram = igResult == null ? notFoundLabel : StrUtils.getLinkFromURL(igResult.SearchedLink, StrUtils.twitterLinkSearchPattern);
+        csvItemModel.foundInstagram = StrUtils.getInstagramLinkFromURL(foundInstagram);
     }
 }

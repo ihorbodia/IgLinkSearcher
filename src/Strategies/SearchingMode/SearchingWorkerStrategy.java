@@ -11,13 +11,12 @@ import Servcies.GuiService;
 import Servcies.InputDataService;
 import Tasks.RequestTask;
 import Tasks.Worker;
-import javafx.concurrent.Task;
-import org.tinylog.Logger;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 public class SearchingWorkerStrategy extends SearchModeStrategyBase {
     public SearchingWorkerStrategy(DIResolver diResolver) {
@@ -29,13 +28,13 @@ public class SearchingWorkerStrategy extends SearchModeStrategyBase {
     private final GuiService guiService;
     private final InputDataService inputDataService;
     private final PropertiesService propertiesService;
-    private boolean isWork = true;
     private ExecutorService executor;
+    private boolean isWork;
 
     @Override
-    public void processData(DIResolver diResolver) {
+    public void processData(DIResolver diResolver) throws InterruptedException {
+        isWork  = true;
         guiService.updateStatusText("Processing started");
-        int index = diResolver.getPropertiesService().getIndex();
         List<CsvItemModel> csvFileData = diResolver.getInputDataService().getInputCsvModelItems();
         int size = diResolver.getInputDataService().getInputCsvModelItems().size();
 
@@ -53,30 +52,31 @@ public class SearchingWorkerStrategy extends SearchModeStrategyBase {
         }
         List<RequestTask> tasks = new ArrayList<>();
 
-        for (int i = index; i < size; i++) {
-            tasks.add(new RequestTask(csvFileData.get(i), parsingStrategyBases));
+        for (int i = 0; i < size; i++) {
+            tasks.add(new RequestTask(i, csvFileData.get(i), parsingStrategyBases));
         }
-        //guiService.updateStatusText(String.format("Processed %d/%d items.", i, size));
-
-        executor = Executors.newFixedThreadPool(5);
+        executor = Executors.newFixedThreadPool(50);
 
         for (RequestTask task : tasks) {
-            Runnable worker = new Worker(task);
+            Runnable worker = new Worker(task, propertiesService);
             executor.execute(worker);
         }
-        // All tasks were executed, now shutdown
-        //executor.shutdown();
         while (!executor.isTerminated()) {
+            Thread.sleep(1000);
+            if (isWork) {
+                guiService.updateStatusText(String.format("Processed %d/%d items.", ((ThreadPoolExecutor) executor).getCompletedTaskCount(), ((ThreadPoolExecutor) executor).getTaskCount()));
+            }
+            inputDataService.updateResultCsvItems();
+            if (((ThreadPoolExecutor) executor).getCompletedTaskCount() == size) {
+                stopProcessing();
+            }
         }
-        System.out.println("Program finished");
-
-        inputDataService.updateResultCsvItems();
-        //propertiesService.saveIndex(i);
     }
 
     @Override
     public void stopProcessing() {
-        isWork = false;
         executor.shutdown();
+        isWork = false;
+        propertiesService.saveIsWork(isWork);
     }
 }

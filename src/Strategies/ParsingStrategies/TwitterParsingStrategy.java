@@ -29,9 +29,10 @@ public class TwitterParsingStrategy extends ParsingStrategyBase {
         }
 
         AbstractSpecification<SearchResultItem> twitterLinksSpecification =
-                new TwitterLinksRegexSpecification().and(new ContainingBusinessDataSpecification(csvItemModel));
+        new TwitterLinksRegexSpecification().and(new ContainingBusinessDataSpecification(csvItemModel));
 
         SearchResultItem twitterResult = filterResults(searchResultItems, twitterLinksSpecification);
-        csvItemModel.foundTwitter = twitterResult == null ? notFoundLabel : StrUtils.getLinkFromURL(twitterResult.SearchedLink, StrUtils.igLinkSearchPattern);
+        String foundTwitter = twitterResult == null ? notFoundLabel : StrUtils.getLinkFromURL(twitterResult.SearchedLink, StrUtils.igLinkSearchPattern);
+        csvItemModel.foundTwitter = StrUtils.getTwitterLinkFromURL(foundTwitter);
     }
 }

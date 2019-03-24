@@ -20,7 +20,7 @@ public class PropertiesService {
         createNewFileIfNotExists();
     }
 
-    private void saveProperty(String propertyName, String value) {
+    private synchronized void saveProperty(String propertyName, String value) {
         OutputStream output = null;
         try {
             output = new FileOutputStream(propertiesFile.getAbsoluteFile());
@@ -59,7 +59,7 @@ public class PropertiesService {
         return new File(restoreProperty(selectedInputFileProperty));
     }
 
-    private void createNewFileIfNotExists() {
+    private synchronized void createNewFileIfNotExists() {
         OutputStream output = null;
         try {
             File file = new File("configIS.properties");
@@ -90,7 +90,7 @@ public class PropertiesService {
         }
     }
 
-    private String restoreProperty(String propertyName) {
+    private synchronized String restoreProperty(String propertyName) {
         String result = "";
         InputStream input = null;
         try {

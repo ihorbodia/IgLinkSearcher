@@ -28,10 +28,6 @@ public class InputDataService {
         }
     }
 
-    public File getInputDataFile() {
-        return inputDataFile;
-    }
-
     public List<CsvItemModel> getInputCsvModelItems() {
         return inputCsvModelItems;
     }
@@ -64,7 +60,7 @@ public class InputDataService {
         }
     }
 
-    public void updateResultCsvItems() {
+    public synchronized void updateResultCsvItems() {
         if (inputCsvModelItems == null || inputCsvModelItems.size() == 0) {
             return;
         }
@@ -79,9 +75,5 @@ public class InputDataService {
         } catch (IOException | CsvRequiredFieldEmptyException | CsvDataTypeMismatchException e) {
             System.out.println(e.getMessage());
         }
-    }
-
-    public void clearInputDataFile() {
-        inputDataFile = null;
     }
 }

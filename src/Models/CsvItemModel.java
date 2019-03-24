@@ -1,5 +1,6 @@
 package Models;
 
+import Utils.StrUtils;
 import com.opencsv.bean.CsvBindByPosition;
 import org.apache.commons.lang3.StringUtils;
 
@@ -90,6 +91,9 @@ public class CsvItemModel {
     }
     public String getURLToLower() {
         return URL.toLowerCase();
+    }
+    public String getBaseURL() {
+        return StrUtils.getPureLinkFromURL(URL);
     }
 
     public String getemail() {

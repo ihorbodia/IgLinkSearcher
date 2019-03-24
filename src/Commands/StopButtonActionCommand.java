@@ -3,6 +3,7 @@ package Commands;
 import Servcies.DIResolver;
 import Servcies.GuiService;
 import Servcies.PropertiesService;
+import org.tinylog.Logger;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -23,6 +24,10 @@ public class StopButtonActionCommand extends AbstractAction {
         propertiesService.saveIndex(0);
         guiService.updateStatusText("Stopping...");
         propertiesService.saveIsWork(false);
-        diResolver.getCurrentWorker().stopProcessing();
+        try {
+            diResolver.getCurrentWorker().stopProcessing();
+        } catch (InterruptedException e1) {
+            Logger.error(e1);
+        }
     }
 }
