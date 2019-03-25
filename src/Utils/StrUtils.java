@@ -5,7 +5,7 @@ import java.util.regex.Pattern;
 
 public class StrUtils {
 
-    public static String igLinkSearchPattern = "((https?:\\/\\/)?(www\\.)?((instagram\\.com\\/)|(ig\\ ?\\-\\ ?))(?!\\/p\\/)(?!explore)[A-Za-z0-9_]{4,20})|(@([a-z0-9_]{4,255}))";
+    public static String igLinkSearchPattern = "((https?:\\/\\/)?(www\\.)?((instagram\\.com\\/)|(ig\\ ?\\-\\ ?))(?!\\/p\\/)(?!explore)(?!hashtag)[A-Za-z0-9_]{4,20})|(@([a-z0-9_]{4,255}))";
     public static String twitterLinkSearchPattern = "((https?:\\/\\/)?(www\\.)?(twitter\\.com\\/)|(t\\.co\\/))(?!login)([a-zA-Z0-9_]{4,20})|(@([a-z0-9_]{4,255}))";
     public static String webSiteRegex = "((https?://)?(www\\.)://)?(([\\w.-]*)\\.([\\w]*))";
     public static String pureWebSiteRegex = "([a-zA-Z0-9_]{4,255}\\.[a-zA-Z0-9]{1,5})";

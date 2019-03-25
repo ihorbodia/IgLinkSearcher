@@ -21,7 +21,7 @@ public class TwitterParsingStrategy extends ParsingStrategyBase {
 
     @Override
     public void getSocialMediaResults(CsvItemModel csvItemModel) {
-        getSocialMediaDataFromResults(new RequestData(UrlUtils.createURLForTwitterSearch(csvItemModel)));
+        getSocialMediaDataFromResults(new RequestData(UrlUtils.createURLForTwitterSearch(csvItemModel), 10, 10000));
         List<SearchResultItem> searchResultItems = new ArrayList<>();
         for (Element div : getElements()) {
             SearchResultItem item = new SearchResultItem(div);
