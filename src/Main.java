@@ -12,7 +12,7 @@ public class Main {
         main.start();
     }
 
-    public void start() {
+    private void start() {
         initLookAndFeel();
 
         GuiService guiService = new GuiService();
