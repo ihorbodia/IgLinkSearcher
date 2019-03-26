@@ -1,4 +1,4 @@
-package Strategies.ParsingStrategies;
+package Strategies.ParsingStrategies.Twitter;
 
 import Models.CsvItemModel;
 import Models.RequestData;
@@ -7,29 +7,24 @@ import Servcies.DIResolver;
 import Specifications.Abstract.AbstractSpecification;
 import Specifications.ContainingBusinessDataSpecification;
 import Specifications.TwitterLinksRegexSpecification;
+import Strategies.ParsingStrategies.ParsingStrategyBase;
 import Utils.StrUtils;
 import Utils.UrlUtils;
-import org.jsoup.nodes.Element;
-import java.util.ArrayList;
+
 import java.util.List;
 
-public class TwitterParsingStrategy extends ParsingStrategyBase {
+abstract class BaseTwitterParsingStrategy extends ParsingStrategyBase {
 
-    public TwitterParsingStrategy(DIResolver diResolver) {
+    BaseTwitterParsingStrategy(DIResolver diResolver) {
         super(diResolver);
     }
 
-    @Override
-    public void getSocialMediaResults(CsvItemModel csvItemModel) {
-        getSocialMediaDataFromResults(new RequestData(UrlUtils.createURLForTwitterSearch(csvItemModel), 10, 10000));
-        List<SearchResultItem> searchResultItems = new ArrayList<>();
-        for (Element div : getElements()) {
-            SearchResultItem item = new SearchResultItem(div);
-            searchResultItems.add(item);
-        }
+    void getTwitterResults(CsvItemModel csvItemModel) {
+        List<SearchResultItem> searchResultItems =
+                getSocialMediaDataFromResults(new RequestData(UrlUtils.createURLForTwitterSearch(csvItemModel), 10, 10000));
 
         AbstractSpecification<SearchResultItem> twitterLinksSpecification =
-        new TwitterLinksRegexSpecification().and(new ContainingBusinessDataSpecification(csvItemModel));
+                new TwitterLinksRegexSpecification().and(new ContainingBusinessDataSpecification(csvItemModel));
 
         SearchResultItem twitterResult = filterResults(searchResultItems, twitterLinksSpecification);
         String foundTwitter = twitterResult == null ? notFoundLabel : StrUtils.getLinkFromURL(twitterResult.SearchedLink, StrUtils.igLinkSearchPattern);

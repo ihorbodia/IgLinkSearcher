@@ -23,10 +23,10 @@ public class Main {
         DIResolver diResolver = new DIResolver(userAgentsRotatorService, propertiesService, guiService, inputDataService);
 
         Bootstrapper bootstrapper = new Bootstrapper(diResolver);
-        bootstrapper.setTitle("Social finder v2.7");
+        bootstrapper.setTitle("Social finder v2.8");
         bootstrapper.setVisible(true);
         bootstrapper.setResizable(false);
-        bootstrapper.setSize(500, 130);
+        bootstrapper.setSize(600, 130);
 
         guiService.setBootstrapper(bootstrapper);
 

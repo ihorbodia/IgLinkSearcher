@@ -3,7 +3,6 @@ package Tasks;
 import Models.CsvItemModel;
 import Strategies.ParsingStrategies.ParsingStrategyBase;
 import Utils.RandomUtils;
-
 import java.util.List;
 
 public class RequestTask {
@@ -20,15 +19,15 @@ public class RequestTask {
         this.index = index;
     }
 
-    public int getTimeoutBeforeStart() {
+    int getTimeoutBeforeStart() {
         return timeoutBeforeStart;
     }
 
-    public List<ParsingStrategyBase> getParsingStrategyBases() {
+    List<ParsingStrategyBase> getParsingStrategyBases() {
         return parsingStrategyBases;
     }
 
-    public CsvItemModel getCsvItemModel() {
+    CsvItemModel getCsvItemModel() {
         return csvItemModel;
     }
 

@@ -3,42 +3,43 @@ package Strategies.ParsingStrategies;
 import Engines.WebUrlEngine;
 import Models.CsvItemModel;
 import Models.RequestData;
+import Models.SearchResultItem;
 import Servcies.DIResolver;
 import Specifications.Abstract.Specification;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class ParsingStrategyBase {
-    private final DIResolver diResolver;
-    private Elements elements;
-    String notFoundLabel = "Not found";
+    protected final DIResolver diResolver;
+    protected String notFoundLabel = "Not found";
 
-    ParsingStrategyBase(DIResolver diResolver) {
+    protected ParsingStrategyBase(DIResolver diResolver) {
         this.diResolver = diResolver;
     }
 
     public abstract void getSocialMediaResults(CsvItemModel csvItemModel);
 
-    void getSocialMediaDataFromResults(RequestData requestData) {
-        WebUrlEngine webUrlEngine = new WebUrlEngine(diResolver, 15000, 20000, 15);
+    protected List<SearchResultItem> getSocialMediaDataFromResults(RequestData requestData) {
+        WebUrlEngine webUrlEngine = new WebUrlEngine(diResolver);
         Element body = webUrlEngine.getWebSourceData(requestData);
 
-        elements = body != null ? body.select("#res").select("div.g") : new Elements();
+        Elements elements = body != null ? body.select("#res").select("div.g") : new Elements();
+        List<SearchResultItem> searchResultItems = new ArrayList<>();
+        for (Element div : elements) {
+            SearchResultItem item = new SearchResultItem(div);
+            searchResultItems.add(item);
+        }
+        return searchResultItems;
     }
 
-    <T> T filterResults(List<T> set, Specification spec) {
+    protected <T> T filterResults(List<T> set, Specification spec) {
         for(T t : set) {
             if(spec.isSatisfiedBy(t) ) {
                 return t;
             }
         }
         return null;
-    }
-
-    Elements getElements() {
-        return elements;
     }
 }

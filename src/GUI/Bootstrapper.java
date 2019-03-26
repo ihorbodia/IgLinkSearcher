@@ -16,6 +16,7 @@ public class Bootstrapper extends JFrame {
     private JButton selectFileButton;
     private JCheckBox isIngCheckBox;
     private JCheckBox isTwitterCheckBox;
+    private JCheckBox overwriteOldLinksCB;
 
     public Bootstrapper(DIResolver diResolver) {
         getStopButton().setEnabled(false);
@@ -29,6 +30,7 @@ public class Bootstrapper extends JFrame {
         selectFileButton.setAction(new SelectInputDataFileActionCommand(diResolver));
         isIngCheckBox.setAction(new CheckInstagramSearchActionCommand(diResolver));
         isTwitterCheckBox.setAction(new CheckTwitterSearchActionCommand(diResolver));
+        getOverwriteOldLinksCB().setAction(new CheckOverwriteOldLinksActionCommand(diResolver));
     }
 
     public JLabel getLabelStatusData() {
@@ -57,5 +59,9 @@ public class Bootstrapper extends JFrame {
 
     public JCheckBox getIsTwitterCheckBox() {
         return isTwitterCheckBox;
+    }
+
+    public JCheckBox getOverwriteOldLinksCB() {
+        return overwriteOldLinksCB;
     }
 }

@@ -1,0 +1,8 @@
+12:58:26 1 INFO: Servcies.DIResolver.<init>()
+ Application started...
+
+12:58:26 21 ERROR: Commands.RunButtonActionCommand.lambda$actionPerformed$0()
+ Application aborted: java.lang.NullPointerException
+	at Commands.RunButtonActionCommand.lambda$actionPerformed$0(RunButtonActionCommand.java:36)
+	at java.lang.Thread.run(Thread.java:748)
+

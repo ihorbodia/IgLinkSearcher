@@ -10,8 +10,8 @@ import java.io.IOException;
 public class WebUrlEngine extends WebEngine {
 
 
-    public WebUrlEngine(DIResolver diResolver, int requestDelay, int requestTimeout, int attemptsCount) {
-        super(diResolver, requestDelay, requestTimeout, attemptsCount);
+    public WebUrlEngine(DIResolver diResolver) {
+        super(diResolver);
 
     }
     public synchronized Element getWebSourceData(RequestData requestData) {

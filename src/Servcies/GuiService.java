@@ -23,6 +23,10 @@ public class GuiService {
         bootstrapper.getIsTwitterCheckBox().setSelected(isTwitterSearch);
     }
 
+    public void setCheckedIsOverwriteOldLinks(boolean isOverwriteOldLinks) {
+        bootstrapper.getOverwriteOldLinksCB().setSelected(isOverwriteOldLinks);
+    }
+
     public void setInputFilePath(String path) {
         bootstrapper.getSelectedFileLabelData().setText(StrUtils.cutPath(path));
     }
@@ -37,10 +41,7 @@ public class GuiService {
         bootstrapper.getSelectFileButton().setEnabled(!isWorkState);
         bootstrapper.getIsIngCheckBox().setEnabled(!isWorkState);
         bootstrapper.getIsTwitterCheckBox().setEnabled(!isWorkState);
-    }
-
-    public void setIsEnabledRunButton(boolean enabled) {
-        bootstrapper.getRunButton().setEnabled(enabled);
+        bootstrapper.getOverwriteOldLinksCB().setEnabled(!isWorkState);
     }
 
     public void setBootstrapper(Bootstrapper bootstrapper) {
@@ -81,20 +82,5 @@ public class GuiService {
 
     public void setStatusText(String text) {
         bootstrapper.getLabelStatusData().setText(text);
-    }
-
-    public void updateCountItemsStatus(int currentItem, int totalItems) {
-
-        if (totalItems > 1) {
-            setStatusText("Processed " + currentItem + "/" + (totalItems - 1) +" items.");
-        }
-        else {
-            setStatusText("Processed " + currentItem + "/" + (totalItems) +" items");
-        }
-        try {
-            Thread.sleep(1500);
-        } catch (InterruptedException e) {
-            Logger.tag("SYSTEM").error(e, "Interrupt exception");
-        }
     }
 }

@@ -48,7 +48,7 @@ public class StrUtils {
     }
 
     public static String cutPath(String path) {
-        int size = 60;
+        int size = 80;
         if (path.length() <= size) {
             return path;
         } else {

@@ -1,4 +1,4 @@
-package Strategies.ParsingStrategies;
+package Strategies.ParsingStrategies.Instagram;
 
 import Models.CsvItemModel;
 import Models.RequestData;
@@ -7,26 +7,21 @@ import Servcies.DIResolver;
 import Specifications.Abstract.AbstractSpecification;
 import Specifications.ContainingBusinessDataSpecification;
 import Specifications.IgLinksRegexSpecification;
+import Strategies.ParsingStrategies.ParsingStrategyBase;
 import Utils.StrUtils;
 import Utils.UrlUtils;
-import org.jsoup.nodes.Element;
-import java.util.ArrayList;
+
 import java.util.List;
 
-public class InstagramParsingStrategy extends ParsingStrategyBase {
+abstract class BaseInstagramParsingStrategy extends ParsingStrategyBase {
 
-    public InstagramParsingStrategy(DIResolver diResolver) {
+    BaseInstagramParsingStrategy(DIResolver diResolver) {
         super(diResolver);
     }
 
-    @Override
-    public void getSocialMediaResults(CsvItemModel csvItemModel) {
-        getSocialMediaDataFromResults(new RequestData(UrlUtils.createURLForIgSearch(csvItemModel), 10, 10000));
-        List<SearchResultItem> searchResultItems = new ArrayList<>();
-        for (Element div : getElements()) {
-            SearchResultItem item = new SearchResultItem(div);
-            searchResultItems.add(item);
-        }
+    void getIgResults(CsvItemModel csvItemModel) {
+        List<SearchResultItem> searchResultItems =
+                getSocialMediaDataFromResults(new RequestData(UrlUtils.createURLForIgSearch(csvItemModel), 10, 10000));
 
         AbstractSpecification<SearchResultItem> igLinksSpecification =
                 new IgLinksRegexSpecification().and(new ContainingBusinessDataSpecification(csvItemModel));

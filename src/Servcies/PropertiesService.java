@@ -14,6 +14,7 @@ public class PropertiesService {
     private String isTwitterSearchProperty = "twitterSearch";
     private String isWorkProperty = "isWorked";
     private String selectedInputFileProperty = "selectedCsvInputFile";
+    private String overwriteIsOldLinksProperty = "overwriteOldLinks";
 
     public PropertiesService() {
         properties = new Properties();
@@ -48,6 +49,7 @@ public class PropertiesService {
         saveProperty(isWorkProperty, String.valueOf(isWorked));
     }
     public void saveSelectedInputFile(String filePath) { saveProperty(selectedInputFileProperty, filePath); }
+    public void saveIsOverwriteOldLinks(boolean isOverwriteOldLinks) {saveProperty(overwriteIsOldLinksProperty, String.valueOf(isOverwriteOldLinks));}
 
     public int getIndex() {
         return Integer.parseInt(restoreProperty(indexProperty));
@@ -58,6 +60,7 @@ public class PropertiesService {
     public File getSelectedInputFile() {
         return new File(restoreProperty(selectedInputFileProperty));
     }
+    public boolean getIsOverwriteOldLinks() { return Boolean.valueOf(restoreProperty(overwriteIsOldLinksProperty)); }
 
     private synchronized void createNewFileIfNotExists() {
         OutputStream output = null;
@@ -74,6 +77,7 @@ public class PropertiesService {
                     properties.setProperty(selectedInputFileProperty, "");
                     properties.setProperty(isIgSearchProperty, "false");
                     properties.setProperty(isTwitterSearchProperty, "false");
+                    properties.setProperty(overwriteIsOldLinksProperty, "false");
                     properties.store(output, null);
                 }
             }

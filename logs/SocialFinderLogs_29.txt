@@ -1,0 +1,42 @@
+16:57:31 1 INFO: Servcies.DIResolver.<init>()
+ Application started...
+
+16:57:46 39 INFO: Engines.ProxyClient.request()
+ Response OK from: https://www.google.com/search?q=%28theartpartners.com+%7C+theartpartners%29+inurl%3Ainstagram.com&pws=0&gl=us&gws_rd=cr&num=15
+
+16:57:49 49 INFO: Engines.ProxyClient.request()
+ Response OK from: https://www.google.com/search?q=%28choufani.com+%7C+choufani%29+inurl%3Ainstagram.com&pws=0&gl=us&gws_rd=cr&num=15
+
+16:57:55 39 INFO: Engines.ProxyClient.request()
+ Response OK from: https://www.google.com/search?q=%28theartpartners.com+%7C+theartpartners%29+inurl%3Atwitter.com&pws=0&gl=us&gws_rd=cr&num=15
+
+16:57:55 24 INFO: Engines.ProxyClient.request()
+ Response OK from: https://www.google.com/search?q=%28kennethafriedman.com+%7C+kennethafriedman%29+inurl%3Ainstagram.com&pws=0&gl=us&gws_rd=cr&num=15
+
+16:57:57 51 INFO: Engines.ProxyClient.request()
+ Response OK from: https://www.google.com/search?q=%28fairheadfineart.com+%7C+fairheadfineart%29+inurl%3Ainstagram.com&pws=0&gl=us&gws_rd=cr&num=15
+
+16:57:57 38 INFO: Engines.ProxyClient.request()
+ Response OK from: https://www.google.com/search?q=%28womex.com+%7C+womex%29+inurl%3Ainstagram.com&pws=0&gl=us&gws_rd=cr&num=15
+
+16:57:57 49 INFO: Engines.ProxyClient.request()
+ Response OK from: https://www.google.com/search?q=%28choufani.com+%7C+choufani%29+inurl%3Atwitter.com&pws=0&gl=us&gws_rd=cr&num=15
+
+16:58:07 37 INFO: Engines.ProxyClient.request()
+ Response OK from: https://www.google.com/search?q=%28helenevanderven.com+%7C+helenevanderven%29+inurl%3Ainstagram.com&pws=0&gl=us&gws_rd=cr&num=15
+
+16:58:07 36 INFO: Engines.ProxyClient.request()
+ Response OK from: https://www.google.com/search?q=%28hybridart.hu+%7C+hybridart%29+inurl%3Ainstagram.com&pws=0&gl=us&gws_rd=cr&num=15
+
+16:58:09 54 INFO: Engines.ProxyClient.request()
+ Response OK from: https://www.google.com/search?q=%28wimreiff.com+%7C+wimreiff%29+inurl%3Ainstagram.com&pws=0&gl=us&gws_rd=cr&num=15
+
+16:58:11 44 INFO: Engines.ProxyClient.request()
+ Response OK from: https://www.google.com/search?q=%28hiromiyoshii.com+%7C+hiromiyoshii%29+inurl%3Ainstagram.com&pws=0&gl=us&gws_rd=cr&num=15
+
+16:58:11 24 INFO: Engines.ProxyClient.request()
+ Response OK from: https://www.google.com/search?q=%28kennethafriedman.com+%7C+kennethafriedman%29+inurl%3Atwitter.com&pws=0&gl=us&gws_rd=cr&num=15
+
+16:58:13 59 INFO: Engines.ProxyClient.request()
+ Response OK from: https://www.google.com/search?q=%28www.kemme-co.nl%2Fopdrachtgevers+%7C+kemme-co%29+inurl%3Ainstagram.com&pws=0&gl=us&gws_rd=cr&num=15
+

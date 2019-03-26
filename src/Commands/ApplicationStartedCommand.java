@@ -28,6 +28,9 @@ public class ApplicationStartedCommand extends AbstractAction {
         boolean isTwitterSearch = propertiesService.getIsTwitterSearch();
         guiService.setCheckedTwitterSearch(isTwitterSearch);
 
+        boolean isOverwriteOldLinks = propertiesService.getIsOverwriteOldLinks();
+        guiService.setCheckedIsOverwriteOldLinks(isOverwriteOldLinks);
+
         File inputFile = propertiesService.getSelectedInputFile();
         if (DirUtils.isFileOk(inputFile, "csv")) {
             guiService.setInputFilePath(inputFile.getAbsolutePath());
