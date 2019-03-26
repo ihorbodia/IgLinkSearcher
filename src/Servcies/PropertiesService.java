@@ -9,7 +9,6 @@ public class PropertiesService {
     private File propertiesFile;
     private Properties properties;
 
-    private String indexProperty = "index";
     private String isIgSearchProperty = "igSearch";
     private String isTwitterSearchProperty = "twitterSearch";
     private String isWorkProperty = "isWorked";
@@ -40,9 +39,6 @@ public class PropertiesService {
         }
     }
 
-    public void saveIndex(int index) {
-        saveProperty(indexProperty, String.valueOf(index));
-    }
     public void saveIsIgSearch(boolean isIgSearch) { saveProperty(isIgSearchProperty, String.valueOf(isIgSearch)); }
     public void saveIsTwitterSearch(boolean isTwitterSearch) { saveProperty(isTwitterSearchProperty, String.valueOf(isTwitterSearch)); }
     public void saveIsWork(boolean isWorked) {
@@ -51,9 +47,6 @@ public class PropertiesService {
     public void saveSelectedInputFile(String filePath) { saveProperty(selectedInputFileProperty, filePath); }
     public void saveIsOverwriteOldLinks(boolean isOverwriteOldLinks) {saveProperty(overwriteIsOldLinksProperty, String.valueOf(isOverwriteOldLinks));}
 
-    public int getIndex() {
-        return Integer.parseInt(restoreProperty(indexProperty));
-    }
     public boolean getIsIgSearch() { return Boolean.valueOf(restoreProperty(isIgSearchProperty)); }
     public boolean getIsTwitterSearch() { return Boolean.valueOf(restoreProperty(isTwitterSearchProperty)); }
     public boolean getIsWork() { return Boolean.valueOf(restoreProperty(isWorkProperty)); }
@@ -72,7 +65,6 @@ public class PropertiesService {
                 propertiesFile = file;
                 if (file.createNewFile()) {
                     output = new FileOutputStream(propertiesFile.getAbsoluteFile());
-                    properties.setProperty(indexProperty, "0");
                     properties.setProperty(isWorkProperty, "false");
                     properties.setProperty(selectedInputFileProperty, "");
                     properties.setProperty(isIgSearchProperty, "false");

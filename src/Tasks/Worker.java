@@ -28,7 +28,6 @@ public class Worker implements Runnable {
             for (ParsingStrategyBase parsingStrategy : workStrategies) {
                 parsingStrategy.getSocialMediaResults(task.getCsvItemModel());
             }
-            propertiesService.saveIndex(task.getIndex());
         }
     }
 }

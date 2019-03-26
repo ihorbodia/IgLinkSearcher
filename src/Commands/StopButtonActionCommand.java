@@ -21,7 +21,6 @@ public class StopButtonActionCommand extends AbstractAction {
         PropertiesService propertiesService = diResolver.getPropertiesService();
         GuiService guiService = diResolver.getGuiService();
 
-        propertiesService.saveIndex(0);
         guiService.updateStatusText("Stopping...");
         propertiesService.saveIsWork(false);
         try {
