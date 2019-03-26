@@ -12,7 +12,7 @@ public class TwitterParsingStrategy extends BaseTwitterParsingStrategy {
 
     @Override
     public void getSocialMediaResults(CsvItemModel csvItemModel) {
-        if (StringUtils.isEmpty(csvItemModel.foundInstagram)) {
+        if (StringUtils.isEmpty(csvItemModel.foundTwitter) || csvItemModel.foundTwitter.equalsIgnoreCase(notFoundLabel)) {
             getTwitterResults(csvItemModel);
         }
     }

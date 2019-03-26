@@ -16,8 +16,7 @@ public class ContainingBusinessDataSpecification extends AbstractSpecification<S
     public boolean isSatisfiedBy(SearchResultItem searchResultItem) {
         String[] data = {searchResultItem.MainHeader.toLowerCase(), searchResultItem.Description.toLowerCase(), searchResultItem.SearchedLink.toLowerCase()};
         for(String searchedItemUnit : data) {
-            if (StringUtils.containsAny(searchedItemUnit, csvItemModel.getURLToLower(), csvItemModel.getCompanyNameToLower(), csvItemModel.getPureNameToLower()) ||
-                StringUtils.containsAny(searchedItemUnit.trim(), csvItemModel.getURLToLower().trim(), csvItemModel.getCompanyNameToLower().trim(), csvItemModel.getPureNameToLower().trim())) {
+            if (StringUtils.containsAny(searchedItemUnit, csvItemModel.getURLToLower(), csvItemModel.getCompanyNameToLower(), csvItemModel.getPureNameToLower())) {
                 return true;
             }
         }

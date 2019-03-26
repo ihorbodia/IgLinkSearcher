@@ -13,7 +13,7 @@ public class RequestTask {
     private final List<ParsingStrategyBase> parsingStrategyBases;
 
     public RequestTask(int index, CsvItemModel csvItemModel, List<ParsingStrategyBase> parsingStrategyBases) {
-        this.timeoutBeforeStart = RandomUtils.getRandomMilliseconds(1000, 100000);
+        this.timeoutBeforeStart = RandomUtils.getRandomMilliseconds(1000, 15000);
         this.parsingStrategyBases = parsingStrategyBases;
         this.csvItemModel = csvItemModel;
         this.index = index;

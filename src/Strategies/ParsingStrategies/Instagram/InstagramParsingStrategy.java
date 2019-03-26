@@ -12,7 +12,7 @@ public class InstagramParsingStrategy extends BaseInstagramParsingStrategy {
 
     @Override
     public void getSocialMediaResults(CsvItemModel csvItemModel) {
-        if (StringUtils.isEmpty(csvItemModel.foundInstagram)) {
+        if (StringUtils.isEmpty(csvItemModel.foundInstagram) || csvItemModel.foundInstagram.equalsIgnoreCase(notFoundLabel)) {
             getIgResults(csvItemModel);
         }
     }
