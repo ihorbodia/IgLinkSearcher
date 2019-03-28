@@ -13,8 +13,8 @@ public class AndSpecification<T> extends AbstractSpecification<T> {
     }
 
     public boolean isSatisfiedBy(T t) {
-        for( Specification<T> s : set ) {
-            if(!s.isSatisfiedBy(t) ) {
+        for(Specification<T> s : set ) {
+            if(!s.isSatisfiedBy(t)) {
                 return false;
             }
         }

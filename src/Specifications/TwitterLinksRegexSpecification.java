@@ -12,9 +12,8 @@ public class TwitterLinksRegexSpecification extends AbstractSpecification<Search
     private final Pattern pattern = Pattern.compile(StrUtils.twitterLinkSearchPattern);
 
     @Override
-    public boolean isSatisfiedBy(SearchResultItem searchResultItem) {
-        String link = searchResultItem.SearchedLink;
-        Matcher matcher = pattern.matcher(link);
+    public synchronized boolean isSatisfiedBy(SearchResultItem searchResultItem) {
+        Matcher matcher = pattern.matcher(searchResultItem.SearchedLink);
         return matcher.find();
     }
 }
