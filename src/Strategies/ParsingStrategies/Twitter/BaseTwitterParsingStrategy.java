@@ -27,7 +27,7 @@ abstract class BaseTwitterParsingStrategy extends ParsingStrategyBase {
                 new TwitterLinksRegexSpecification().and(new ContainingBusinessDataSpecification(csvItemModel));
 
         SearchResultItem twitterResult = filterResults(searchResultItems, twitterLinksSpecification);
-        String foundTwitter = twitterResult == null ? notFoundLabel : StrUtils.getLinkFromURL(twitterResult.SearchedLink, StrUtils.igLinkSearchPattern);
+        String foundTwitter = twitterResult == null ? notFoundLabel : StrUtils.getLinkFromURL(twitterResult.SearchedLink, StrUtils.twitterLinkSearchPattern);
         csvItemModel.foundTwitter = StrUtils.getTwitterLinkFromURL(foundTwitter);
     }
 }
