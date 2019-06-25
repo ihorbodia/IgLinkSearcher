@@ -25,12 +25,25 @@ public abstract class ParsingStrategyBase {
         WebUrlEngine webUrlEngine = new WebUrlEngine(diResolver);
         Element body = webUrlEngine.getWebSourceData(requestData);
 
-        Elements elements = body != null ? body.select("#res").select("div.g") : new Elements();
-        List<SearchResultItem> searchResultItems = new ArrayList<>();
-        for (Element div : elements) {
-            SearchResultItem item = new SearchResultItem(div);
-            searchResultItems.add(item);
+        Elements elements = null;
+        if (body != null) {
+            elements = body.select("#res").select("div.g");
+            if (elements.size() == 0) {
+                elements = body.select("#main > div[class]");
+            }
+            if (elements.size() == 0) {
+                elements = new Elements();
+            }
         }
+
+        List<SearchResultItem> searchResultItems = new ArrayList<>();
+        if (elements != null && elements.size() > 0)  {
+            for (Element div : elements) {
+                SearchResultItem item = new SearchResultItem(div);
+                searchResultItems.add(item);
+            }
+        }
+
         return searchResultItems;
     }
 

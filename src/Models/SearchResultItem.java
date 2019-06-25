@@ -10,9 +10,20 @@ public class SearchResultItem {
 
     public SearchResultItem(Element div) {
         MainHeader = div.select("h3").text();
+        if (StringUtils.isEmpty(MainHeader)){
+            try {
+                MainHeader = div.child(0).child(0).text();
+            } catch (Exception ignored) { }
+        }
+
         SearchedLink = div.select("div.r > a").attr("href");
         if (StringUtils.isEmpty(SearchedLink)){
             SearchedLink = div.select("h3.r > a").attr("href");
+        }
+        if (StringUtils.isEmpty(SearchedLink)){
+            try {
+                SearchedLink = div.child(0).child(0).select("a").attr("href");
+            } catch (Exception ignored) { }
         }
         //SearchedLink =  UrlUtils.clearLink(SearchedLink);
         Description = div.select("div.s").text();
