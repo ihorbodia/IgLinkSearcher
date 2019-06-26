@@ -6,14 +6,17 @@ import java.util.Random;
 import Models.RequestData;
 import Servcies.DIResolver;
 import org.apache.http.HttpHost;
+import org.apache.http.HttpResponse;
 import org.apache.http.auth.*;
 import org.apache.http.client.CredentialsProvider;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.*;
 import org.apache.http.impl.client.*;
 import org.apache.http.impl.conn.BasicHttpClientConnectionManager;
 import org.apache.http.util.EntityUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
+import org.omg.IOP.IOR;
 import org.tinylog.Logger;
 
 class ProxyClient {
@@ -24,10 +27,9 @@ class ProxyClient {
     CloseableHttpClient client;
     DIResolver diResolver;
 
-    ProxyClient(String country, DIResolver diResolver) {
+    ProxyClient(DIResolver diResolver) {
         this.diResolver = diResolver;
-        String login = username+(country!=null ? "-country-"+country : "")
-                +"-session-" + session_id;
+        String login = username+"-session-" + session_id;
 
         HttpHost super_proxy = new HttpHost("zproxy.lum-superproxy.io", port);
         CredentialsProvider cred_provider = new BasicCredentialsProvider();
@@ -52,12 +54,11 @@ class ProxyClient {
                     Logger.info("Response OK from: " + requestData.requestURL);
                     return Jsoup.parse(EntityUtils.toString(response.getEntity()));
                 }
-                throw new Exception();
             } catch (Exception ex) {
-                Logger.info("Attempt: " + i);
-                Logger.error("Cannot get page source, waiting for next attempt: " + requestData.requestURL + " \nCause: " + ex.getMessage());
+                Logger.error("Attempt: " + i + "\nCannot get page source, waiting for next attempt: " + requestData.requestURL + " \nCause: " + ex.getMessage());
+            } finally {
+                isThreadSleep(i, requestData);
             }
-            isThreadSleep(i, requestData);
         }
         return null;
     }
@@ -72,8 +73,12 @@ class ProxyClient {
         }
     }
 
-    private boolean isValidResponse(CloseableHttpResponse response) {
-        return response != null && response.getStatusLine().getStatusCode() == 200;
+    private boolean isValidResponse(CloseableHttpResponse response) throws IOException {
+        if (response != null && response.getStatusLine().getStatusCode() == 200) {
+            return true;
+        } else {
+            throw new IOException(response != null ? response.getStatusLine().toString() : null);
+        }
     }
 
     void close() throws IOException { client.close(); }

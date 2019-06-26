@@ -15,7 +15,7 @@ public class WebUrlEngine extends WebEngine {
 
     }
     public synchronized Element getWebSourceData(RequestData requestData) {
-        ProxyClient proxy = new ProxyClient(null, diResolver);
+        ProxyClient proxy = new ProxyClient(diResolver);
         Element el = proxy.request(requestData);
         try {
             proxy.close();
