@@ -70,6 +70,6 @@ public class SearchingWorkerStrategy extends SearchModeStrategyBase {
     public void stopProcessing() {
         executor.shutdown();
         isWork = false;
-        propertiesService.saveIsWork(isWork);
+        propertiesService.saveIsWork(false);
     }
 }
